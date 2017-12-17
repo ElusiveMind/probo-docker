@@ -95,12 +95,12 @@ RUN cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone https://github.com/ProboCI/probo.git /opt/probo
-RUN git clone https://github.com/ProboCI/probo-asset-receiver.git /opt/probo
-RUN git clone https://github.com/ProboCI/probo-loom.git /opt/probo
-RUN git clone https://github.com/ProboCI/probo-proxy.git /opt/probo
-RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo
-RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo
+RUN git clone https://github.com/ProboCI/probo.git /opt/probo/probo
+RUN git clone https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
+RUN git clone https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
+RUN git clone https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy
+RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
+RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
