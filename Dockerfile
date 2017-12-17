@@ -85,6 +85,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
+RUN groupadd docker
 RUN usermod -aG docker probo
 RUN mkdir /opt/probo
 RUN mkdir chmod -R 755 /opt/probo
