@@ -88,7 +88,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN groupadd docker
 RUN usermod -aG docker probo
 RUN mkdir /opt/probo
-RUN mkdir chmod -R 755 /opt/probo
+RUN mkdir chmod 755 /opt/probo
 RUN chown probo:probo /opt/probo
 RUN cd /opt/probo
 USER probo
@@ -100,7 +100,6 @@ RUN git clone https://github.com/ProboCI/probo-loom.git
 RUN git clone https://github.com/ProboCI/probo-proxy.git
 RUN git clone https://github.com/ProboCI/probo-reaper.git
 RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git
-
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
