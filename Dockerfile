@@ -89,17 +89,18 @@ RUN groupadd docker
 RUN usermod -aG docker probo
 RUN mkdir /opt/probo
 RUN chmod 755 -R /opt/probo
+RUN chown probo:probo /opt
 RUN chown probo:probo /opt/probo
 RUN cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone https://github.com/ProboCI/probo.git
-RUN git clone https://github.com/ProboCI/probo-asset-receiver.git
-RUN git clone https://github.com/ProboCI/probo-loom.git
-RUN git clone https://github.com/ProboCI/probo-proxy.git
-RUN git clone https://github.com/ProboCI/probo-reaper.git
-RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git
+RUN git clone https://github.com/ProboCI/probo.git /opt/probo
+RUN git clone https://github.com/ProboCI/probo-asset-receiver.git /opt/probo
+RUN git clone https://github.com/ProboCI/probo-loom.git /opt/probo
+RUN git clone https://github.com/ProboCI/probo-proxy.git /opt/probo
+RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo
+RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
