@@ -23,7 +23,6 @@ RUN yum -y install nodejs \
   node-gyp \
   mocha \
   nodejs-should \
-  git \
   rethinkdb
 
 # Set up our firewall rules. (may not be necessary in a container)
