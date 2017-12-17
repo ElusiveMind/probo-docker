@@ -26,12 +26,12 @@ RUN yum -y makecache fast \
   yum -y install git \
   yum -y install rethinkdb
 
-# Set up our firewall rules.
-RUN firewall-cmd --zone=public --add-port=3010/tcp --permanent
-RUN firewall-cmd --zone=public --add-port=3012/tcp --permanent
-RUN firewall-cmd --zone=public --add-port=3050/tcp --permanent
-RUN firewall-cmd --zone=public --add-port=3070/tcp --permanent
-RUN systemctl restart firewalld
+# Set up our firewall rules. (may not be necessary in a container)
+#RUN firewall-cmd --zone=public --add-port=3010/tcp --permanent
+#RUN firewall-cmd --zone=public --add-port=3012/tcp --permanent
+#RUN firewall-cmd --zone=public --add-port=3050/tcp --permanent
+#RUN firewall-cmd --zone=public --add-port=3070/tcp --permanent
+#RUN systemctl restart firewalld
 
 # Install our common set of commands that we will need to do the various things.
 RUN yum -y install \
