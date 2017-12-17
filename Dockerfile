@@ -88,7 +88,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN groupadd docker
 RUN usermod -aG docker probo
 RUN mkdir /opt/probo
-RUN mkdir chmod 755 /opt/probo
+RUN chmod 755 -R /opt/probo
 RUN chown probo:probo /opt/probo
 RUN cd /opt/probo
 USER probo
