@@ -23,7 +23,9 @@ RUN yum -y install nodejs \
   node-gyp \
   mocha \
   nodejs-should \
-  rethinkdb
+  rethinkdb \
+  make \
+  gcc*
 
 # Set up our firewall rules. (may not be necessary in a container)
 #RUN firewall-cmd --zone=public --add-port=3010/tcp --permanent
@@ -103,26 +105,32 @@ RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitb
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
+WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo
 
+WORKDIR /opt/probo/probo-bitbucket
 RUN cd /opt/probo/probo-bitbucket
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo-bitbucket
 
+WORKDIR /opt/probo/probo-asset-receiver
 RUN cd /opt/probo/probo-asset-receiver
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo-asset-receiver
 
+WORKDIR /opt/probo/probo-loom
 RUN cd /opt/probo/probo-loom
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo-loom
 
+WORKDIR /opt/probo/probo-proxy
 RUN cd /opt/probo/probo-proxy
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo-proxy
 
+WORKDIR /opt/probo/probo-reaper
 RUN cd /opt/probo/probo-reaper
-RUN /usr/bin/npm install
+RUN npm install /opt/probo/probo-reaper
 
 EXPOSE 3010 3012 3050 3070
 
 WORKDIR /opt/probo
 
-CMD [ "/opt/probo/probo/bin/probo", 'container-manager', '-c', '/opt/probo/probo/defaults.yaml'];
+CMD [ "/opt/probo/probo/bin/probo", "container-manager", "-c /opt/probo/probo/defaults.yaml" ];
