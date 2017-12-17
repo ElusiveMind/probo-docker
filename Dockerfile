@@ -84,9 +84,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
   drush/drush:8.* && \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
 
-# Make sure we have a working copy of Drush on this server for our Drupal site.
-RUN drush dl registry_rebuild-8.x
-
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 USER probo:probo
 RUN usermod -aG docker probo
