@@ -18,7 +18,7 @@ RUN yum -y install epel-release && \
 
 # Install all of the NodeJS dependencies as well as other Probo dependencies we will need
 # to successfully build Probo.
-RUN sudo yum -y makecache fast \
+RUN yum -y makecache fast \
   yum -y install nodejs \
   yum -y install node-gyp \
   yum -y install mocha \
@@ -100,10 +100,27 @@ RUN git clone https://github.com/ProboCI/probo-asset-receiver.git
 RUN git clone https://github.com/ProboCI/probo-loom.git
 RUN git clone https://github.com/ProboCI/probo-proxy.git
 RUN git clone https://github.com/ProboCI/probo-reaper.git
+RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git
+
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
 RUN cd probo
+RUN npm install
+
+RUN cd ../probo-bitbucket
+RUN npm install
+
+RUN cd ../probo-asset-receiver
+RUN npm install
+
+RUN cd ../probo-loom
+RUN npm install
+
+RUN cd ../probo-proxy
+RUN npm install
+
+RUN cd ../probo-reaper
 RUN npm install
 
 EXPOSE 3010 3012 3050 3070
