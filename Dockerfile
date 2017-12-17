@@ -18,13 +18,13 @@ RUN yum -y install epel-release && \
 
 # Install all of the NodeJS dependencies as well as other Probo dependencies we will need
 # to successfully build Probo.
-RUN yum -y makecache fast \
-  yum -y install nodejs \
-  yum -y install node-gyp \
-  yum -y install mocha \
-  yum -y install nodejs-should \
-  yum -y install git \
-  yum -y install rethinkdb
+RUN yum -y makecache fast
+RUN yum -y install nodejs \
+  node-gyp \
+  mocha \
+  nodejs-should \
+  git \
+  rethinkdb
 
 # Set up our firewall rules. (may not be necessary in a container)
 #RUN firewall-cmd --zone=public --add-port=3010/tcp --permanent
