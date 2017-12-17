@@ -104,26 +104,26 @@ RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitb
 
 # Compile the main Probo daemon. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo.
-RUN cd probo
+RUN cd /opt/probo/probo
 RUN npm install
 
-RUN cd ../probo-bitbucket
+RUN cd /opt/probo/probo-bitbucket
 RUN npm install
 
-RUN cd ../probo-asset-receiver
+RUN cd /opt/probo/probo-asset-receiver
 RUN npm install
 
-RUN cd ../probo-loom
+RUN cd /opt/probo/probo-loom
 RUN npm install
 
-RUN cd ../probo-proxy
+RUN cd /opt/probo/probo-proxy
 RUN npm install
 
-RUN cd ../probo-reaper
+RUN cd /opt/probo/probo-reaper
 RUN npm install
 
 EXPOSE 3010 3012 3050 3070
 
 WORKDIR /opt/probo
 
-CMD [ "probo/bin/probo", 'container-manager', '-c', '/opt/probo/probo/defaults.yaml'];
+CMD [ "/opt/probo/probo/bin/probo", 'container-manager', '-c', '/opt/probo/probo/defaults.yaml'];
