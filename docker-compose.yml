@@ -8,3 +8,27 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "80:80"
+    environment:
+      # Container Manager Variables
+      CM_INSTANCE_NAME: 'OSProboCI'
+      ASSETS_URL: 'http://www.example.com:3070'
+      BUILD_URL: 'http://{{buildId}}.example.com/'
+      ENDPOINT_URL: 'http://www.example.com:3005/probo-api/service-endpoint.json'
+      # Bitbucket Handler Variables
+      BB_CLIENT_KEY: bbkey
+      BB_CLIENT_SECRET: bbsecret
+      BB_ACCESS_TOKEN: bbtoken
+      BB_REFRESH_TOKEN: bbrefresh
+      BB_WEBHOOK_URL: '/bitbucket-webhook'
+      # Asset Receiver Variables
+      FILE_STORAGE_PLUGIN: LocalFiles
+      FILE_DATA_DIRECTORY: files
+      ENCRYPTION_CIPHER: aes-256-cbc
+      ENCRYPTION_PASSWORD: password
+      RECIPHERED_OUTPUT_DIR: null
+      TOKENS: null
+      UPLOADS_PAUSED: 'false'
+      #FILE_STORAGE_PLUGIN: AwsS3Storage
+      #AWS_ACCESS_KEY_ID: AKIAJOKHCOI6OZC5NZIQ
+      #AWS_SECRET_ACCESS_KEY: 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
+      #AWS_BUCKET: itcon
