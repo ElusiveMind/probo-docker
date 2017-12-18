@@ -1,10 +1,13 @@
 FROM centos:7
+
+# Set our our meta data for this container.
 LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
 LABEL version="0.01"
 
+# Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Set TERM env to avoid mysql client error message "TERM environment variable not set" when running from inside the container
@@ -34,6 +37,7 @@ RUN yum -y install \
   rsync \ 
   docker-client
 
+# Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
     -O /etc/yum.repos.d/rethinkdb.repo
 
@@ -123,8 +127,9 @@ RUN git clone https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy
 RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
 
-# Compile the main Probo daemon. This contains the container manager and everything we need to
-# do the heavy lifting that IS probo.
+# Compile the main Probo daemons. This contains the container manager and everything we need to
+# do the heavy lifting that IS probo as well as the secondary containers that support the main
+# handler.
 WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
 RUN npm install /opt/probo/probo
