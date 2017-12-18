@@ -16,24 +16,6 @@ RUN yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
   yum -y update
 
-# Install all of the NodeJS dependencies as well as other Probo dependencies we will need
-# to successfully build Probo.
-RUN yum -y makecache fast
-RUN yum -y install nodejs \
-  node-gyp \
-  mocha \
-  nodejs-should \
-  rethinkdb \
-  make \
-  gcc*
-
-# Set up our firewall rules. (may not be necessary in a container)
-#RUN firewall-cmd --zone=public --add-port=3010/tcp --permanent
-#RUN firewall-cmd --zone=public --add-port=3012/tcp --permanent
-#RUN firewall-cmd --zone=public --add-port=3050/tcp --permanent
-#RUN firewall-cmd --zone=public --add-port=3070/tcp --permanent
-#RUN systemctl restart firewalld
-
 # Install our common set of commands that we will need to do the various things.
 RUN yum -y install \
   curl \
@@ -46,6 +28,20 @@ RUN yum -y install \
   wget \
   rsync \ 
   docker-client
+
+RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
+    -O /etc/yum.repos.d/rethinkdb.repo
+
+# Install all of the NodeJS dependencies as well as other Probo dependencies we will need
+# to successfully build Probo.
+RUN yum -y makecache fast
+RUN yum -y install rethinkdb
+RUN yum -y install nodejs \
+  node-gyp \
+  mocha \
+  nodejs-should \
+  make \
+  gcc*
 
 # Install PHP and PHP modules 
 RUN yum -y install \
@@ -64,6 +60,10 @@ RUN yum -y install \
   php70u-pecl-zendopcache \
   php70u-redis \
   php70u-bcmath
+
+# Install misc tools 
+RUN yum -y install \
+  python-setuptools
 
 # Get the rethinkdb daemon (deprecated)
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -84,6 +84,21 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
   require \
   drush/drush:8.* && \
   ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
+
+# Install Drupal Console
+RUN curl https://drupalconsole.com/installer -L -o /drupal.phar
+RUN cp /drupal.phar /bin/drupal
+RUN chmod 755 /bin/drupal
+
+# Make sure Apache is removed from systemd
+RUN systemctl disable httpd.service
+
+# Expose the ports
+EXPOSE 80 443 3010 3012 3050 3070
+
+# Move our Apache and PHP configuration into position.
+COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
+COPY etc/php.ini /etc/php.ini
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 RUN groupadd docker
@@ -129,8 +144,13 @@ WORKDIR /opt/probo/probo-reaper
 RUN cd /opt/probo/probo-reaper
 RUN npm install /opt/probo/probo-reaper
 
-EXPOSE 3010 3012 3050 3070
+USER root
+COPY sh/node-startup.sh /opt/probo/node-startup.sh
+RUN chmod 755 /opt/probo/node-startup.sh
+RUN chown probo:probo /opt/probo/node-startup.sh
 
-WORKDIR /opt/probo
 
-CMD [ "/opt/probo/probo/bin/probo", "container-manager", "-c /opt/probo/probo/defaults.yaml" ];
+USER root
+WORKDIR /root
+
+CMD ["/opt/probo/node-startup.sh"]
