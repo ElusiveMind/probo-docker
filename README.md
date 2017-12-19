@@ -5,13 +5,14 @@ This README will serve as a placeholder. Coming soon will be the instructions fo
 
 The goal of this project is to have a fully functional Open Source Probo.CI server complete with Drupal 8 based portal for administering and looking at builds in the system.
 
-** Last Updated: December 19, 2017
+#### Last Updated: December 19, 2017
 
 v.02 - December 19, 2017
   - Fixed several configuration naming and path issues.
   - Search and replace environment names in configuration files with their values
   - Fly in patched version of probo-request-logger until new version incorporates fixes friendly to open source.
   - Fixes to exposed ports to matched our exported and public services
+
 v.01 - December 18, 2017
   - Successfully built Container Manager.
   - Successfully built Bitbucket Handler (without complete configuration).
