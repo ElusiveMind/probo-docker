@@ -1,6 +1,10 @@
 # Port that the proxy server is running on. Defaults to 80.
 port: 80
 
+# The host name where docker lives. Note that this should be the intranet IP address
+# of where your root docker installation lives. Without this, proxying will fail.
+hostname: $PROXY_HOSTNAME_IP
+
 # server timeout, in any unit
 serverTimeout: $PROXY_SERVER_TIMEOUT
 

@@ -59,6 +59,7 @@ services:
       REAPER_OUTPUT_FORMAT: text
       REAPER_BRANCH_BUILD_LIMIT: 1
       # Proxy Configuration Options
+      PROXY_HOSTNAME_IP: localhost
       PROXY_CACHE_ENABLED: 'true'
       PROXY_CACHE_MAX: 500
       PROXY_CACHE_MAX_AGE: 5m
