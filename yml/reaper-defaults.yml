@@ -1,0 +1,52 @@
+# location of target Container Manager
+cmHostname: localhost
+cmPort: 3020
+
+apiServerHost: localhost
+apiServerPort: 3038
+
+dryRun: $REAPER_DRY_RUN
+
+# output format used for --status command:
+#  json: JSON output - one line per JSON object
+#  text: (default) - human readable hearchical output
+outputFormat: $REAPER_OUTPUT_FORMAT
+
+# normally used as a commandline arg: ./bin/reaper --status
+# only prints the current tree of projects, PRs/branches, and builds
+# implies dry-run=true
+status: false
+
+githubPrCacheFile: prCache.json
+
+## Build server config
+dataDirectory: ./data
+eventStreams:
+  build_events:
+    plugin: Memory
+    config:
+      topic: build_events
+
+codeHostingHandlers:
+  github: 'http://localhost:3012'
+  bitbucket: 'http://localhost:3012'
+
+perBranchBuildLimit: $REAPER_BRANCH_BUILD_LIMIT
+
+reaperCriteria:
+  pullRequest:
+    open:
+      max: 1
+      maxAge: ''
+    closed:
+      max: 0
+
+limitRuleExclutions: []
+# Allow any build where build.project.id == 1234 to escape normal restrictions.
+# limitRuleExclutions:
+#   - name: 'Probo likes you'
+#     pattern:
+#       project:
+#         id: 1234
+
+dbUrl: 'http://localhost:8442'

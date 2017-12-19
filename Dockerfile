@@ -29,12 +29,10 @@ RUN yum -y install \
   curl \
   git2u \
   mariadb \
-  msmtp \
   net-tools \
-  python34 \
   vim \
   wget \
-  rsync \ 
+  gettext \
   docker-client
 
 # Get the rethinkdb YUM repository information so we can install.
@@ -159,7 +157,12 @@ COPY sh/node-startup.sh /opt/probo/node-startup.sh
 RUN chmod 755 /opt/probo/node-startup.sh
 RUN chown probo:probo /opt/probo/node-startup.sh
 
+RUN mkdir /opt/probo/yml
+COPY yml/* /opt/probo/yml/
+RUN chmod 755 /opt/probo/yml/*
+RUN chown -R probo:probo /opt/probo/yml
+
 USER root
-WORKDIR /root
+WORKDIR /opt/probo
 
 CMD ["/opt/probo/node-startup.sh"]

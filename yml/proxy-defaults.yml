@@ -1,0 +1,21 @@
+# Port that the proxy server is running on. Defaults to 80.
+port: 80
+
+# server timeout, in any unit
+serverTimeout: $PROXY_SERVER_TIMEOUT
+
+# Host for the container lookup service that maps a build id to a host/port to proxy to
+containerLookupHost: "http://localhost:3020"
+
+# Specifies if the lookup cache is enabled.
+cacheEnabled: $PROXY_CACHE_ENABLED
+
+# Max number of proxy lookup responses to cache. Defaults to 500
+cacheMax: $PROXY_CACHE_MAX
+
+# Max age of proxy lookup responses in cache, in any unit (units default to ms). Defaults to 5 min
+cacheMaxAge: $PROXY_CACHE_MAX_AGE
+
+redirectUrl: ''
+
+custom404Html: '<h1>404 - Build Not Found</h1><p>The build could not be found</p>'

@@ -1,0 +1,12 @@
+# Port for the server to listen on
+port: 3010
+hostname: 0.0.0.0
+
+# Github hook and credentials
+githubWebhookPath: '$GITHUB_WEBHOOK_PATH'
+githubWebhookSecret: '$GITHUB_WEBHOOK_SECRET'
+githubAPIToken: '$GITHUB_API_TOKEN'
+
+# Container Manager API server
+api:
+  url: "http://localhost:3020"

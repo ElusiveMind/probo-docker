@@ -10,7 +10,7 @@ services:
     container_name: OSProboCI-Docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - asset-files:/opt/probo/probo-asset-receiver/files
+      - ./asset-files:/opt/probo/probo-asset-receiver/files
     ports:
       - "80:80"
       - "3012:3012"
@@ -18,37 +18,49 @@ services:
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
-      # {PLACEHOLDER}
+      PROBO_DATA_DIRECTORY: /opt/probo/probo/container-manager-data
+      AUTH_CREDENTIAL_SERVICE: http://localhost:3000/auth_lookup
       # Container Manager Variables
       CM_INSTANCE_NAME: 'OSProboCI'
-      ASSETS_URL: 'http://www.example.com:3070'
-      BUILD_URL: 'http://{{buildId}}.example.com/'
-      ENDPOINT_URL: 'http://www.example.com:3005/probo-api/service-endpoint.json'
+      ASSET_SERVER_URL: 'http://example.com:3070'
+      ASSET_SERVER_TOKEN: ''
+      PROBO_BUILD_URL: 'http://{{buildId}}.example.com/'
+      DRUPAL_ENDPOINT_URL: 'http://www.example.com:3005/probo-api/service-endpoint.json'
       # GitHub Configuration Options
-      # {PLACEHOLDER}
+      USE_GITHUB: 0
+      GITHUB_WEBHOOK_PATH: '/github-webhook'
+      GITHUB_WEBHOOK_SECRET: 'CHANGE-ME'
+      GITHUB_API_TOKEN: 'personal token here'
       # Bitbucket Handler Variables
-      BB_CLIENT_KEY: bbkey
-      BB_CLIENT_SECRET: bbsecret
-      BB_ACCESS_TOKEN: bbtoken
-      BB_REFRESH_TOKEN: bbrefresh
-      BB_WEBHOOK_URL: '/bitbucket-webhook'
+      USE_BITBUCKET: 1
+      BB_CLIENT_KEY: ''
+      BB_CLIENT_SECRET: ''
+      BB_ACCESS_TOKEN: ''
+      BB_REFRESH_TOKEN: ''
+      BB_WEBHOOK_URL: ''
       # Gitlab Configuration Options
-      # {PLACEHOLDER}
+      USE_GITLAB: 0
       # Asset Receiver Variables
       FILE_STORAGE_PLUGIN: LocalFiles
-      FILE_DATA_DIRECTORY: files
+      FILE_DATA_DIRECTORY: /opt/probo/probo-asset-receiver/files
       ENCRYPTION_CIPHER: aes-256-cbc
       ENCRYPTION_PASSWORD: password
       RECIPHERED_OUTPUT_DIR: null
       TOKENS: null
       UPLOADS_PAUSED: 'false'
-      #FILE_STORAGE_PLUGIN: AwsS3Storage
-      #AWS_ACCESS_KEY_ID: 
-      #AWS_SECRET_ACCESS_KEY:
-      #AWS_BUCKET: itcon
+      AWS_ACCESS_KEY_ID: ''
+      AWS_SECRET_ACCESS_KEY: ''
+      AWS_BUCKET: ''
       # Loom Configuration Options
-      # {PLACEHOLDER}
+      STORAGE_DATA_DIR: /opt/probo/probo-loom/data
+      LOOM_SERVER_TOKEN: ''
       # Reaper Configuration Options
-      # {PLACEHOLDER}
+      REAPER_DRY_RUN: 'true'
+      REAPER_OUTPUT_FORMAT: text
+      REAPER_BRANCH_BUILD_LIMIT: 1
+      # Proxy Configuration Options
+      PROXY_CACHE_ENABLED: 'true'
+      PROXY_CACHE_MAX: 500
+      PROXY_CACHE_MAX_AGE: 5m
+      PROXY_SERVER_TIMEOUT: 10m
     restart: always
-
