@@ -131,6 +131,8 @@ RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitb
 WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
 RUN npm install /opt/probo/probo
+RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
+RUN git clone -b variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger
 
 WORKDIR /opt/probo/probo-bitbucket
 RUN cd /opt/probo/probo-bitbucket

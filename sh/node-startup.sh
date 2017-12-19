@@ -63,7 +63,7 @@ rethinkdb --daemon --runuser probo --rungroup probo
 
 # start all of our probo processes as the probo user with the exception of
 # the proxy in case the proxy is run on port 80.
-su - probo -c '/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/contanier-manager.yml > /dev/null &'
+su - probo -c '/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > /dev/null &'
 su - probo -c '/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > /dev/null &'
 su - probo -c '/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /dev/null &'
 su - probo -c 'mkdir /opt/probo/probo-loom/data'
