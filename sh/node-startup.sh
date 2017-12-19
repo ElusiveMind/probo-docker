@@ -7,7 +7,7 @@
 #########################################################
 # CONTAINER MANAGER CONFIGURATION FILE PROCESSOR
 #########################################################
-exec 3<> /opt/probo/probo/container_manager.yml
+exec 3<> /opt/probo/probo/container-manager.yml
 echo "hostname: localhost" >&3
 echo "port: 3020" >&3
 echo "" >&3

@@ -14,8 +14,8 @@ services:
     ports:
       - "80:80"
       - "3012:3012"
-      - "3050:3050"
       - "3070:3070"
+      - "3005:3005"
     environment:
       # Default Probo Configuration Options
       PROBO_DATA_DIRECTORY: /opt/probo/probo/container-manager-data
