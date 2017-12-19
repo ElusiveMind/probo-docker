@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.01"
+LABEL version="0.02"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -101,7 +101,7 @@ RUN chmod 755 /bin/drupal
 RUN systemctl disable httpd.service
 
 # Expose the ports
-EXPOSE 80 443 3010 3012 3050 3070
+EXPOSE 80 443 3005 3010 3012 3070
 
 # Move our Apache and PHP configuration into position.
 COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
