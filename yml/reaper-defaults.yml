@@ -23,7 +23,7 @@ githubPrCacheFile: prCache.json
 dataDirectory: ./data
 eventStreams:
   build_events:
-    plugin: Memory
+    plugin: Kafka
     config:
       topic: build_events
 
