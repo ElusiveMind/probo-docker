@@ -90,13 +90,13 @@ services:
 
   zookeeper:
     image: wurstmeister/zookeeper
-    container-name: OSProboCI-zookeeper
+    container_name: OSProboCI-zookeeper
     ports:
       - "2181:2181"
 
   kafka:
     image: wurstmeister/kafka-docker
-    container-name: OSProboCI-Kafka
+    container_name: OSProboCI-Kafka
     ports:
       - "9092"
     environment:
