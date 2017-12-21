@@ -49,6 +49,9 @@ echo "api:" >&4
 echo "  url: 'http://localhost:3020'" >&4
 su - probo -c 'exec 4>&-'
 
+# Make it so the docker socket can be read.
+chmod 777 /var/run/docker.sock
+
 envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/asset-receiver.yml
 envsubst < /opt/probo/yml/probo-defaults.yml > /opt/probo/probo/defaults.yaml
 envsubst < /opt/probo/yml/ghh-defaults.yml > /opt/probo/probo/ghh.yml
