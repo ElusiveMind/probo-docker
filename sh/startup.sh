@@ -75,7 +75,7 @@ su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
 su - probo -c '/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /dev/null &'
 
 # start the proxy as the root user
-node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /dev/null &
+node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
 
 su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server &'
 su - probo -c '/opt/probo/probo-notifier/bin/probo-notifier server'

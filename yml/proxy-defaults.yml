@@ -1,23 +1,27 @@
 # Port that the proxy server is running on. Defaults to 80.
-port: 3050
+port: 80
 
-# The host name where docker lives. Note that this should be the intranet IP address
-# of where your root docker installation lives. Without this, proxying will fail.
+# The host name where docker lives. Note that this should 
+# be the intranet IP address of where your root docker 
+# installation lives. Without this, proxying will fail.
 hostname: $PROXY_HOSTNAME_IP
 
 # server timeout, in any unit
 serverTimeout: $PROXY_SERVER_TIMEOUT
 
-# Host for the container lookup service that maps a build id to a host/port to proxy to
+# Host for the container lookup service that maps a 
+# build id to a host/port to proxy to
 containerLookupHost: "http://localhost:3020"
 
 # Specifies if the lookup cache is enabled.
 cacheEnabled: $PROXY_CACHE_ENABLED
 
-# Max number of proxy lookup responses to cache. Defaults to 500
+# Max number of proxy lookup responses to cache. 
+# Defaults to 500
 cacheMax: $PROXY_CACHE_MAX
 
-# Max age of proxy lookup responses in cache, in any unit (units default to ms). Defaults to 5 min
+# Max age of proxy lookup responses in cache, in any unit 
+# (units default to ms). Defaults to 5 min
 cacheMaxAge: $PROXY_CACHE_MAX_AGE
 
 redirectUrl: ''

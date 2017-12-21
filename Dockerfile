@@ -128,7 +128,6 @@ COPY yml/* /opt/probo/yml/
 RUN chmod 755 /opt/probo/yml/*
 RUN chown -R probo:probo /opt/probo/yml
 
-USER root
 WORKDIR /opt/probo
 
 CMD ["/opt/probo/startup.sh"]
