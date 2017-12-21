@@ -1,2 +1,4 @@
 .DS_Store
 docker-compose.yml
+postgresql
+asset-files

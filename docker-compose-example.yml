@@ -13,7 +13,6 @@ services:
       - ./asset-files:/opt/probo/probo-asset-receiver/files
     ports:
       - "80:80"
-      - "3005:3005"
       - "3012:3012"
       - "3070:3070"
     environment:
@@ -65,3 +64,43 @@ services:
       PROXY_CACHE_MAX_AGE: 5m
       PROXY_SERVER_TIMEOUT: 10m
     restart: always
+
+  postgres:
+    image: postgres:10.1
+    container_name: OSProboCI-Postgres
+    environment:
+      POSTGRES_USER: probo
+      POSTGRES_PASSWORD: proboP455word
+      POSTGRES_DB: probo-drupal
+    expose:
+      - "5432"
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: 'bitnami/redis:latest'
+    container_name: OSProboCI-redis
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+      REDIS_PASSWORD: masterredisrb
+    volumes:
+      - ./redis:/bitnami
+    restart: always
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container-name: OSProboCI-zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka-docker
+    container-name: OSProboCI-Kafka
+    ports:
+      - "9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

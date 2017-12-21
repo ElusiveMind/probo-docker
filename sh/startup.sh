@@ -74,8 +74,8 @@ su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
 su - probo -c '/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /dev/null &'
 
 # start the proxy as the root user
-node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /dev/null &
+node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /dev/null
 
 # start the web server
-rm -rf /run/httpd/* /tmp/httpd*
-exec /usr/sbin/apachectl -DFOREGROUND
+#rm -rf /run/httpd/* /tmp/httpd*
+#exec /usr/sbin/apachectl -DFOREGROUND

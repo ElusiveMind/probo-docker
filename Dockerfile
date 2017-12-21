@@ -28,12 +28,14 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  mariadb \
+  postgresql.x86_64 \
   net-tools \
   vim \
   wget \
   gettext \
-  docker-client
+  docker-client \
+  gd-devel.x86_64 \
+  mod_ssl.x86_64
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -50,28 +52,6 @@ RUN yum -y install nodejs \
   make \
   gcc*
 
-# Install PHP and PHP modules 
-RUN yum -y install \
-  php70u \
-  php70u-curl \
-  php70u-gd \
-  php70u-imap \
-  php70u-mbstring \
-  php70u-mcrypt \
-  php70u-mysql \
-  php70u-odbc \
-  php70u-pear \
-  php70u-mysqlnd \
-  php70u-pecl-imagick \
-  php70u-pecl-json \
-  php70u-pecl-zendopcache \
-  php70u-redis \
-  php70u-bcmath
-
-# Install misc tools 
-RUN yum -y install \
-  python-setuptools
-
 # Get the rethinkdb daemon (deprecated)
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
   -O /etc/yum.repos.d/rethinkdb.repo
@@ -80,32 +60,11 @@ RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
 RUN yum -y upgrade && \
   yum clean all
 
-# Install Composer and Drush 
-RUN curl -sS https://getcomposer.org/installer | php -- \
-  --install-dir=/usr/local/bin \
-  --filename=composer \
-  --version=1.2.0 && \
-  composer \
-  --working-dir=/usr/local/src/ \
-  global \
-  require \
-  drush/drush:8.* && \
-  ln -s /usr/local/src/vendor/bin/drush /usr/bin/drush
-
-# Install Drupal Console
-RUN curl https://drupalconsole.com/installer -L -o /drupal.phar
-RUN cp /drupal.phar /bin/drupal
-RUN chmod 755 /bin/drupal
-
 # Make sure Apache is removed from systemd
 RUN systemctl disable httpd.service
 
 # Expose the ports
-EXPOSE 80 443 3005 3010 3012 3070
-
-# Move our Apache and PHP configuration into position.
-COPY etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
-COPY etc/php.ini /etc/php.ini
+EXPOSE 80 443 3012 3070
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 RUN groupadd docker
@@ -167,4 +126,4 @@ RUN chown -R probo:probo /opt/probo/yml
 USER root
 WORKDIR /opt/probo
 
-CMD ["/opt/probo/node-startup.sh"]
+CMD ["/opt/probo/startup.sh"]
