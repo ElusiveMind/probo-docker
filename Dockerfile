@@ -114,9 +114,9 @@ RUN cd /opt/probo/probo-reaper
 RUN npm install /opt/probo/probo-reaper
 
 USER root
-COPY sh/node-startup.sh /opt/probo/node-startup.sh
-RUN chmod 755 /opt/probo/node-startup.sh
-RUN chown probo:probo /opt/probo/node-startup.sh
+COPY sh/startup.sh /opt/probo/startup.sh
+RUN chmod 755 /opt/probo/startup.sh
+RUN chown probo:probo /opt/probo/startup.sh
 
 RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/
