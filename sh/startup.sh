@@ -58,6 +58,7 @@ envsubst < /opt/probo/yml/ghh-defaults.yml > /opt/probo/probo/ghh.yml
 envsubst < /opt/probo/yml/loom-defaults.yml > /opt/probo/probo-loom/loom.yml
 envsubst < /opt/probo/yml/proxy-defaults.yml > /opt/probo/probo-proxy/proxy.yml
 envsubst < /opt/probo/yml/reaper-defaults.yml > /opt/probo/probo-reaper/reaper.yml
+envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defaults.yaml
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
@@ -74,8 +75,7 @@ su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
 su - probo -c '/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /dev/null &'
 
 # start the proxy as the root user
-node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /dev/null
+node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /dev/null &
 
-# start the web server
-#rm -rf /run/httpd/* /tmp/httpd*
-#exec /usr/sbin/apachectl -DFOREGROUND
+su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server &'
+su - probo -c '/opt/probo/probo-notifier/bin/probo-notifier server'

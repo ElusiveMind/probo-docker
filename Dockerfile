@@ -83,6 +83,7 @@ RUN git clone https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
 RUN git clone -b hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy
 RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
+RUN git clone -b switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
@@ -109,14 +110,18 @@ WORKDIR /opt/probo/probo-proxy
 RUN cd /opt/probo/probo-proxy
 RUN npm install /opt/probo/probo-proxy
 
+WORKDIR /opt/probo/probo-notifier
+RUN cd /opt/probo/probo-notifier
+RUN npm install /opt/probo/probo-notifier
+
 WORKDIR /opt/probo/probo-reaper
 RUN cd /opt/probo/probo-reaper
 RUN npm install /opt/probo/probo-reaper
 
 USER root
-COPY sh/node-startup.sh /opt/probo/node-startup.sh
-RUN chmod 755 /opt/probo/node-startup.sh
-RUN chown probo:probo /opt/probo/node-startup.sh
+COPY sh/startup.sh /opt/probo/startup.sh
+RUN chmod 755 /opt/probo/startup.sh
+RUN chown probo:probo /opt/probo/startup.sh
 
 RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/

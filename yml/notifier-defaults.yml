@@ -1,0 +1,8 @@
+apiServerHost: localhost
+apiServerPort: 3039
+eventStreams:
+  build_events:
+    plugin: Kafka
+    config:
+      topic: build_events
+      group: probo
