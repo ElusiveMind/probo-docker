@@ -63,7 +63,7 @@ envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defa
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
 cd /opt/probo/probo-loom
-rethinkdb --daemon --runuser probo --rungroup probo
+rethinkdb --daemon --no-http-admin --runuser probo --rungroup probo
 
 # start all of our probo processes as the probo user with the exception of
 # the proxy in case the proxy is run on port 80.

@@ -9,9 +9,10 @@ The goal of this project is to have a fully functional Open Source Probo.CI serv
 
 v.04 - December 21, 2017
   - Remove web components from Probo server container. Separate web portal to its own container.
-  - Upgrade web components to use PostgreSQL so they can be shared with Probo
-  - Added Redis image caching
   - Change all messagging to Kafka in preparation for Probo Notifier
+  - Disabled web admin port (8080) for RethinkDB so we can repurpose.
+  - Added Probo Notifier service and configured for Kafka (untested)
+  - Enabled Probo Reaper service and configured for Kafka (untested)
   
 v.03 - December 20, 2017
   - Modified probo-proxy so it will properly point to the correct place for the container on the correct host
