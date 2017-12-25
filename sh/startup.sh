@@ -89,6 +89,10 @@ mkdir -r $FILE_DATA_DIRECTORY
 chmod 777 $FILE_DATA_DIRECTORY
 chown probo:probo $FILE_DATA_DIRECTORY
 
+mkdir -r $RETHINK_DATA_DIR
+chmod 777 $RETHINK_DATA_DIR
+chown probo:probo $RETHINK_DATA_DIR
+
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
 envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/asset-receiver.yml
@@ -101,7 +105,7 @@ envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defa
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
-cd /opt/probo/probo-loom
+cd $RETHINK_DATA_DIR
 rethinkdb --daemon --no-http-admin --runuser probo --rungroup probo
 
 # start all of our probo processes as the probo user with the exception of
