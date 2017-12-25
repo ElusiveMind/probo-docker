@@ -10,14 +10,14 @@ services:
     container_name: OSProboCI-Docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./asset-files:/opt/probo/probo-asset-receiver/files
+      - ./probo-data:/opt/probo/data
     ports:
       - "80:80"
       - "3012:3012"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
-      PROBO_DATA_DIRECTORY: /opt/probo/probo/container-manager-data
+      PROBO_DATA_DIRECTORY: /opt/probo/data/container-manager-data
       AUTH_CREDENTIAL_SERVICE: http://localhost:3000/auth_lookup
       # Container Manager Variables
       CM_INSTANCE_NAME: 'OSProboCI'
@@ -40,8 +40,9 @@ services:
       # Gitlab Configuration Options
       USE_GITLAB: 0
       # Asset Receiver Variables
+      ASSET_RECEIVER_DATABASE_DIRECTORY: /opt/probo/data/databases/asset-receiver
       FILE_STORAGE_PLUGIN: LocalFiles
-      FILE_DATA_DIRECTORY: /opt/probo/probo-asset-receiver/files
+      FILE_DATA_DIRECTORY: /opt/probo/data/files/asset-receiver
       ENCRYPTION_CIPHER: aes-256-cbc
       ENCRYPTION_PASSWORD: password
       RECIPHERED_OUTPUT_DIR: null
@@ -51,7 +52,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ''
       AWS_BUCKET: ''
       # Loom Configuration Options
-      STORAGE_DATA_DIR: /opt/probo/probo-loom/data
+      STORAGE_DATA_DIR: /opt/probo/data/loom
       LOOM_SERVER_TOKEN: ''
       # Reaper Configuration Options
       REAPER_DRY_RUN: 'true'
@@ -63,29 +64,6 @@ services:
       PROXY_CACHE_MAX: 500
       PROXY_CACHE_MAX_AGE: 5m
       PROXY_SERVER_TIMEOUT: 10m
-    restart: always
-
-  postgres:
-    image: postgres:10.1
-    container_name: OSProboCI-Postgres
-    environment:
-      POSTGRES_USER: probo
-      POSTGRES_PASSWORD: proboP455word
-      POSTGRES_DB: probo-drupal
-    expose:
-      - "5432"
-    volumes:
-      - ./postgresql/data:/var/lib/postgresql/data
-    restart: always
-
-  redis:
-    image: 'bitnami/redis:latest'
-    container_name: OSProboCI-redis
-    environment:
-      ALLOW_EMPTY_PASSWORD: 'yes'
-      REDIS_PASSWORD: masterredisrb
-    volumes:
-      - ./redis:/bitnami
     restart: always
 
   zookeeper:

@@ -52,6 +52,45 @@ su - probo -c 'exec 4>&-'
 # Make it so the docker socket can be read.
 chmod 777 /var/run/docker.sock
 
+if [[ -z "${STORAGE_DATA_DIR}" ]]; then
+  echo "STORAGE_DATA_DIR cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${PROBO_DATA_DIRECTORY}" ]]; then
+  echo "PROBO_DATA_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${ASSET_RECEIVER_DATABASE_DIRECTORY}" ]]; then
+  echo "ASSET_RECEIVER_DATABASE_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${FILE_DATA_DIRECTORY}" ]]; then
+  echo "FILE_DATA_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+# Create our  data directories and set permissions
+mkdir -r $STORAGE_DATA_DIR
+chmod 777 $STORAGE_DATA_DIR
+chown probo:probo $STORAGE_DATA_DIR
+
+mkdir -r $PROBO_DATA_DIRECTORY
+chmod 777 $PROBO_DATA_DIRECTORY
+chown probo:probo $PROBO_DATA_DIRECTORY
+
+mkdir -r $ASSET_RECEIVER_DATABASE_DIRECTORY
+chmod 777 $ASSET_RECEIVER_DATABASE_DIRECTORY
+chown probo:probo $ASSET_RECEIVER_DATABASE_DIRECTORY
+
+mkdir -r $FILE_DATA_DIRECTORY
+chmod 777 $FILE_DATA_DIRECTORY
+chown probo:probo $FILE_DATA_DIRECTORY
+
+# Substitute environment variables from docker-compose.yml into our yml files.
+# TODO: Make sure all required variables have a valid value.
 envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/asset-receiver.yml
 envsubst < /opt/probo/yml/probo-defaults.yml > /opt/probo/probo/defaults.yaml
 envsubst < /opt/probo/yml/ghh-defaults.yml > /opt/probo/probo/ghh.yml
