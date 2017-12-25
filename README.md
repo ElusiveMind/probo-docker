@@ -6,10 +6,10 @@ This README will serve as a placeholder. Coming soon will be the instructions fo
 The goal of this project is to have a fully functional Open Source Probo.CI container with a companion Drupal 8 based portal container for administering and looking at builds in the system.
 
 #### Table of Contents (Wiki Links)
-  1. [[The Importance of Persistent Data in Docker Containers|The-Importance-of-Persistent-Data-in-Docker-Containers]]
+  1. The Importance of Persistent Data in Docker Containers  
      https://github.com/ElusiveMind/probo-docker/wiki/The-Importance-of-Persistent-Data-in-Docker-Containers
 
-  2. [[Changelog|Changelog-For-ProboCI-Open-Source-Server]]  
+  2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
 #### Last Updated: December 25, 2017
@@ -17,7 +17,8 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
 
 v.05 - December 25, 2017
-  - Added checks for various database, file and data file storage directory environemtnal vars
+  - Added checks for various database, file and data file storage directory environmental vars
+    for the purposes of data persistence into volumes.
   - Added instructions into the README regarding the importance of persistence of database files
     and other files especially asset files not hosted on S3.
   - Added a CHANGELOG file that keeps lists of changes instead of keeping all of these in the 
