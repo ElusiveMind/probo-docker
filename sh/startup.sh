@@ -52,6 +52,51 @@ su - probo -c 'exec 4>&-'
 # Make it so the docker socket can be read.
 chmod 777 /var/run/docker.sock
 
+if [[ -z "${STORAGE_DATA_DIR}" ]]; then
+  echo "STORAGE_DATA_DIR cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${PROBO_DATA_DIRECTORY}" ]]; then
+  echo "PROBO_DATA_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${ASSET_RECEIVER_DATABASE_DIRECTORY}" ]]; then
+  echo "ASSET_RECEIVER_DATABASE_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+if [[ -z "${FILE_DATA_DIRECTORY}" ]]; then
+  echo "FILE_DATA_DIRECTORY cannot be empty. A value must be provided."
+  exit 1
+fi
+
+# Create our data directories and set permissions
+mkdir -p $STORAGE_DATA_DIR
+chmod 777 $STORAGE_DATA_DIR
+chown probo:probo $STORAGE_DATA_DIR
+
+mkdir -p $PROBO_DATA_DIRECTORY
+chmod 777 $PROBO_DATA_DIRECTORY
+chown probo:probo $PROBO_DATA_DIRECTORY
+
+mkdir -p $ASSET_RECEIVER_DATABASE_DIRECTORY
+chmod 777 $ASSET_RECEIVER_DATABASE_DIRECTORY
+chown probo:probo $ASSET_RECEIVER_DATABASE_DIRECTORY
+
+mkdir -p $FILE_DATA_DIRECTORY
+chmod 777 $FILE_DATA_DIRECTORY
+chown probo:probo $FILE_DATA_DIRECTORY
+
+mkdir -p $RETHINK_DATA_DIR
+chmod 777 $RETHINK_DATA_DIR
+chown probo:probo $RETHINK_DATA_DIR
+
+chown probo:probo /opt/probo/data
+
+# Substitute environment variables from docker-compose.yml into our yml files.
+# TODO: Make sure all required variables have a valid value.
 envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/asset-receiver.yml
 envsubst < /opt/probo/yml/probo-defaults.yml > /opt/probo/probo/defaults.yaml
 envsubst < /opt/probo/yml/ghh-defaults.yml > /opt/probo/probo/ghh.yml
@@ -62,7 +107,7 @@ envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defa
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
-cd /opt/probo/probo-loom
+cd $RETHINK_DATA_DIR
 rethinkdb --daemon --no-http-admin --runuser probo --rungroup probo
 
 # start all of our probo processes as the probo user with the exception of
