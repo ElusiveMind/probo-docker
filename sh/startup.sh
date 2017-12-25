@@ -72,26 +72,28 @@ if [[ -z "${FILE_DATA_DIRECTORY}" ]]; then
   exit 1
 fi
 
-# Create our  data directories and set permissions
-mkdir -r $STORAGE_DATA_DIR
+# Create our data directories and set permissions
+mkdir -p $STORAGE_DATA_DIR
 chmod 777 $STORAGE_DATA_DIR
 chown probo:probo $STORAGE_DATA_DIR
 
-mkdir -r $PROBO_DATA_DIRECTORY
+mkdir -p $PROBO_DATA_DIRECTORY
 chmod 777 $PROBO_DATA_DIRECTORY
 chown probo:probo $PROBO_DATA_DIRECTORY
 
-mkdir -r $ASSET_RECEIVER_DATABASE_DIRECTORY
+mkdir -p $ASSET_RECEIVER_DATABASE_DIRECTORY
 chmod 777 $ASSET_RECEIVER_DATABASE_DIRECTORY
 chown probo:probo $ASSET_RECEIVER_DATABASE_DIRECTORY
 
-mkdir -r $FILE_DATA_DIRECTORY
+mkdir -p $FILE_DATA_DIRECTORY
 chmod 777 $FILE_DATA_DIRECTORY
 chown probo:probo $FILE_DATA_DIRECTORY
 
-mkdir -r $RETHINK_DATA_DIR
+mkdir -p $RETHINK_DATA_DIR
 chmod 777 $RETHINK_DATA_DIR
 chown probo:probo $RETHINK_DATA_DIR
+
+chown probo:probo /opt/probo/data
 
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
