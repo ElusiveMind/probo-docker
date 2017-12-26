@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.04"
+LABEL version="0.06"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -28,14 +28,10 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  postgresql.x86_64 \
   net-tools \
   vim \
   wget \
-  gettext \
-  docker-client \
-  gd-devel.x86_64 \
-  mod_ssl.x86_64
+  docker-client 
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -64,7 +60,7 @@ RUN yum -y upgrade && \
 RUN systemctl disable httpd.service
 
 # Expose the ports
-EXPOSE 80 443 3012 3070
+EXPOSE 80 443 3012 3013 3014 3070
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 RUN groupadd docker
@@ -84,6 +80,7 @@ RUN git clone -b hostname-replace-docker-hosting https://github.com/ElusiveMind/
 RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
 RUN git clone -b switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier
+RUN git clone https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
@@ -117,6 +114,10 @@ RUN npm install /opt/probo/probo-notifier
 WORKDIR /opt/probo/probo-reaper
 RUN cd /opt/probo/probo-reaper
 RUN npm install /opt/probo/probo-reaper
+
+WORKDIR /opt/probo/probo-gitlab
+RUN cd /opt/probo/probo-gitlab
+RUN npm install /opt/probo/probo-gitlab
 
 USER root
 COPY sh/startup.sh /opt/probo/startup.sh
