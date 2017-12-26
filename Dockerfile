@@ -28,10 +28,14 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
+  postgresql.x86_64 \
   net-tools \
   vim \
   wget \
-  docker-client 
+  gettext \
+  docker-client \
+  gd-devel.x86_64 \
+  mod_ssl.x86_64
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
