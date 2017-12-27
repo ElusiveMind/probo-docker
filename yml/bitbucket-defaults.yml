@@ -1,4 +1,4 @@
-port: 3013
+port: 3012
 hostname: 0.0.0.0
 
 bbWebhookUrl: '$BB_WEBHOOK_URL'

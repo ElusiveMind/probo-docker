@@ -36,8 +36,8 @@ eventStreams:
 
 codeHostingHandlers:
   github: 'http://localhost:3012'
-  bitbucket: 'http://localhost:3013'
-  gitlab: 'http://localhost:3014'
+  bitbucket: 'http://localhost:3012'
+  gitlab: 'http://localhost:3012'
 
 perBranchBuildLimit: $REAPER_BRANCH_BUILD_LIMIT
 
