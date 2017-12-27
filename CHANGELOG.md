@@ -4,10 +4,10 @@ Please note that this file can also be seen on the WIKI page for this project at
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
 
-#### Last Updated: December 26, 2017
+#### Last Updated: December 27, 2017
 
-v.06 - December 26, 2017  
-  - Add GitLab handler code.
+v.06 - December 27, 2017  
+  - Add GitLab handler code. (Currently patched due to case-sensitivity bug).
   - Moved Container Manager and Bitbucket handler yaml code into template replacement like the the other yaml templates.
   - Made the inclusion of git handlers configurable based on environment variables. They are  only included if they are specified in the docker-compose.yml file.
 

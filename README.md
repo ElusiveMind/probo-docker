@@ -12,12 +12,12 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: December 26, 2017
+#### Last Updated: December 27, 2017
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
 
-v.06 - December 26, 2017  
-  - Add GitLab handler code.
+v.06 - December 27, 2017  
+  - Add GitLab handler code. (Currently patched due to case-sensitivity bug).
   - Moved Container Manager and Bitbucket handler yaml code into template replacement like the the other yaml templates.
   - Made the inclusion of git handlers configurable based on environment variables. They are  only included if they are specified in the docker-compose.yml file.
 
@@ -32,7 +32,3 @@ v.04 - December 21, 2017
   - Disabled web admin port (8080) for RethinkDB so we can repurpose.
   - Added Probo Notifier service and configured for Kafka (untested)
   - Enabled Probo Reaper service and configured for Kafka (untested)
-  
-v.03 - December 20, 2017
-  - Modified probo-proxy so it will properly point to the correct place for the container on the correct host
-  - Allowed for configuration of the correct host as per above in the probo-proxy yml file.
