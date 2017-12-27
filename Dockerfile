@@ -28,14 +28,10 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  postgresql.x86_64 \
   net-tools \
   vim \
   wget \
-  gettext \
-  docker-client \
-  gd-devel.x86_64 \
-  mod_ssl.x86_64
+  docker-client 
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -59,9 +55,6 @@ RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
 # Perform yum cleanup 
 RUN yum -y upgrade && \
   yum clean all
-
-# Make sure Apache is removed from systemd
-RUN systemctl disable httpd.service
 
 # Expose the ports
 EXPOSE 80 443 3012 3013 3014 3070
