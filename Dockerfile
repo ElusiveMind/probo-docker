@@ -77,7 +77,7 @@ RUN git clone -b hostname-replace-docker-hosting https://github.com/ElusiveMind/
 RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
 RUN git clone -b switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier
-RUN git clone https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab
+RUN git clone -b case_normalization https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
