@@ -24,13 +24,15 @@ RUN yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
   yum -y update
 
-# Install our common set of commands that we will need to do the various things.
+# Install our common set of commands that we will need to do the key functions.
+# gettext is for our envsubst command.
 RUN yum -y install \
   curl \
   git2u \
   net-tools \
   vim \
   wget \
+  gettext \
   docker-client 
 
 # Get the rethinkdb YUM repository information so we can install.
@@ -85,6 +87,9 @@ RUN git clone -b case-normalization https://github.com/ElusiveMind/probo-gitlab.
 WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
 RUN npm install /opt/probo/probo
+
+# Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
+# use this repo and branch and patch it directly into the node_modules directory.
 RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
 RUN git clone -b variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger
 
