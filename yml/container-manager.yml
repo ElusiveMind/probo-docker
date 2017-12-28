@@ -1,0 +1,18 @@
+hostname: localhost
+port: 3020
+
+instanceName: '$CM_INSTANCE_NAME'
+api:
+  url: 'http://localhost:3012'
+
+auth:
+  url: 'http://localhost:3012/auth_lookup'
+
+loom:
+  url: 'http://localhost:3060'
+
+assets:
+  url: '$ASSET_SERVER_URL'
+
+buildUrl: '$PROBO_BUILD_URL'
+endpointUrl: '$DRUPAL_ENDPOINT_URL'

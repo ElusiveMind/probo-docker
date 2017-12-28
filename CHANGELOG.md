@@ -4,14 +4,17 @@ Please note that this file can also be seen on the WIKI page for this project at
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
 
-#### Last Updated: December 25, 2017
+#### Last Updated: December 27, 2017
+
+v.06 - December 27, 2017  
+  - Add GitLab handler code. (Currently patched due to case-sensitivity bug).
+  - Moved Container Manager and Bitbucket handler yaml code into template replacement like the the other yaml templates.
+  - Made the inclusion of git handlers configurable based on environment variables. They are  only included if they are specified in the docker-compose.yml file.
 
 v.05 - December 25, 2017
-  - Added checks for various database, file and data file storage directory environemtnal vars
-  - Added instructions into the README regarding the importance of persistence of database files
-    and other files especially asset files not hosted on S3.
-  - Added a CHANGELOG file that keeps lists of changes instead of keeping all of these in the 
-    README. README now limited to the last three updates. CHANGELOG contains everything.
+  - Added checks for various database, file and data file storage directory environmental vars for the purposes of data persistence into volumes.
+  - Added instructions into the README regarding the importance of persistence of database files  and other files especially asset files not hosted on S3.
+  - Added a CHANGELOG file that keeps lists of changes instead of keeping all of these in the README. README now limited to the last three updates. CHANGELOG contains everything.
 
 v.04 - December 21, 2017
   - Remove web components from Probo server container. Separate web portal to its own container.

@@ -14,6 +14,8 @@ services:
     ports:
       - "80:80"
       - "3012:3012"
+      - "3013:3013"
+      - "3014:3014"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
@@ -32,13 +34,16 @@ services:
       GITHUB_API_TOKEN: 'personal token here'
       # Bitbucket Handler Variables
       USE_BITBUCKET: 1
+      BB_WEBHOOK_URL: '/bitbucket-webhook'
       BB_CLIENT_KEY: ''
       BB_CLIENT_SECRET: ''
       BB_ACCESS_TOKEN: ''
       BB_REFRESH_TOKEN: ''
-      BB_WEBHOOK_URL: ''
       # Gitlab Configuration Options
       USE_GITLAB: 0
+      GITLAB_WEBHOOK_URL: '/gitlab-webhook'
+      GITLAB_CLIENT_KEY: ''
+      GITLAB_CLIENT_SECRET: ''
       # Asset Receiver Variables
       ASSET_RECEIVER_DATABASE_DIRECTORY: /opt/probo/data/databases/asset-receiver
       FILE_STORAGE_PLUGIN: LocalFiles
