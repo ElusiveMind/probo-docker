@@ -12,9 +12,13 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: December 27, 2017
+#### Last Updated: December 28, 2017
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+
+v.07 - December 28, 2017
+  - Implemented a public Loom service with a token. Token strongly suggested since this can noe be accessed publically.
+  - Set permissions on log file paths to proper owners and read/write permissions.
 
 v.06 - December 27, 2017  
   - Add GitLab handler code. (Currently patched due to case-sensitivity bug).

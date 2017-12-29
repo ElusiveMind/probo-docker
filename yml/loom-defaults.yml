@@ -1,5 +1,5 @@
 # server host to listen on, defaults to localhost
-host: 'localhost'
+host: 0.0.0.0
 
 # server port to listen on, defaults to 3060
 port: 3060
@@ -28,7 +28,8 @@ storageDataDir: "$STORAGE_DATA_DIR"
 # File compression, defaults to true
 # storageCompress: true
 
+loomEventAPIUrl: "$LOOM_EVENT_API_URL"
+
 # API tokens
-#tokens:
-#  - tik
-#  - tok
+tokens:
+  - $LOOM_SERVER_TOKEN

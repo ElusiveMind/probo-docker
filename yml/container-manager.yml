@@ -10,6 +10,7 @@ auth:
 
 loom:
   url: 'http://localhost:3060'
+  token: $LOOM_SERVER_TOKEN
 
 assets:
   url: '$ASSET_SERVER_URL'
