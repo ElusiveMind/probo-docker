@@ -48,7 +48,8 @@ mkdir -p $RETHINK_DATA_DIR
 chmod 777 $RETHINK_DATA_DIR
 chown probo:probo $RETHINK_DATA_DIR
 
-chown probo:probo /opt/probo/data
+chown -R probo:probo $BASE_PROBO_DATA_DIR
+chmod -R 777 $BASE_PROBO_DATA_DIR
 
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
