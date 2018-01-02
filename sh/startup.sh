@@ -27,6 +27,10 @@ if [[ -z "${FILE_DATA_DIRECTORY}" ]]; then
   exit 1
 fi
 
+if [[ "${LOOM_SERVER_TOKEN}" != '' ]]; then
+  env LOOM_SERVER_TOKEN="tokens\n  - ${LOOM_SERVER_TOKEN}"
+fi
+
 # Create our data directories and set permissions
 mkdir -p $STORAGE_DATA_DIR
 chmod 777 $STORAGE_DATA_DIR

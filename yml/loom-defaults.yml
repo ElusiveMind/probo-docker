@@ -31,5 +31,4 @@ storageDataDir: "$STORAGE_DATA_DIR"
 loomEventAPIUrl: "$LOOM_EVENT_API_URL"
 
 # API tokens
-tokens:
-  - $LOOM_SERVER_TOKEN
+$LOOM_SERVER_TOKEN
