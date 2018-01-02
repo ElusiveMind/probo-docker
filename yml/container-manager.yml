@@ -10,10 +10,11 @@ auth:
 
 loom:
   url: 'http://localhost:3060'
-  token: $LOOM_SERVER_TOKEN
+  token: $PROBO_LOOM_SERVER_TOKEN
 
 assets:
-  url: '$ASSET_SERVER_URL'
+  url: "$ASSET_SERVER_URL"
+  token: $PROBO_ASSET_SERVER_TOKEN
 
 buildUrl: '$PROBO_BUILD_URL'
 endpointUrl: '$DRUPAL_ENDPOINT_URL'

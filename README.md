@@ -12,9 +12,14 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: December 28, 2017
+#### Last Updated: January 1, 2018
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+
+v.08 - January 1, 2018
+  - Worked on token system with loom. No token configuration if no token set in configuration.
+  - Worked on token system with asset receiver. No token configuration if no token set in configuration.
+  - Some bash scripting cleanup (and debugging)
 
 v.07 - December 28, 2017
   - Implemented a public Loom service with a token. Token strongly suggested since this can noe be accessed publically.
@@ -24,15 +29,3 @@ v.06 - December 27, 2017
   - Add GitLab handler code. (Currently patched due to case-sensitivity bug).
   - Moved Container Manager and Bitbucket handler yaml code into template replacement like the the other yaml templates.
   - Made the inclusion of git handlers configurable based on environment variables. They are  only included if they are specified in the docker-compose.yml file.
-
-v.05 - December 25, 2017
-  - Added checks for various database, file and data file storage directory environmental vars for the purposes of data persistence into volumes.
-  - Added instructions into the README regarding the importance of persistence of database files  and other files especially asset files not hosted on S3.
-  - Added a CHANGELOG file that keeps lists of changes instead of keeping all of these in the README. README now limited to the last three updates. CHANGELOG contains everything.
-
-v.04 - December 21, 2017
-  - Remove web components from Probo server container. Separate web portal to its own container.
-  - Change all messagging to Kafka in preparation for Probo Notifier
-  - Disabled web admin port (8080) for RethinkDB so we can repurpose.
-  - Added Probo Notifier service and configured for Kafka (untested)
-  - Enabled Probo Reaper service and configured for Kafka (untested)
