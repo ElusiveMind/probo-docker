@@ -58,9 +58,6 @@ RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
 RUN yum -y upgrade && \
   yum clean all
 
-# Expose the ports
-EXPOSE 80 443 3012 3013 3014 3070
-
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 RUN groupadd docker
 RUN usermod -aG docker probo
