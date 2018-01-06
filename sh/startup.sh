@@ -29,12 +29,12 @@ fi
 
 if [[ -n "${LOOM_SERVER_TOKEN}" ]]; then
   export PROBO_LOOM_SERVER_TOKEN="'${LOOM_SERVER_TOKEN}'"
-  export LOOM_SERVER_TOKEN="tokens:"$'\n'  - ${LOOM_SERVER_TOKEN}
+  export LOOM_SERVER_TOKEN="tokens:"$'\n'"  - ${LOOM_SERVER_TOKEN}"
 fi
 
 if [[ -n "${ASSET_SERVER_TOKEN}" ]]; then
   export PROBO_ASSET_SERVER_TOKEN="'${ASSET_SERVER_TOKEN}'"
-  export ASSET_SERVER_TOKEN="tokens:"$'\n' ${ASSET_SERVER_TOKEN}
+  export ASSET_SERVER_TOKEN="tokens:"$'\n'"  - ${ASSET_SERVER_TOKEN}"
 fi
 
 # Create our data directories and set permissions
