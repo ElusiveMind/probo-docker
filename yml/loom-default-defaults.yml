@@ -1,0 +1,30 @@
+# server host to listen on, defaults to localhost
+host: 'localhost'
+# server port to listen on, defaults to 3060
+port: 3060
+
+# RethinkDB host, defaults to localhost
+dbHost: 'localhost'
+# RethinkDB port, defaults to 28015
+dbPort: 28015
+# RethinkDB DB name, defaults to logs
+dbName: "logs"
+# RethinkDB table for storing stream metadata
+storageMetaTable: "meta"
+
+# RethinkDB table for storing actual logs (Rethink Storage)
+storageLogsTable: "logs"
+
+# Path on file system for storing stream files. Defaults to "data"
+# storageDataDir: "data"
+
+# Timeout for tailing streams. Defaults to 30 seconds.
+# storageTailTimeout: 30s
+
+# File compression, defaults to true
+# storageCompress: true
+
+# API tokens
+#tokens:
+#  - tik
+#  - tok

@@ -3,8 +3,11 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
+#### Last Updated: January 6, 2018
 
-#### Last Updated: January 1, 2018
+v.09 - January 6, 2018
+  - Removed default.yaml file so that default tokens would not be included in configuration.
+  - Fixed remaining formatting bug with Loom tokens. Tokens now confirmed working with Loom.
 
 v.08 - January 1, 2018
   - Worked on token system with loom. No token configuration if no token set in configuration.
