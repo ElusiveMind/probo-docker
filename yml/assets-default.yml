@@ -22,6 +22,6 @@ encryptionPassword: $ENCRYPTION_PASSWORD
 recipheredOutputDir: $RECIPHERED_OUTPUT_DIR
 
 # API tokens for creating all routes except asset upload (disabled by default)
-tokens: $TOKENS
+$ASSET_SERVER_TOKEN
 
 uploadsPaused: $UPLOADS_PAUSED

@@ -1,18 +1,14 @@
 # server host to listen on, defaults to localhost
-host: 0.0.0.0
-
+host: 'localhost'
 # server port to listen on, defaults to 3060
 port: 3060
 
 # RethinkDB host, defaults to localhost
 dbHost: 'localhost'
-
 # RethinkDB port, defaults to 28015
 dbPort: 28015
-
 # RethinkDB DB name, defaults to logs
 dbName: "logs"
-
 # RethinkDB table for storing stream metadata
 storageMetaTable: "meta"
 
@@ -20,7 +16,7 @@ storageMetaTable: "meta"
 storageLogsTable: "logs"
 
 # Path on file system for storing stream files. Defaults to "data"
-storageDataDir: "$STORAGE_DATA_DIR"
+# storageDataDir: "data"
 
 # Timeout for tailing streams. Defaults to 30 seconds.
 # storageTailTimeout: 30s
@@ -28,7 +24,7 @@ storageDataDir: "$STORAGE_DATA_DIR"
 # File compression, defaults to true
 # storageCompress: true
 
-loomEventAPIUrl: "$LOOM_EVENT_API_URL"
-
 # API tokens
-$LOOM_SERVER_TOKEN
+#tokens:
+#  - tik
+#  - tok
