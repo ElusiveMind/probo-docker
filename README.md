@@ -12,9 +12,12 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: January 6, 2018
+#### Last Updated: January 7, 2018
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+
+v.10 - January 7, 2018
+  - Optimization of container by removing unnecessary packages from being installed
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.

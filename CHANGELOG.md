@@ -3,7 +3,10 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: January 6, 2018
+#### Last Updated: January 7, 2018
+
+v.10 - January 7, 2018
+  - Optimization of container by removing unnecessary packages from being installed
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.
