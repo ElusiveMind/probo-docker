@@ -58,9 +58,6 @@ RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
 RUN yum -y upgrade && \
   yum clean all
 
-# Expose the ports
-EXPOSE 80 443 3012 3013 3014 3070
-
 # Switch to the probo user. Then create the Probo directory and change its permissions.
 RUN groupadd docker
 RUN usermod -aG docker probo
@@ -72,14 +69,14 @@ RUN cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone https://github.com/ProboCI/probo.git /opt/probo/probo
-RUN git clone https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
-RUN git clone https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
-RUN git clone -b hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy
-RUN git clone https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
-RUN git clone -b bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket
-RUN git clone -b switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier
-RUN git clone -b case-normalization https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab
+RUN git clone --depth=1 https://github.com/ProboCI/probo.git /opt/probo/probo
+RUN git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
+RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
+RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
+RUN git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
+RUN git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
+RUN git clone --depth=1 --branch=switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
+RUN git clone --depth=1 --branch=case-normalization https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
@@ -88,10 +85,9 @@ WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
 RUN npm install /opt/probo/probo
 
-# Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
-# use this repo and branch and patch it directly into the node_modules directory.
-RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
-RUN git clone -b variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger
+WORKDIR /opt/probo/probo-loom
+RUN cd /opt/probo/probo-loom
+RUN npm install /opt/probo/probo-loom
 
 WORKDIR /opt/probo/probo-bitbucket
 RUN cd /opt/probo/probo-bitbucket
@@ -100,10 +96,6 @@ RUN npm install /opt/probo/probo-bitbucket
 WORKDIR /opt/probo/probo-asset-receiver
 RUN cd /opt/probo/probo-asset-receiver
 RUN npm install /opt/probo/probo-asset-receiver
-
-WORKDIR /opt/probo/probo-loom
-RUN cd /opt/probo/probo-loom
-RUN npm install /opt/probo/probo-loom
 
 WORKDIR /opt/probo/probo-proxy
 RUN cd /opt/probo/probo-proxy
@@ -130,6 +122,11 @@ RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/
 RUN chmod 755 /opt/probo/yml/*
 RUN chown -R probo:probo /opt/probo/yml
+
+# Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
+# use this repo and branch and patch it directly into the node_modules directory.
+RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
+RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
 
 WORKDIR /opt/probo
 

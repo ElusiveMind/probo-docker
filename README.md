@@ -19,6 +19,7 @@ A complete set of changes can be found in the CHANGELOG.md file located in the s
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.
   - Fixed remaining formatting bug with Loom tokens. Tokens now confirmed working with Loom.
+  - Allow the proxy port to be configurable.
 
 v.08 - January 1, 2018
   - Worked on token system with loom. No token configuration if no token set in configuration.
