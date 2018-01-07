@@ -85,10 +85,14 @@ WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
 RUN npm install /opt/probo/probo
 
+WORKDIR /opt/probo/probo-loom
+RUN cd /opt/probo/probo-loom
+RUN npm install /opt/probo/probo-loom
+
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.
 RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
-RUN git clone -b variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger
+RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
 
 WORKDIR /opt/probo/probo-bitbucket
 RUN cd /opt/probo/probo-bitbucket
@@ -97,10 +101,6 @@ RUN npm install /opt/probo/probo-bitbucket
 WORKDIR /opt/probo/probo-asset-receiver
 RUN cd /opt/probo/probo-asset-receiver
 RUN npm install /opt/probo/probo-asset-receiver
-
-WORKDIR /opt/probo/probo-loom
-RUN cd /opt/probo/probo-loom
-RUN npm install /opt/probo/probo-loom
 
 WORKDIR /opt/probo/probo-proxy
 RUN cd /opt/probo/probo-proxy
