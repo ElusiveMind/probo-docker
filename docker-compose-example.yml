@@ -25,8 +25,8 @@ services:
       CM_INSTANCE_NAME: 'OSProboCI'
       ASSET_SERVER_URL: 'http://example.com:3070'
       ASSET_SERVER_TOKEN: ''
-      PROBO_BUILD_URL: 'http://{{buildId}}.example.com/'
-      DRUPAL_ENDPOINT_URL: 'http://www.example.com:3005/probo-api/service-endpoint.json'
+      PROBO_BUILD_URL: 'http://{{buildId}}.example.com:3050/'
+      DRUPAL_ENDPOINT_URL: 'http://www.example.com/probo-api/service-endpoint.json'
       # GitHub Configuration Options
       USE_GITHUB: 0
       GITHUB_WEBHOOK_PATH: '/github-webhook'
@@ -64,6 +64,7 @@ services:
       REAPER_OUTPUT_FORMAT: text
       REAPER_BRANCH_BUILD_LIMIT: 1
       # Proxy Configuration Options
+      PROXY_PORT: 3050
       PROXY_HOSTNAME_IP: localhost
       PROXY_CACHE_ENABLED: 'true'
       PROXY_CACHE_MAX: 500
@@ -72,18 +73,20 @@ services:
     restart: always
 
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: zookeeper:3.3.6
+    restart: always
+    hostname: zookeeper
     container_name: OSProboCI-zookeeper
     ports:
       - "2181:2181"
 
   kafka:
-    image: wurstmeister/kafka-docker
+    image: wurstmeister/kafka:1.0.0
     container_name: OSProboCI-Kafka
-    ports:
-      - "9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_LISTENERS: 192.168.0.14
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    ports:
+      - 9092:9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
