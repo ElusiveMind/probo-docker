@@ -1,5 +1,5 @@
 # Port that the proxy server is running on. Defaults to 80.
-port: 80
+port: $PROXY_PORT
 
 # The host name where docker lives. Note that this should 
 # be the intranet IP address of where your root docker 
