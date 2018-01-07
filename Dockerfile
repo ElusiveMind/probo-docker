@@ -122,8 +122,8 @@ RUN chown -R probo:probo /opt/probo/yml
 
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.
-RUN rm -rf /opt/probo/node_modules/probo-request-logger
-RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
+RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
+RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
 
 WORKDIR /opt/probo
 
