@@ -7,6 +7,7 @@ https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Sour
 
 v.10 - January 7, 2018
   - Optimization of container by removing unnecessary packages from being installed
+  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.

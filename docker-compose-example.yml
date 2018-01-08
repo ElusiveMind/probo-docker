@@ -12,10 +12,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./probo-data:/opt/probo/data
     ports:
-      - "80:80"
       - "3012:3012"
-      - "3013:3013"
-      - "3014:3014"
+      - "3050:3050"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
@@ -84,9 +82,9 @@ services:
     image: wurstmeister/kafka:1.0.0
     container_name: OSProboCI-Kafka
     environment:
-      KAFKA_ADVERTISED_LISTENERS: 192.168.0.14
+      KAFKA_ADVERTISED_LISTENERS: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     ports:
-      - 9092:9092
+      - "9092:9092"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

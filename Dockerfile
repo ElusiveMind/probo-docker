@@ -67,7 +67,7 @@ RUN cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone --depth=1 https://github.com/ProboCI/probo.git /opt/probo/probo
+RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind/probo.git /opt/probo/probo
 RUN git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
 RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
 RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
