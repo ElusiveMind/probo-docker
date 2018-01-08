@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.10"
+LABEL version="0.11"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -19,7 +19,8 @@ ENV LC_ALL en_US.utf8
 # Create the Probo user for the adding in of all our Probo daemons.
 RUN useradd -ms /bin/bash probo
 
-# Install and enable repositories RUN yum -y update && \
+# Install and enable repositories
+RUN yum -y update
 RUN yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
   yum -y update
