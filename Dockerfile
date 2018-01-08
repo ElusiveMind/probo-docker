@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.09"
+LABEL version="0.10"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -48,11 +48,8 @@ RUN yum -y install nodejs \
   mocha \
   nodejs-should \
   make \
-  gcc*
-
-# Get the rethinkdb daemon (deprecated)
-RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
-  -O /etc/yum.repos.d/rethinkdb.repo
+  gcc \
+  g++
 
 # Perform yum cleanup 
 RUN yum -y upgrade && \
@@ -83,35 +80,35 @@ RUN git clone --depth=1 --branch=case-normalization https://github.com/ElusiveMi
 # handler.
 WORKDIR /opt/probo/probo
 RUN cd /opt/probo/probo
-RUN npm install /opt/probo/probo
+RUN npm install
 
 WORKDIR /opt/probo/probo-loom
 RUN cd /opt/probo/probo-loom
-RUN npm install /opt/probo/probo-loom
+RUN npm install
 
 WORKDIR /opt/probo/probo-bitbucket
 RUN cd /opt/probo/probo-bitbucket
-RUN npm install /opt/probo/probo-bitbucket
+RUN npm install
 
 WORKDIR /opt/probo/probo-asset-receiver
 RUN cd /opt/probo/probo-asset-receiver
-RUN npm install /opt/probo/probo-asset-receiver
+RUN npm install
 
 WORKDIR /opt/probo/probo-proxy
 RUN cd /opt/probo/probo-proxy
-RUN npm install /opt/probo/probo-proxy
+RUN npm install
 
 WORKDIR /opt/probo/probo-notifier
 RUN cd /opt/probo/probo-notifier
-RUN npm install /opt/probo/probo-notifier
+RUN npm install
 
 WORKDIR /opt/probo/probo-reaper
 RUN cd /opt/probo/probo-reaper
-RUN npm install /opt/probo/probo-reaper
+RUN npm install
 
 WORKDIR /opt/probo/probo-gitlab
 RUN cd /opt/probo/probo-gitlab
-RUN npm install /opt/probo/probo-gitlab
+RUN npm install
 
 USER root
 COPY sh/startup.sh /opt/probo/startup.sh
