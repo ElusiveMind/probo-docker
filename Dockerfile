@@ -122,7 +122,7 @@ RUN chmod 755 /opt/probo/yml/*
 RUN chown -R probo:probo /opt/probo/yml
 
 # copy the reaper crontab and install it for the root user.
-RUN copy crontab/crontab.txt /crontab.txt
+COPY crontab/crontab.txt /crontab.txt
 RUN crontab /crontab.txt
 
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
