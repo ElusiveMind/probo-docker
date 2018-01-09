@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.12"
+LABEL version="0.13"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -73,7 +73,7 @@ RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/pro
 RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
 RUN git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
-RUN git clone --depth=1 --branch=switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
+RUN git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
 RUN git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
@@ -120,6 +120,10 @@ RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/
 RUN chmod 755 /opt/probo/yml/*
 RUN chown -R probo:probo /opt/probo/yml
+
+# copy the reaper crontab and install it for the root user.
+RUN copy crontab/crontab.txt /crontab.txt
+RUN crontab /crontab.txt
 
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.
