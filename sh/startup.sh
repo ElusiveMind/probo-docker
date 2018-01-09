@@ -78,32 +78,32 @@ cd $RETHINK_DATA_DIR
 rethinkdb --daemon --no-http-admin --runuser probo --rungroup probo
 
 # lets do logging during development
-mkdir -p /opt/probo/logs
-chown probo:probo /opt/probo/logs
+mkdir -p /opt/probo/data/logs
+chown probo:probo /opt/probo/data/logs
 
 # start all of our probo processes as the probo user with the exception of
 # the proxy in case the proxy is run on port 80.
-su - probo -c '/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > /opt/probo/logs/container-manager.log &'
+su - probo -c '/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > /opt/probo/data/logs/container-manager.log &'
 
 if [[ ! -z "${USE_GITHUB}" ]] && [ $USE_GITHUB = "1" ]; then
   envsubst < /opt/probo/yml/github-defaults.yml > /opt/probo/probo/github-handler.yml
-  su - probo -c '/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml > /opt/probo/logs/github-handler.log &'
+  su - probo -c '/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml > /opt/probo/data/logs/github-handler.log &'
 fi
 
 if [[ ! -z "${USE_BITBUCKET}" ]] && [ $USE_BITBUCKET = "1" ]; then
   envsubst < /opt/probo/yml/bitbucket-defaults.yml > /opt/probo/probo-bitbucket/bitbucket-handler.yml
-  su - probo -c '/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > /opt/probo/logs/bitbucket-handler.log &'
+  su - probo -c '/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > /opt/probo/data/logs/bitbucket-handler.log &'
 fi
 
 if [[ ! -z "${USE_GITLAB}" ]] && [ $USE_GITLAB = "1" ]; then
   envsubst < /opt/probo/yml/gitlab-defaults.yml > /opt/probo/probo-gitlab/gitlab-handler.yml
-  su - probo -c '/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml > /opt/probo/logs/gitlab-handler.log &'
+  su - probo -c '/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml > /opt/probo/data/logs/gitlab-handler.log &'
 fi
 
-su - probo -c '/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /opt/probo/logs/asset-receiver.log &'
+su - probo -c '/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /opt/probo/data/logs/asset-receiver.log &'
 su - probo -c 'mkdir /opt/probo/probo-loom/data'
 su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
-su - probo -c '/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/logs/probo-loom.log &'
+su - probo -c '/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/data/logs/probo-loom.log &'
 
 # start the proxy as the root user
 node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
