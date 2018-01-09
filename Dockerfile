@@ -50,7 +50,8 @@ RUN yum -y install nodejs \
   nodejs-should \
   make \
   gcc \
-  g++
+  g++ \
+  crontab
 
 # Perform yum cleanup 
 RUN yum -y upgrade && \
