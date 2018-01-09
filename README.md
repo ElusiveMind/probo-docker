@@ -17,7 +17,7 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
 
 v.11 - January 8, 2018
-  - Modified forked probo to provide only data we need to Drupal.
+  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
 
 v.10 - January 7, 2018
   - Optimization of container by removing unnecessary packages from being installed
