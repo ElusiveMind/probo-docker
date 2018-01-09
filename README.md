@@ -12,9 +12,14 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: January 8, 2018
+#### Last Updated: January 9, 2018
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+
+v.12 - January 9, 2018
+  - Convert logging path to environment variable which can be set in docker call or docker-compose.
+  - Clean up of environment variable names to be in line with daemon names.
+  - Allow for configuratiion of logging mode (on/off)
 
 v.11 - January 8, 2018
   - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
@@ -27,8 +32,3 @@ v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.
   - Fixed remaining formatting bug with Loom tokens. Tokens now confirmed working with Loom.
   - Allow the proxy port to be configurable.
-
-v.08 - January 1, 2018
-  - Worked on token system with loom. No token configuration if no token set in configuration.
-  - Worked on token system with asset receiver. No token configuration if no token set in configuration.
-  - Some bash scripting cleanup (and debugging)

@@ -3,7 +3,12 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: January 8, 2018
+#### Last Updated: January 9, 2018
+
+v.12 - January 9, 2018
+  - Convert logging path to environment variable which can be set in docker call or docker-compose.
+  - Clean up of environment variable names to be in line with daemon names.
+  - Allow for configuratiion of logging mode (on/off)
 
 v.11 - January 8, 2018
   - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.

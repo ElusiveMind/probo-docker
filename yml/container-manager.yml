@@ -2,6 +2,7 @@ hostname: localhost
 port: 3020
 
 instanceName: '$CM_INSTANCE_NAME'
+
 api:
   url: 'http://localhost:3012'
 
@@ -10,11 +11,12 @@ auth:
 
 loom:
   url: 'http://localhost:3060'
-  token: $PROBO_LOOM_SERVER_TOKEN
+  token: '$PROBO_LOOM_SERVER_TOKEN'
 
 assets:
-  url: "$ASSET_SERVER_URL"
-  token: $PROBO_ASSET_SERVER_TOKEN
+  url: '$ASSET_RECEIVER_URL'
+  token: '$PROBO_ASSET_RECEIVER_TOKEN'
 
 buildUrl: '$PROBO_BUILD_URL'
-endpointUrl: '$DRUPAL_ENDPOINT_URL'
+
+endpointUrl: '$SERVICE_ENDPOINT_URL'
