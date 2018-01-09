@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.10"
+LABEL version="0.11"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -19,7 +19,8 @@ ENV LC_ALL en_US.utf8
 # Create the Probo user for the adding in of all our Probo daemons.
 RUN useradd -ms /bin/bash probo
 
-# Install and enable repositories RUN yum -y update && \
+# Install and enable repositories
+RUN yum -y update
 RUN yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
   yum -y update
@@ -66,7 +67,7 @@ RUN cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone --depth=1 https://github.com/ProboCI/probo.git /opt/probo/probo
+RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind/probo.git /opt/probo/probo
 RUN git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
 RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
 RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git

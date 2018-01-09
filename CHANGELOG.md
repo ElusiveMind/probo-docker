@@ -3,10 +3,14 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: January 7, 2018
+#### Last Updated: January 8, 2018
+
+v.11 - January 8, 2018
+  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
 
 v.10 - January 7, 2018
   - Optimization of container by removing unnecessary packages from being installed
+  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.

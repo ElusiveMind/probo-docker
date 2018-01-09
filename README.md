@@ -12,12 +12,16 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: January 7, 2018
+#### Last Updated: January 8, 2018
 
 A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
 
+v.11 - January 8, 2018
+  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
+
 v.10 - January 7, 2018
   - Optimization of container by removing unnecessary packages from being installed
+  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.
@@ -28,7 +32,3 @@ v.08 - January 1, 2018
   - Worked on token system with loom. No token configuration if no token set in configuration.
   - Worked on token system with asset receiver. No token configuration if no token set in configuration.
   - Some bash scripting cleanup (and debugging)
-
-v.07 - December 28, 2017
-  - Implemented a public Loom service with a token. Token strongly suggested since this can noe be accessed publically.
-  - Set permissions on log file paths to proper owners and read/write permissions.
