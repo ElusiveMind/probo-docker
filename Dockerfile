@@ -34,7 +34,8 @@ RUN yum -y install \
   vim \
   wget \
   gettext \
-  docker-client 
+  docker-client \
+  crontabs.noarch
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -50,8 +51,7 @@ RUN yum -y install nodejs \
   nodejs-should \
   make \
   gcc \
-  g++ \
-  crontab
+  g++
 
 # Perform yum cleanup 
 RUN yum -y upgrade && \
