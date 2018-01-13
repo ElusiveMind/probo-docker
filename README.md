@@ -12,23 +12,163 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: January 9, 2018
+#### Last Updated: January 13, 2018
 
-A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+#### Configuration Environment Variables
 
-v.12 - January 9, 2018
-  - Convert logging path to environment variable which can be set in docker call or docker-compose.
-  - Clean up of environment variable names to be in line with daemon names.
-  - Allow for configuratiion of logging mode (on/off)
+A complete list of configurations and default values can be viewed on the Probo Docker wiki page:  
 
-v.11 - January 8, 2018
-  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
+https://github.com/ElusiveMind/probo-docker/wiki/Configuration-Environment-Variables  
 
-v.10 - January 7, 2018
-  - Optimization of container by removing unnecessary packages from being installed
-  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
+**ASSET_RECEIVER_TOKEN**  
+_Default: null_  
+The token used for uploading assets to the receiver. Needs to be part of the request to push files to the asset receiver. If not specified, no token will be required which is a security issue.  
 
-v.09 - January 6, 2018
-  - Removed default.yaml file so that default tokens would not be included in configuration.
-  - Fixed remaining formatting bug with Loom tokens. Tokens now confirmed working with Loom.
-  - Allow the proxy port to be configurable.
+**ASSET_RECEIVER_URL**
+_Default: http://example.com:3070_  
+The URL (with port) of your asset receiver process. This needs to be the URL with domain name and not an IP address as this will be looked up from within Docker containers. Probo uses this URL to fetch your assets from the asset receiver as part of the build process.  
+
+**AWS_ACCESS_KEY_ID**  
+_Default: null_  
+When AwsS3Storage is configured as the asset receiver storage method, this is the access key id for the account used to store files.  
+
+**AWS_SECRET_ACCESS_KEY**  
+_Default: null_  
+When AwsS3Storage is configured as the asset receiver storage method, this is the secret access key for the account used to store files.  
+
+**AWS_BUCKET**  
+_Default: null_  
+When AwsS3Storage is configured as the asset receiver storage method, this is the name of the bucket where the files are stored.  
+
+**BB_ACCESS_TOKEN**  
+_Default: null_  
+The Bitbucket access token for this application. This must be obtained through the process laid out in the Wiki documentation using the Bitbucket configuration generation feature of the Drupal 8 module.  
+
+**BB_CLIENT_KEY**  
+_Default: null_  
+The Bitbucket client key configured in your Bitbucket application.  
+
+**BB_CLIENT_SECRET**  
+_Default: null_  
+The Bitbucket client secret configured in your Bitbucket application.  
+
+**BB_REFRESH_TOKEN**  
+_Default: null_  
+The Bitbucket refresh token for this application. This must be obtained through the process laid out in the Wiki documentation using the Bitbucket configuration generation feature of the Drupal 8 module.  
+
+**BB_WEBHOOK_URL**  
+_Default: /bitbucket-webhook_  
+The endpoint of the Bitbucket webhook. This is used in the path configured in your webhook on Bitbucket.  
+
+**CM_INSTANCE_NAME**  
+_Default: OSProboCI_  
+The name of your ProboCI instance. This will be used as part of the context build string viewable on your code repository status screen. This should be different for each probo server you run and should be custom set for your instance.  
+
+**ENCRYPTION_CIPHER**  
+_Default: aes-256-cbc_  
+Determines the cipher used to encrypt the assets. See https://www.openssl.org/docs/manmaster/apps/ciphers.html for options.  
+
+**ENCRYPTION_PASSWORD**  
+_Default: password_  
+A salt for ENCRYPTION_CIPHER.  
+
+**FILE_STORAGE_PLUGIN**  
+_Default: LocalFiles_  
+This is for the asset receiver. This defines the plugin that will be used for file storage, Currently there are two options, LocalFiles and AwsS3Storage. AwsS3Storage requires the keys and a bucket for storing files on Amazon S3. Be sure NOT to put your docker-compose.yml file or other configuration file in any kind of public source repository with this data in it. It's bad. Very, very bad. Trust me.  
+
+**GITLAB_WEBHOOK_URL**  
+_Default: /gitlab-webhook_  
+The endpoint of the GitLab webhook. This is used in the path configured in your webhook on GitLab.  
+
+**GITLAB_CLIENT_KEY**  
+_Default: null_  
+The GitLab client key configured in your GitLab application.  
+
+**GITLAB_CLIENT_SECRET**  
+_Default: null_  
+
+**GITHUB_API_TOKEN**  
+_Default: personal token here_  
+The GitHub API token configured in your GitHub account.  
+
+**GITHUB_WEBHOOK_PATH**  
+_Default: /github-webhook_  
+The endpoint of the GitHub webhook. This is used in the path configured in your webhook on GitHub.  
+
+**GITHUB_WEBHOOK_SECRET**  
+_Default: CHANGE-ME_  
+This value should be modified to a secure string as well. This is a random token containing a string value that you select and will need to be used when you configure your webhook in GitHub.  
+
+**LOOM_SERVER_TOKEN**  
+_Default: null_  
+A token used for accessing the loom server. The loom server is currently used to provide event information to a web service. The web service calls the loom server using this token for all requests. If not configured, no token will be required to make requests. It is a best practice to configure a unique server token.
+
+**LOOM_EVENT_API_URL**  
+_Default: null_  
+
+**PROBO_BUILD_URL**  
+_Default: http://{{buildId}}.example.com:3050/_  
+URL template string for viewing each build. {{buildId}} expands to the id of the build.  
+
+**PROXY_CACHE_ENABLED**  
+_Default: true_  
+Enable a caching mechanism for the proxy server. This will cache items locally for the proxy.  
+
+**PROXY_CACHE_MAX**  
+_Default: 500_  
+Max number of proxy lookup responses to cache.  
+
+**PROXY_CACHE_MAX_AGE**  
+_Default: 5m_  
+Max age of proxy lookup responses in cache, in any unit (units default to ms).  
+
+**PROXY_HOSTNAME_IP**  
+_Default: localhost_  
+The host name where docker lives. Note that this should be the intranet IP address of where your root docker installation lives. Without this, proxying will fail.  
+
+**PROBO_LOGGING**  
+_Default: 0_  
+Boolean value (either 1 or 0). Setting a value of 1 will cause each enabled process to log output. These logs are typically used for debugging builds and are not recommended for production server configurations.  
+
+**PROXY_PORT**  
+_Default: 3050_  
+Port that the proxy server is running on.  
+
+**PROXY_SERVER_TIMEOUT**  
+_Default: 10m_  
+Server timeout, in any unit.  
+
+**REAPER_DRY_RUN**  
+_Default: true_  
+
+**REAPER_OUTPUT_FORMAT**  
+_Default: text_  
+The output format used for --status command. Options are:
+- json: JSON output - one line per JSON object
+- text: (default) - human readable hearchical output
+
+**REAPER_BRANCH_BUILD_LIMIT**  
+_Default: 1_  
+Limit the number of builds per branch of code.  
+
+**RECIPHERED_OUTPUT_DIR**  
+_Default: null_  
+
+**SERVICE_ENDPOINT_URL**  
+_Default: http://www.example.com/probo-api/service-endpoint.json_  
+An optional configuration for a URL to receive notification of service events. A JSON object will be sent to this URL with each build object containing information about the current build in process including tasks. This is designed specifically for use with the Drupal 8 module for the Probo Open Source Server available at: https://github.com/ElusiveMind/probo-drupal  
+
+**UPLOADS_PAUSED**  
+_Default: null_  
+
+**USE_BITBUCKET**  
+_Default: 0_  
+A boolean value to communicate whether or not the Bitbucket handler should be configured and started as part of the server.  
+
+**USE_GITLAB**  
+_Default: 0_  
+A boolean value to communicate whether or not the GitLab handler should be configured and started as part of the server.  
+
+**USE_GITHUB**  
+_Default: 0_  
+A boolean value to communicate whether or not the GitHub handler should be configured and started as part of the server.  

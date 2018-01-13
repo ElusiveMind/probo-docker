@@ -5,12 +5,12 @@ port: 3070
 # The directory in which to store the LevelDB database.
 databasePlugin: 'LevelDB'
 databaseConfig:
-  databaseDataDirectory: '$ASSET_RECEIVER_DATABASE_DIRECTORY'
+  databaseDataDirectory: '/opt/probo/data/databases/asset-receiver'
 # Which method of file storage are we using and where are we storing
 # the files based on that method.
 fileStoragePlugin: '$FILE_STORAGE_PLUGIN'
 fileStorageConfig:
-  fileDataDirectory: '$FILE_DATA_DIRECTORY'
+  fileDataDirectory: '/opt/probo/data/files/asset-receiver'
   awsAccessKeyId: '$AWS_ACCESS_KEY_ID'
   awsSecretAccessKey: '$AWS_SECRET_ACCESS_KEY'
   awsBucket: '$AWS_BUCKET'
