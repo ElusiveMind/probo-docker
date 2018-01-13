@@ -18,8 +18,6 @@ ENV LC_ALL en_US.utf8
 
 # Our default environment variables
 ENV PROBO_LOGGING="0" \
-    PROBO_DATA_DIRECTORY="/opt/probo/data/container-manager-data" \
-    AUTH_CREDENTIAL_SERVICE="http//localhost:3000/auth_lookup" \
     CM_INSTANCE_NAME="OSProboCI" \
     ASSET_RECEIVER_URL="http//example.com:3070" \
     PROBO_BUILD_URL="http//{{buildId}}.example.com:3050/" \
@@ -38,9 +36,7 @@ ENV PROBO_LOGGING="0" \
     GITLAB_WEBHOOK_URL="/gitlab-webhook" \
     GITLAB_CLIENT_KEY="" \
     GITLAB_CLIENT_SECRET="" \
-    ASSET_RECEIVER_DATABASE_DIRECTORY="/opt/probo/data/databases/asset-receiver" \
     FILE_STORAGE_PLUGIN="LocalFiles" \
-    FILE_DATA_DIRECTORY="/opt/probo/data/files/asset-receiver" \
     ENCRYPTION_CIPHER="aes-256-cbc" \
     ENCRYPTION_PASSWORD="password" \
     RECIPHERED_OUTPUT_DIR="" \
@@ -49,8 +45,6 @@ ENV PROBO_LOGGING="0" \
     AWS_ACCESS_KEY_ID="" \
     AWS_SECRET_ACCESS_KEY="" \
     AWS_BUCKET="" \
-    STORAGE_DATA_DIR="/opt/probo/data/database/loom" \
-    RETHINK_DATA_DIR="/opt/probo/data/database/rethinkdb" \
     LOOM_SERVER_TOKEN="" \
     LOOM_EVENT_API_URL="" \
     REAPER_DRY_RUN="true" \
@@ -77,8 +71,6 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  net-tools \
-  vim \
   wget \
   gettext \
   docker-client \

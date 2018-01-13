@@ -8,6 +8,7 @@ https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Sour
 v.13 - January 13, 2018
   - Implementation of a default cron job to run probo-reaper every 5 minutes.
   - Begin documentation of environment variables in README for display on DockerHub.
+  - Removed several environment configurations that do not need to be configurable for the sake of simplicity.
 
 v.12 - January 9, 2018
   - Convert logging path to environment variable which can be set in docker call or docker-compose.

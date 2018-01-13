@@ -7,26 +7,6 @@
 # Make it so the docker socket can be read.
 chmod 777 /var/run/docker.sock
 
-if [[ -z "${STORAGE_DATA_DIR}" ]]; then
-  echo "STORAGE_DATA_DIR cannot be empty. A value must be provided."
-  exit 1
-fi
-
-if [[ -z "${PROBO_DATA_DIRECTORY}" ]]; then
-  echo "PROBO_DATA_DIRECTORY cannot be empty. A value must be provided."
-  exit 1
-fi
-
-if [[ -z "${ASSET_RECEIVER_DATABASE_DIRECTORY}" ]]; then
-  echo "ASSET_RECEIVER_DATABASE_DIRECTORY cannot be empty. A value must be provided."
-  exit 1
-fi
-
-if [[ -z "${FILE_DATA_DIRECTORY}" ]]; then
-  echo "FILE_DATA_DIRECTORY cannot be empty. A value must be provided."
-  exit 1
-fi
-
 if [[ -n "${LOOM_SERVER_TOKEN}" ]]; then
   export PROBO_LOOM_SERVER_TOKEN="${LOOM_SERVER_TOKEN}"
   export LOOM_SERVER_TOKEN="tokens:"$'\n'"  - ${LOOM_SERVER_TOKEN}"
@@ -38,25 +18,20 @@ if [[ -n "${ASSET_RECEIVER_TOKEN}" ]]; then
 fi
 
 # Create our data directories and set permissions
-mkdir -p $STORAGE_DATA_DIR
-chmod 777 $STORAGE_DATA_DIR
-chown probo:probo $STORAGE_DATA_DIR
+mkdir -p -m 777 /opt/probo/data/database/loom
+chown probo:probo /opt/probo/data/database/loom
 
-mkdir -p $PROBO_DATA_DIRECTORY
-chmod 777 $PROBO_DATA_DIRECTORY
-chown probo:probo $PROBO_DATA_DIRECTORY
+mkdir -p -m 777 /opt/probo/data/container-manager-data
+chown probo:probo /opt/probo/data/container-manager-data
 
-mkdir -p $ASSET_RECEIVER_DATABASE_DIRECTORY
-chmod 777 $ASSET_RECEIVER_DATABASE_DIRECTORY
-chown probo:probo $ASSET_RECEIVER_DATABASE_DIRECTORY
+mkdir -p -m 777 /opt/probo/data/databases/asset-receiver
+chown probo:probo /opt/probo/data/databases/asset-receiver
 
-mkdir -p $FILE_DATA_DIRECTORY
-chmod 777 $FILE_DATA_DIRECTORY
-chown probo:probo $FILE_DATA_DIRECTORY
+mkdir -p -m 777 /opt/probo/data/files/asset-receiver
+chown probo:probo /opt/probo/data/files/asset-receiver
 
-mkdir -p $RETHINK_DATA_DIR
-chmod 777 $RETHINK_DATA_DIR
-chown probo:probo $RETHINK_DATA_DIR
+mkdir -p -m 777 /opt/probo/data/database/rethinkdb
+chown probo:probo /opt/probo/data/database/rethinkdb
 
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
@@ -71,18 +46,18 @@ cp /opt/probo/yml/loom-default-defaults.yml /opt/probo/probo-loom/defaults.yaml
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
-cd $RETHINK_DATA_DIR
+cd /opt/probo/data/database/rethinkdb
 rethinkdb --daemon --no-http-admin --runuser probo --rungroup probo
 
-# lets do logging during development
-mkdir -p $PROBO_LOGGING_DIR
-chmod 777 $PROBO_LOGGING_DIR
-chown probo:probo $PROBO_LOGGING_DIR
+# logging directory for process logging if configured to do so. create the directory
+# anyway. it will just be empty if not configured for use.
+mkdir -p -m 777 /opt/probo/data/logs
+chown probo:probo /opt/probo/data/logs
 
 # start all of our probo processes as the probo user with the exception of
 # the proxy in case the proxy is run on port 80.
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-  su - probo -c "/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > ${PROBO_LOGGING_DIR}/container-manager.log &"
+  su - probo -c "/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > /opt/probo/data/logs/container-manager.log &"
 else
   su - probo -c "/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml &"
 fi
@@ -90,7 +65,7 @@ fi
 if [[ ! -z "${USE_GITHUB}" ]] && [ $USE_GITHUB = "1" ]; then
   envsubst < /opt/probo/yml/github-defaults.yml > /opt/probo/probo/github-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml > ${PROBO_LOGGING_DIR}/github-handler.log &"
+    su - probo -c "/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml > /opt/probo/data/logs/github-handler.log &"
   else
     su - probo -c "/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml &"
   fi
@@ -99,7 +74,7 @@ fi
 if [[ ! -z "${USE_BITBUCKET}" ]] && [ $USE_BITBUCKET = "1" ]; then
   envsubst < /opt/probo/yml/bitbucket-defaults.yml > /opt/probo/probo-bitbucket/bitbucket-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > ${PROBO_LOGGING_DIR}/bitbucket-handler.log &"
+    su - probo -c "/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > /opt/probo/data/logs/bitbucket-handler.log &"
   else
     su - probo -c "/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml &"
   fi
@@ -108,7 +83,7 @@ fi
 if [[ ! -z "${USE_GITLAB}" ]] && [ $USE_GITLAB = "1" ]; then
   envsubst < /opt/probo/yml/gitlab-defaults.yml > /opt/probo/probo-gitlab/gitlab-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml > ${PROBO_LOGGING_DIR}/gitlab-handler.log &"
+    su - probo -c "/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml > /opt/probo/data/logs/gitlab-handler.log &"
   else
     su - probo -c "/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml &"
   fi
@@ -119,10 +94,10 @@ su - probo -c 'mkdir /opt/probo/probo-loom/data'
 su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
 
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > ${PROBO_LOGGING_DIR}/asset-receiver.log &"
-  su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > ${PROBO_LOGGING_DIR}/probo-loom.log &"
+  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /opt/probo/data/logs/asset-receiver.log &"
+  su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/data/logs/probo-loom.log &"
   # start the proxy as the root user just in case we're on port 80.
-  node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > ${PROBO_LOGGING_DIR}/probo-proxy.log &
+  node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /opt/probo/data/logs/probo-proxy.log &
 else
   su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml &"
   su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml &"
@@ -131,4 +106,3 @@ else
 fi
 
 su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server'
-
