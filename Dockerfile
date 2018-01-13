@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.12"
+LABEL version="0.13"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -15,6 +15,47 @@ ENV TERM xterm
 
 # Fix command line compile issue with bundler.
 ENV LC_ALL en_US.utf8
+
+# Our default environment variables
+ENV PROBO_LOGGING="0" \
+    CM_INSTANCE_NAME="OSProboCI" \
+    ASSET_RECEIVER_URL="http//example.com:3070" \
+    PROBO_BUILD_URL="http//{{buildId}}.example.com:3050/" \
+    SERVICE_ENDPOINT_URL="http//www.example.com/probo-api/service-endpoint.json" \
+    USE_GITHUB="1" \
+    GITHUB_WEBHOOK_PATH="/github-webhook" \
+    GITHUB_WEBHOOK_SECRET="CHANGE-ME" \
+    GITHUB_API_TOKEN="personal token here" \
+    USE_BITBUCKET="0" \
+    BB_WEBHOOK_URL="/bitbucket-webhook" \
+    BB_CLIENT_KEY="" \
+    BB_CLIENT_SECRET="" \
+    BB_ACCESS_TOKEN="" \
+    BB_REFRESH_TOKEN="" \
+    USE_GITLAB="0" \
+    GITLAB_WEBHOOK_URL="/gitlab-webhook" \
+    GITLAB_CLIENT_KEY="" \
+    GITLAB_CLIENT_SECRET="" \
+    FILE_STORAGE_PLUGIN="LocalFiles" \
+    ENCRYPTION_CIPHER="aes-256-cbc" \
+    ENCRYPTION_PASSWORD="password" \
+    RECIPHERED_OUTPUT_DIR="" \
+    ASSET_RECEIVER_TOKEN="" \
+    UPLOADS_PAUSED="false" \
+    AWS_ACCESS_KEY_ID="" \
+    AWS_SECRET_ACCESS_KEY="" \
+    AWS_BUCKET="" \
+    LOOM_SERVER_TOKEN="" \
+    LOOM_EVENT_API_URL="" \
+    REAPER_DRY_RUN="true" \
+    REAPER_OUTPUT_FORMAT="text" \
+    REAPER_BRANCH_BUILD_LIMIT="1" \
+    PROXY_PORT="3050" \
+    PROXY_HOSTNAME_IP="localhost" \
+    PROXY_CACHE_ENABLED="true" \
+    PROXY_CACHE_MAX="500" \
+    PROXY_CACHE_MAX_AGE="5m" \
+    PROXY_SERVER_TIMEOUT="10m"
 
 # Create the Probo user for the adding in of all our Probo daemons.
 RUN useradd -ms /bin/bash probo
@@ -30,11 +71,10 @@ RUN yum -y install epel-release && \
 RUN yum -y install \
   curl \
   git2u \
-  net-tools \
-  vim \
   wget \
   gettext \
-  docker-client 
+  docker-client \
+  crontabs.noarch
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -73,7 +113,7 @@ RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/pro
 RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
 RUN git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 RUN git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
-RUN git clone --depth=1 --branch=switch-to-kafka https://github.com/ElusiveMind/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
+RUN git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
 RUN git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
@@ -120,6 +160,10 @@ RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/
 RUN chmod 755 /opt/probo/yml/*
 RUN chown -R probo:probo /opt/probo/yml
+
+# copy the reaper crontab and install it for the root user.
+COPY crontab/crontab.txt /crontab.txt
+RUN crontab /crontab.txt
 
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.

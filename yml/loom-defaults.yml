@@ -20,7 +20,7 @@ storageMetaTable: "meta"
 storageLogsTable: "logs"
 
 # Path on file system for storing stream files. Defaults to "data"
-storageDataDir: "$STORAGE_DATA_DIR"
+storageDataDir: "/opt/probo/data/database/loom"
 
 # Timeout for tailing streams. Defaults to 30 seconds.
 # storageTailTimeout: 30s

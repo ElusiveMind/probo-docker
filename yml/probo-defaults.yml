@@ -259,7 +259,7 @@ images:
         command: 'tail -F /var/log/php/error.log'
 
 # Data directory for build information LevelDB data.
-dataDir: '$PROBO_DATA_DIRECTORY'
+dataDir: '/opt/probo/data/container-manager-data'
 
 # Volumes to mount into created containers.
 binds: []

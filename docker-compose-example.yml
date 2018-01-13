@@ -17,9 +17,6 @@ services:
     environment:
       # Default Probo Configuration Options
       PROBO_LOGGING: 1
-      PROBO_LOGGING_DIR: /opt/probo/data/logs
-      PROBO_DATA_DIRECTORY: /opt/probo/data/container-manager-data
-      AUTH_CREDENTIAL_SERVICE: http://localhost:3000/auth_lookup
       # Container Manager Variables
       CM_INSTANCE_NAME: 'OSProboCI'
       ASSET_RECEIVER_URL: 'http://example.com:3070'
@@ -43,9 +40,7 @@ services:
       GITLAB_CLIENT_KEY: ''
       GITLAB_CLIENT_SECRET: ''
       # Asset Receiver Variables
-      ASSET_RECEIVER_DATABASE_DIRECTORY: /opt/probo/data/databases/asset-receiver
       FILE_STORAGE_PLUGIN: LocalFiles
-      FILE_DATA_DIRECTORY: /opt/probo/data/files/asset-receiver
       ENCRYPTION_CIPHER: aes-256-cbc
       ENCRYPTION_PASSWORD: password
       RECIPHERED_OUTPUT_DIR: ''
@@ -55,8 +50,6 @@ services:
       AWS_SECRET_ACCESS_KEY: ''
       AWS_BUCKET: ''
       # Loom Configuration Options
-      STORAGE_DATA_DIR: /opt/probo/data/loom
-      RETHINK_DATA_DIR: /opt/probo/data/database/rethinkdb
       LOOM_SERVER_TOKEN: ''
       LOOM_EVENT_API_URL: ''
       # Reaper Configuration Options
