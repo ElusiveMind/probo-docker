@@ -143,7 +143,7 @@ _Default: true_
 
 **REAPER_OUTPUT_FORMAT**  
 _Default: text_  
-The output format used for --status command. Options are:  
+The output format used for --status command. Options are:
 - json: JSON output - one line per JSON object
 - text: (default) - human readable hearchical output
 
@@ -170,5 +170,5 @@ _Default: 0_
 A boolean value to communicate whether or not the GitLab handler should be configured and started as part of the server.  
 
 **USE_GITHUB**  
-_Default: 0_
+_Default: 0_  
 A boolean value to communicate whether or not the GitHub handler should be configured and started as part of the server.  
