@@ -16,6 +16,53 @@ ENV TERM xterm
 # Fix command line compile issue with bundler.
 ENV LC_ALL en_US.utf8
 
+# Our default environment variables
+ENV PROBO_LOGGING="0" \
+    PROBO_DATA_DIRECTORY="/opt/probo/data/container-manager-data" \
+    AUTH_CREDENTIAL_SERVICE="http//localhost:3000/auth_lookup" \
+    CM_INSTANCE_NAME="OSProboCI" \
+    ASSET_RECEIVER_URL="http//example.com:3070" \
+    PROBO_BUILD_URL="http//{{buildId}}.example.com:3050/" \
+    SERVICE_ENDPOINT_URL="http//www.example.com/probo-api/service-endpoint.json" \
+    USE_GITHUB="1" \
+    GITHUB_WEBHOOK_PATH="/github-webhook" \
+    GITHUB_WEBHOOK_SECRET="CHANGE-ME" \
+    GITHUB_API_TOKEN="personal token here" \
+    USE_BITBUCKET="0" \
+    BB_WEBHOOK_URL="/bitbucket-webhook" \
+    BB_CLIENT_KEY="" \
+    BB_CLIENT_SECRET="" \
+    BB_ACCESS_TOKEN="" \
+    BB_REFRESH_TOKEN="" \
+    USE_GITLAB="0" \
+    GITLAB_WEBHOOK_URL="/gitlab-webhook" \
+    GITLAB_CLIENT_KEY="" \
+    GITLAB_CLIENT_SECRET="" \
+    ASSET_RECEIVER_DATABASE_DIRECTORY="/opt/probo/data/databases/asset-receiver" \
+    FILE_STORAGE_PLUGIN="LocalFiles" \
+    FILE_DATA_DIRECTORY="/opt/probo/data/files/asset-receiver" \
+    ENCRYPTION_CIPHER="aes-256-cbc" \
+    ENCRYPTION_PASSWORD="password" \
+    RECIPHERED_OUTPUT_DIR="" \
+    ASSET_RECEIVER_TOKEN="" \
+    UPLOADS_PAUSED="false" \
+    AWS_ACCESS_KEY_ID="" \
+    AWS_SECRET_ACCESS_KEY="" \
+    AWS_BUCKET="" \
+    STORAGE_DATA_DIR="/opt/probo/data/database/loom" \
+    RETHINK_DATA_DIR="/opt/probo/data/database/rethinkdb" \
+    LOOM_SERVER_TOKEN="" \
+    LOOM_EVENT_API_URL="" \
+    REAPER_DRY_RUN="true" \
+    REAPER_OUTPUT_FORMAT="text" \
+    REAPER_BRANCH_BUILD_LIMIT="1" \
+    PROXY_PORT="3050" \
+    PROXY_HOSTNAME_IP="localhost" \
+    PROXY_CACHE_ENABLED="true" \
+    PROXY_CACHE_MAX="500" \
+    PROXY_CACHE_MAX_AGE="5m" \
+    PROXY_SERVER_TIMEOUT="10m"
+
 # Create the Probo user for the adding in of all our Probo daemons.
 RUN useradd -ms /bin/bash probo
 

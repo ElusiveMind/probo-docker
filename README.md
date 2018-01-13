@@ -12,23 +12,14 @@ The goal of this project is to have a fully functional Open Source Probo.CI cont
   2. Changelog For ProboCI Open Source Server  
      https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
 
-#### Last Updated: January 9, 2018
+#### Last Updated: January 13, 2018
 
-A complete set of changes can be found in the CHANGELOG.md file located in the same directory as this README.md file. Please see that for a complete list of changes since the inception of this project if needed.
+#### Configuration Environment Variables
 
-v.12 - January 9, 2018
-  - Convert logging path to environment variable which can be set in docker call or docker-compose.
-  - Clean up of environment variable names to be in line with daemon names.
-  - Allow for configuratiion of logging mode (on/off)
+A complete list of configurations and default values can be viewed on the Probo Docker wiki page:  
 
-v.11 - January 8, 2018
-  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
+https://github.com/ElusiveMind/probo-docker/wiki/Configuration-Environment-Variables  
 
-v.10 - January 7, 2018
-  - Optimization of container by removing unnecessary packages from being installed
-  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
-
-v.09 - January 6, 2018
-  - Removed default.yaml file so that default tokens would not be included in configuration.
-  - Fixed remaining formatting bug with Loom tokens. Tokens now confirmed working with Loom.
-  - Allow the proxy port to be configurable.
+**PROBO_LOGGING**  
+_Default: 0_  
+Boolean value (either 1 or 0). Setting a value of 1 will cause each enabled process to log output to the location of the PROBO_LOGGING_DIR directory setting. These logs are typically used for debugging builds and are not recommended for production server configurations.  

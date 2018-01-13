@@ -130,5 +130,5 @@ else
   node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
 fi
 
-su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server &'
-su - probo -c '/opt/probo/probo-notifier/bin/probo-notifier server'
+su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server'
+
