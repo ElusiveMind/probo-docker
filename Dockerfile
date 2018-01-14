@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.13"
+LABEL version="0.14"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -61,8 +61,8 @@ ENV PROBO_LOGGING="0" \
 RUN useradd -ms /bin/bash probo
 
 # Install and enable repositories
-RUN yum -y update
-RUN yum -y install epel-release && \
+RUN yum -y update && \
+  yum -y install epel-release && \
   rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
   yum -y update
 
@@ -73,8 +73,7 @@ RUN yum -y install \
   git2u \
   wget \
   gettext \
-  docker-client \
-  crontabs.noarch
+  docker-client
 
 # Get the rethinkdb YUM repository information so we can install.
 RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
@@ -82,88 +81,76 @@ RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
 
 # Install all of the NodeJS dependencies as well as other Probo dependencies we will need
 # to successfully build Probo.
-RUN yum -y makecache fast
-RUN yum -y install rethinkdb
-RUN yum -y install nodejs \
-  node-gyp \
-  mocha \
-  nodejs-should \
-  make \
-  gcc \
-  g++
+RUN yum -y makecache fast && \
+  yum -y install rethinkdb \
+    nodejs \
+    node-gyp \
+    mocha \
+    nodejs-should \
+    make \
+    gcc \
+    g++
 
 # Perform yum cleanup 
 RUN yum -y upgrade && \
   yum clean all
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
-RUN groupadd docker
-RUN usermod -aG docker probo
-RUN mkdir /opt/probo
-RUN chmod 755 -R /opt/probo
-RUN chown probo:probo /opt
-RUN chown probo:probo /opt/probo
-RUN cd /opt/probo
+RUN groupadd docker && \
+  usermod -aG docker probo && \
+  mkdir /opt/probo && \
+  mkdir /opt/probo/node_modules && \
+  chmod 755 -R /opt/probo && \
+  chown probo:probo /opt && \
+  chown probo:probo /opt/probo/node_modules && \
+  chown probo:probo /opt/probo && \
+  cd /opt/probo
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind/probo.git /opt/probo/probo
-RUN git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver
-RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
-RUN git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
-RUN git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
-RUN git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
-RUN git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
-RUN git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
+RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
+  git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
+  git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom && \
+  git clone --depth=1 --branch=hostname-replace-docker-hosting https://github.com/ElusiveMind/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
+  git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper && \
+  git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git && \
+  git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
+#RUN git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
 # handler.
 WORKDIR /opt/probo/probo
-RUN cd /opt/probo/probo
 RUN npm install
 
 WORKDIR /opt/probo/probo-loom
-RUN cd /opt/probo/probo-loom
 RUN npm install
 
 WORKDIR /opt/probo/probo-bitbucket
-RUN cd /opt/probo/probo-bitbucket
 RUN npm install
 
 WORKDIR /opt/probo/probo-asset-receiver
-RUN cd /opt/probo/probo-asset-receiver
 RUN npm install
 
 WORKDIR /opt/probo/probo-proxy
-RUN cd /opt/probo/probo-proxy
 RUN npm install
 
-WORKDIR /opt/probo/probo-notifier
-RUN cd /opt/probo/probo-notifier
-RUN npm install
+#WORKDIR /opt/probo/probo-notifier
+#RUN npm install
 
 WORKDIR /opt/probo/probo-reaper
-RUN cd /opt/probo/probo-reaper
 RUN npm install
 
 WORKDIR /opt/probo/probo-gitlab
-RUN cd /opt/probo/probo-gitlab
 RUN npm install
 
 USER root
 COPY sh/startup.sh /opt/probo/startup.sh
-RUN chmod 755 /opt/probo/startup.sh
-RUN chown probo:probo /opt/probo/startup.sh
+RUN chmod 755 /opt/probo/startup.sh && chown probo:probo /opt/probo/startup.sh
 
 RUN mkdir /opt/probo/yml
 COPY yml/* /opt/probo/yml/
-RUN chmod 755 /opt/probo/yml/*
-RUN chown -R probo:probo /opt/probo/yml
-
-# copy the reaper crontab and install it for the root user.
-COPY crontab/crontab.txt /crontab.txt
-RUN crontab /crontab.txt
+RUN chmod 755 /opt/probo/yml/* && chown -R probo:probo /opt/probo/yml
 
 # Until a patch is made to correct variable sanioty checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.

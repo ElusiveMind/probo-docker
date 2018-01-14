@@ -1,1 +1,0 @@
-*/5 * * * * /opt/probo/probo-reaper/bin/probo-reaper reap
