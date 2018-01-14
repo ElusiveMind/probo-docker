@@ -1,24 +1,18 @@
 # Containerized Open Source Probo.CI Server
-The construction of an open source Probo.CI server within a Docker container.
+The construction of an open source ProboCI server within a Docker container.
 
-This README will serve as a placeholder. Coming soon will be the instructions for configuring your own Probo.CI open source server that you can run easily on your own hardware using the Docker container system. Check back here regularly for updates.
+The goal of this project is to have a fully functional Open Source Probo.CI container with a companion Drupal 8 based portal container for administering and looking at builds on the Open Source ProboCI Server.
 
-The goal of this project is to have a fully functional Open Source Probo.CI container with a companion Drupal 8 based portal container for administering and looking at builds in the system.
+### Complete Documentation Wiki
+For complete information on this project including expanded documentation, please visit the Wiki page for this project on GitHub located at:  
 
-#### Table of Contents (Wiki Links)
-  1. The Importance of Persistent Data in Docker Containers  
-     https://github.com/ElusiveMind/probo-docker/wiki/The-Importance-of-Persistent-Data-in-Docker-Containers
+https://github.com/ElusiveMind/probo-docker/wiki  
 
-  2. Changelog For ProboCI Open Source Server  
-     https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server  
+You can view additional documentation on the Probo Open Source initiative at:  
 
-#### Last Updated: January 13, 2018
+https://docs.probo.ci/open-source/  
 
-#### Configuration Environment Variables
-
-A complete list of configurations and default values can be viewed on the Probo Docker wiki page:  
-
-https://github.com/ElusiveMind/probo-docker/wiki/Configuration-Environment-Variables  
+### Configuration Environment Variables
 
 **ASSET_RECEIVER_TOKEN**  
 _Default: null_  
@@ -86,6 +80,7 @@ The GitLab client key configured in your GitLab application.
 
 **GITLAB_CLIENT_SECRET**  
 _Default: null_  
+The GitLab client secret key configured in your GitLab application.  
 
 **GITHUB_API_TOKEN**  
 _Default: personal token here_  
@@ -108,11 +103,11 @@ _Default: null_
 
 **PROBO_BUILD_URL**  
 _Default: http://{{buildId}}.example.com:3050/_  
-URL template string for viewing each build. {{buildId}} expands to the id of the build.  
+URL template string for viewing each build. {{buildId}} expands to the id of the build. Must include the port number if not using a standard port number (port 80).  
 
 **PROXY_CACHE_ENABLED**  
 _Default: true_  
-Enable a caching mechanism for the proxy server. This will cache items locally for the proxy.  
+Enable a caching mechanism for the proxy server. This will cache items locally for the proxy and result in better performance.  
 
 **PROXY_CACHE_MAX**  
 _Default: 500_  

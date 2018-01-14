@@ -99,10 +99,8 @@ RUN yum -y upgrade && \
 RUN groupadd docker && \
   usermod -aG docker probo && \
   mkdir /opt/probo && \
-  mkdir /opt/probo/node_modules && \
   chmod 755 -R /opt/probo && \
   chown probo:probo /opt && \
-  chown probo:probo /opt/probo/node_modules && \
   chown probo:probo /opt/probo && \
   cd /opt/probo
 USER probo
