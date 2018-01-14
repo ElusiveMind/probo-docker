@@ -24,7 +24,7 @@ https://github.com/ElusiveMind/probo-docker/wiki/Configuration-Environment-Varia
 _Default: null_  
 The token used for uploading assets to the receiver. Needs to be part of the request to push files to the asset receiver. If not specified, no token will be required which is a security issue.  
 
-**ASSET_RECEIVER_URL**
+**ASSET_RECEIVER_URL**  
 _Default: http://example.com:3070_  
 The URL (with port) of your asset receiver process. This needs to be the URL with domain name and not an IP address as this will be looked up from within Docker containers. Probo uses this URL to fetch your assets from the asset receiver as part of the build process.  
 
