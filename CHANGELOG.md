@@ -3,7 +3,13 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: January 13, 2018
+#### Last Updated: January 14, 2018
+
+v.14 - January 14, 2018
+  - Optimization of Dockerfile to reduce the overall size of the image. Remove a bunch of redundant commands.
+  - Updated example docker-compose.yml file with proper boot order of images. Hopefully stabilizes startup process.
+  - Removed default cron job because it did not work. Needs to be set up from host vm now. Will provide documentation on wiki.
+  - Finalizing v.14 as the first build candidate for general use as part of the Drupal 8 module. 
 
 v.13 - January 13, 2018
   - Implementation of a default cron job to run probo-reaper every 5 minutes.
