@@ -3,15 +3,16 @@ The construction of an open source ProboCI server within a Docker container.
 
 The goal of this project is to have a fully functional Open Source Probo.CI container with a companion Drupal 8 based portal container for administering and looking at builds on the Open Source ProboCI Server.
 
-#### Complete Documentation Wiki
+### Complete Documentation Wiki
 For complete information on this project including expanded documentation, please visit the Wiki page for this project on GitHub located at:  
+
 https://github.com/ElusiveMind/probo-docker/wiki  
 
 You can view additional documentation on the Probo Open Source initiative at:  
 
 https://docs.probo.ci/open-source/  
 
-#### Configuration Environment Variables
+### Configuration Environment Variables
 
 **ASSET_RECEIVER_TOKEN**  
 _Default: null_  
