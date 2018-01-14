@@ -89,10 +89,6 @@ if [[ ! -z "${USE_GITLAB}" ]] && [ $USE_GITLAB = "1" ]; then
   fi
 fi
 
-# create the directory for the loom streaming files.
-su - probo -c 'mkdir /opt/probo/probo-loom/data'
-su - probo -c 'chmod 777 /opt/probo/probo-loom/data'
-
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
   su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /opt/probo/data/logs/asset-receiver.log &"
   su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/data/logs/probo-loom.log &"
