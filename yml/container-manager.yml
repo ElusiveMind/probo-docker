@@ -11,11 +11,11 @@ auth:
 
 loom:
   url: 'http://localhost:3060'
-  token: $LOOM_SERVER_TOKEN
+  token: $PROBO_LOOM_SERVER_TOKEN
 
 assets:
   url: '$ASSET_RECEIVER_URL'
-  token: $ASSET_RECEIVER_TOKEN
+  token: $PROBO_ASSET_RECEIVER_TOKEN
 
 buildUrl: '$PROBO_BUILD_URL'
 
