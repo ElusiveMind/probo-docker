@@ -2,6 +2,7 @@ hostname: localhost
 port: 3020
 
 instanceName: '$CM_INSTANCE_NAME'
+
 api:
   url: 'http://localhost:3012'
 
@@ -17,4 +18,5 @@ assets:
   token: $ASSET_SERVER_TOKEN
 
 buildUrl: '$PROBO_BUILD_URL'
-endpointUrl: '$DRUPAL_ENDPOINT_URL'
+
+endpointUrl: '$SERVICE_ENDPOINT_URL'

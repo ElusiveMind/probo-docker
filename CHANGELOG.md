@@ -3,10 +3,30 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: January 7, 2018
+#### Last Updated: January 14, 2018
+
+v.14 - January 14, 2018
+  - Optimization of Dockerfile to reduce the overall size of the image. Remove a bunch of redundant commands.
+  - Updated example docker-compose.yml file with proper boot order of images. Hopefully stabilizes startup process.
+  - Removed default cron job because it did not work. Needs to be set up from host vm now. Will provide documentation on wiki.
+  - Finalizing v.14 as the first build candidate for general use as part of the Drupal 8 module. 
+
+v.13 - January 13, 2018
+  - Implementation of a default cron job to run probo-reaper every 5 minutes.
+  - Begin documentation of environment variables in README for display on DockerHub.
+  - Removed several environment configurations that do not need to be configurable for the sake of simplicity.
+
+v.12 - January 9, 2018
+  - Convert logging path to environment variable which can be set in docker call or docker-compose.
+  - Clean up of environment variable names to be in line with daemon names.
+  - Allow for configuration of logging mode (on/off)
+
+v.11 - January 8, 2018
+  - Modified forked probo to provide only data we need to Drupal. Data pushed to Rest API (Drupal) if configured.
 
 v.10 - January 7, 2018
   - Optimization of container by removing unnecessary packages from being installed
+  - Change to the forked version of probo which provides status updates to Drupal's dashboard module.
 
 v.09 - January 6, 2018
   - Removed default.yaml file so that default tokens would not be included in configuration.

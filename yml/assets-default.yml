@@ -3,25 +3,25 @@ host: 0.0.0.0
 # The port to listen on.
 port: 3070
 # The directory in which to store the LevelDB database.
-databasePlugin: LevelDB
+databasePlugin: 'LevelDB'
 databaseConfig:
-  databaseDataDirectory: $ASSET_RECEIVER_DATABASE_DIRECTORY
+  databaseDataDirectory: '/opt/probo/data/databases/asset-receiver'
 # Which method of file storage are we using and where are we storing
 # the files based on that method.
-fileStoragePlugin: $FILE_STORAGE_PLUGIN
+fileStoragePlugin: '$FILE_STORAGE_PLUGIN'
 fileStorageConfig:
-  fileDataDirectory: $FILE_DATA_DIRECTORY
-  awsAccessKeyId: $AWS_ACCESS_KEY_ID
-  awsSecretAccessKey: $AWS_SECRET_ACCESS_KEY
-  awsBucket: $AWS_BUCKET
+  fileDataDirectory: '/opt/probo/data/files/asset-receiver'
+  awsAccessKeyId: '$AWS_ACCESS_KEY_ID'
+  awsSecretAccessKey: '$AWS_SECRET_ACCESS_KEY'
+  awsBucket: '$AWS_BUCKET'
 # Determines the cipher used to encrypt the assets.
 # See https://www.openssl.org/docs/manmaster/apps/ciphers.html for options.
 encryptionCipher: '$ENCRYPTION_CIPHER'
-encryptionPassword: $ENCRYPTION_PASSWORD
+encryptionPassword: '$ENCRYPTION_PASSWORD'
 
-recipheredOutputDir: $RECIPHERED_OUTPUT_DIR
+recipheredOutputDir: '$RECIPHERED_OUTPUT_DIR'
 
 # API tokens for creating all routes except asset upload (disabled by default)
-$ASSET_SERVER_TOKEN
+$ASSET_RECEIVER_TOKEN
 
 uploadsPaused: $UPLOADS_PAUSED

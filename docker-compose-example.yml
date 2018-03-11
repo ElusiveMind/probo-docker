@@ -1,32 +1,27 @@
 # Our example docker-compose.yml file for building the probo container. You should replace the
 # correlating values with your configuration options with your domains. You also should not
-# change any of the volumes settings. Please see the documentation location at
-# https://probo-open-source.com
+# change any of the volumes settings.
 version: '2'
 services:
   probo:
-    build: 
-      context: .
+    image: mbagnall/probo
     container_name: OSProboCI-Docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./probo-data:/opt/probo/data
     ports:
-      - "80:80"
       - "3012:3012"
-      - "3013:3013"
-      - "3014:3014"
+      - "3060:3060"
+      - "3050:3050"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
-      PROBO_DATA_DIRECTORY: /opt/probo/data/container-manager-data
-      AUTH_CREDENTIAL_SERVICE: http://localhost:3000/auth_lookup
+      PROBO_LOGGING: 1
       # Container Manager Variables
       CM_INSTANCE_NAME: 'OSProboCI'
-      ASSET_SERVER_URL: 'http://example.com:3070'
-      ASSET_SERVER_TOKEN: ''
+      ASSET_RECEIVER_URL: 'http://example.com:3070'
       PROBO_BUILD_URL: 'http://{{buildId}}.example.com:3050/'
-      DRUPAL_ENDPOINT_URL: 'http://www.example.com/probo-api/service-endpoint.json'
+      SERVICE_ENDPOINT_URL: 'http://www.example.com/probo-api/service-endpoint.json'
       # GitHub Configuration Options
       USE_GITHUB: 0
       GITHUB_WEBHOOK_PATH: '/github-webhook'
@@ -45,20 +40,18 @@ services:
       GITLAB_CLIENT_KEY: ''
       GITLAB_CLIENT_SECRET: ''
       # Asset Receiver Variables
-      ASSET_RECEIVER_DATABASE_DIRECTORY: /opt/probo/data/databases/asset-receiver
       FILE_STORAGE_PLUGIN: LocalFiles
-      FILE_DATA_DIRECTORY: /opt/probo/data/files/asset-receiver
       ENCRYPTION_CIPHER: aes-256-cbc
       ENCRYPTION_PASSWORD: password
-      RECIPHERED_OUTPUT_DIR: null
-      TOKENS: null
+      RECIPHERED_OUTPUT_DIR: ''
+      ASSET_RECEIVER_TOKEN: ''
       UPLOADS_PAUSED: 'false'
       AWS_ACCESS_KEY_ID: ''
       AWS_SECRET_ACCESS_KEY: ''
       AWS_BUCKET: ''
       # Loom Configuration Options
-      STORAGE_DATA_DIR: /opt/probo/data/loom
       LOOM_SERVER_TOKEN: ''
+      LOOM_EVENT_API_URL: ''
       # Reaper Configuration Options
       REAPER_DRY_RUN: 'true'
       REAPER_OUTPUT_FORMAT: text
@@ -84,9 +77,11 @@ services:
     image: wurstmeister/kafka:1.0.0
     container_name: OSProboCI-Kafka
     environment:
-      KAFKA_ADVERTISED_LISTENERS: 192.168.0.14
+      KAFKA_ADVERTISED_LISTENERS: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     ports:
-      - 9092:9092
+      - "9092:9092"
+    depends_on:
+      - zookeeper
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
