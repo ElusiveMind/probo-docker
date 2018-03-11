@@ -14,8 +14,8 @@ loom:
   token: $LOOM_SERVER_TOKEN
 
 assets:
-  url: '$ASSET_SERVER_URL'
-  token: $ASSET_SERVER_TOKEN
+  url: '$ASSET_RECEIVER_URL'
+  token: $ASSET_RECEIVER_TOKEN
 
 buildUrl: '$PROBO_BUILD_URL'
 
