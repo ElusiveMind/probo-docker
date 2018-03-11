@@ -5,7 +5,7 @@ https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Sour
 
 #### Last Updated: March 11, 2018
 
-v.15 - March 11, 2018
+v.16 - March 11, 2018
   - Corrected inconsistent environment variable naming in yml files.
 
 v.14 - January 14, 2018
