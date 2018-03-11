@@ -275,8 +275,8 @@ loom:
 
 # asset server (must NOT be localhost because it's called from within container)
 assets:
-  url: "$ASSET_SERVER_URL"
-  token: $PROBO_ASSET_SERVER_TOKEN
+  url: '$ASSET_SERVER_URL'
+  token: $ASSET_SERVER_TOKEN
 
 # auth credentials service (i.e., for stash)
 auth:
