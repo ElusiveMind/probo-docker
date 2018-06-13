@@ -3,7 +3,10 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: March 11, 2018
+#### Last Updated: June 13, 2019
+
+v.17 - June 13, 2018
+  - Updated to pull in the latest updates from the probo project for the Drupal plugin.
 
 v.16 - March 11, 2018
   - Corrected inconsistent environment variable naming in yml files.
