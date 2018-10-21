@@ -257,16 +257,21 @@ images:
         command: 'service solr start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
-
-# Data directory for build information LevelDB data.
-dataDir: '/opt/probo/data/container-manager-data'
-
+dataDir: './container-manager-data'
 # Volumes to mount into created containers.
 binds: []
+# Settings for the github handler
+# port
+githubWebhookPath: '/github-webhook'
+githubWebhookSecret: 'CHANGE-ME'
+# This is temporary, we will need a proper oauth system to get the tokens that should be used.
+githubAPIToken: 'personal token here'
 
 # Settings for the API or Container Manager server
+# port
 api:
-  url: "http://localhost:3020"
+  url: "http://localhost:3000"
+  token: "API token here"
 
 # loom (log aggregator server)
 loom:
