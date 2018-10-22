@@ -19,4 +19,4 @@ assets:
 
 buildUrl: '$PROBO_BUILD_URL'
 
-#endpointUrl: '$SERVICE_ENDPOINT_URL'
+endpointUrl: '$SERVICE_ENDPOINT_URL'
