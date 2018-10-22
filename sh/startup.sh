@@ -12,6 +12,12 @@ if [[ -n "${LOOM_SERVER_TOKEN}" ]]; then
   export LOOM_SERVER_TOKEN="tokens:"$'\n'"  - ${LOOM_SERVER_TOKEN}"
 fi
 
+if [[ ! -z "${CREATE_LOOM_TASK_LOGS}" ]] && [ $CREATE_LOOM_TASK_LOGS = "1" ]; then
+  export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/opt/probo/data/database/loom"
+else
+  export LOOM_STORAGE_DATA_DIR=""
+fi
+
 if [[ -n "${ASSET_RECEIVER_TOKEN}" ]]; then
   export PROBO_ASSET_RECEIVER_TOKEN="${ASSET_RECEIVER_TOKEN}"
   export ASSET_RECEIVER_TOKEN="tokens: '${ASSET_RECEIVER_TOKEN}'"

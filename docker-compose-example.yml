@@ -52,6 +52,7 @@ services:
       # Loom Configuration Options
       LOOM_SERVER_TOKEN: ''
       LOOM_EVENT_API_URL: ''
+      CREATE_LOOM_TASK_LOGS: 1
       # Reaper Configuration Options
       REAPER_DRY_RUN: 'true'
       REAPER_OUTPUT_FORMAT: text
