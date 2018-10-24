@@ -13,7 +13,7 @@ if [[ -n "${LOOM_SERVER_TOKEN}" ]]; then
 fi
 
 if [[ ! -z "${CREATE_LOOM_TASK_LOGS}" ]] && [ $CREATE_LOOM_TASK_LOGS = "1" ]; then
-  export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/opt/probo/data/database/loom"
+  export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/opt/probo/data/database/loom\""
 else
   export LOOM_STORAGE_DATA_DIR=""
 fi
