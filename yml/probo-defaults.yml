@@ -32,6 +32,23 @@ defaultImage: 'proboci/ubuntu-14.04-lamp'
 image: 'proboci/ubuntu-14.04-lamp'
 # The images used by the host manager
 images:
+  'proofroom/ubuntu-16.04-php7.1':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: 'service solr start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+      postgres:
+        command: 'service postgresql start'
   'proboci/ubuntu-14.04-lamp':
     services:
       cleanapache:
