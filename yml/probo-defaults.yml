@@ -134,23 +134,6 @@ images:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu-16.04':
     services:
       cleanapache:
