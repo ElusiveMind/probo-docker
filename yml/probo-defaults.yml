@@ -45,7 +45,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -62,7 +62,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -79,7 +79,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -96,7 +96,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -113,7 +113,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -130,7 +130,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -147,7 +147,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -164,7 +164,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -181,7 +181,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -198,7 +198,7 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
-      solr:
+      postgresql:
         command: 'service postgresql start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
