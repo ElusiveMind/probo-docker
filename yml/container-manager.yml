@@ -20,3 +20,6 @@ assets:
 buildUrl: '$PROBO_BUILD_URL'
 
 endpointUrl: '$SERVICE_ENDPOINT_URL'
+
+bypassTimeout: $BYPASS_TIMEOUT
+

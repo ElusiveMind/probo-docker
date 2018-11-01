@@ -22,6 +22,7 @@ ENV PROBO_LOGGING="0" \
     ASSET_RECEIVER_URL="http//example.com:3070" \
     PROBO_BUILD_URL="http//{{buildId}}.example.com:3050/" \
     SERVICE_ENDPOINT_URL="http//www.example.com/probo-api/service-endpoint.json" \
+    BYPASS_TIMEOUT="0" \
     USE_GITHUB="1" \
     GITHUB_WEBHOOK_PATH="/github-webhook" \
     GITHUB_WEBHOOK_SECRET="CHANGE-ME" \
