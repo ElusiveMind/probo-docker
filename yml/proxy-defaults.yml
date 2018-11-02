@@ -24,6 +24,6 @@ cacheMax: $PROXY_CACHE_MAX
 # (units default to ms). Defaults to 5 min
 cacheMaxAge: $PROXY_CACHE_MAX_AGE
 
-redirectUrl: ''
+redirectUrl: $REDIRECT_URL
 
 custom404Html: '<h1>404 - Build Not Found</h1><p>The build could not be found</p>'

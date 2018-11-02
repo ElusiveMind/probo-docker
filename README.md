@@ -54,6 +54,10 @@ The Bitbucket refresh token for this application. This must be obtained through 
 _Default: /bitbucket-webhook_  
 The endpoint of the Bitbucket webhook. This is used in the path configured in your webhook on Bitbucket.  
 
+**BYPASS_TIMEOUT**  
+_Default: 0_  
+A flag as to whether or not probo docker containers should timeout after a period of time. Setting this to 1 prevents container timeouts.  
+
 **CM_INSTANCE_NAME**  
 _Default: OSProboCI_  
 The name of your ProboCI instance. This will be used as part of the context build string viewable on your code repository status screen. This should be different for each probo server you run and should be custom set for your instance.  
@@ -148,6 +152,10 @@ Limit the number of builds per branch of code.
 
 **RECIPHERED_OUTPUT_DIR**  
 _Default: null_  
+
+**REDIRECT_URL**  
+_Default: null_  
+The URL to send people too when a build cannot be found or is in the process of being built. Also used for reaped builds. Sends query string at the end.  
 
 **SERVICE_ENDPOINT_URL**  
 _Default: http://www.example.com/probo-api/service-endpoint.json_  

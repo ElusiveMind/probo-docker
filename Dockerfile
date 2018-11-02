@@ -56,7 +56,8 @@ ENV PROBO_LOGGING="0" \
     PROXY_CACHE_ENABLED="true" \
     PROXY_CACHE_MAX="500" \
     PROXY_CACHE_MAX_AGE="5m" \
-    PROXY_SERVER_TIMEOUT="10m"
+    PROXY_SERVER_TIMEOUT="10m" \
+    REDIRECT_URL=""
 
 # Create the Probo user for the adding in of all our Probo daemons.
 RUN useradd -ms /bin/bash probo
