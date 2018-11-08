@@ -166,6 +166,9 @@ images:
         command: 'service solr start'
       postgresql:
         command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher'
+        port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu-16.04:php7.2':
