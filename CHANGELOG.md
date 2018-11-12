@@ -3,7 +3,18 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: June 13, 2019
+#### Last Updated: November 11, 2018
+
+
+v.18 - November 11, 2018
+  - Added the BYPASS_TIMEOUT variable to prevent builds from being torn down on a timeout.
+  - Added support for custom mbagnall images.
+    - MailCatcher support
+    - PostgreSQL support
+    - Memcached support
+  - Fix issues with loom configuration files and logging.
+  - Added a flag which sill suppress loom logs on configuration.
+  - Fix SOLR startup commands.
 
 v.17 - June 13, 2018
   - Updated to pull in the latest updates from the probo project for the Drupal plugin.

@@ -6,13 +6,16 @@ services:
   probo:
     image: mbagnall/probo
     container_name: OSProboCI-Docker
+    depends_on:
+      - zookeeper
+      - kafka
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./probo-data:/opt/probo/data
     ports:
       - "3012:3012"
-      - "3060:3060"
       - "3050:3050"
+      - "3060:3060"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
@@ -22,6 +25,7 @@ services:
       ASSET_RECEIVER_URL: 'http://example.com:3070'
       PROBO_BUILD_URL: 'http://{{buildId}}.example.com:3050/'
       SERVICE_ENDPOINT_URL: 'http://www.example.com/probo-api/service-endpoint.json'
+      BYPASS_TIMEOUT: '1'
       # GitHub Configuration Options
       USE_GITHUB: 0
       GITHUB_WEBHOOK_PATH: '/github-webhook'
@@ -64,15 +68,16 @@ services:
       PROXY_CACHE_MAX: 500
       PROXY_CACHE_MAX_AGE: 5m
       PROXY_SERVER_TIMEOUT: 10m
+      REDIRECT_URL: ''
     restart: always
 
   zookeeper:
     image: zookeeper:3.3.6
-    restart: always
     hostname: zookeeper
     container_name: OSProboCI-zookeeper
     ports:
       - "2181:2181"
+    restart: always
 
   kafka:
     image: wurstmeister/kafka:1.0.0
@@ -86,3 +91,4 @@ services:
       - zookeeper
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: always

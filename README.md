@@ -62,6 +62,10 @@ A flag as to whether or not probo docker containers should timeout after a perio
 _Default: OSProboCI_  
 The name of your ProboCI instance. This will be used as part of the context build string viewable on your code repository status screen. This should be different for each probo server you run and should be custom set for your instance.  
 
+**CREATE_LOOM_TASK_LOG**  
+_Default: 0_  
+Determines whether individual logs for Probo loom tasks are created. Good for debugging, bad for production.  
+
 **ENCRYPTION_CIPHER**  
 _Default: aes-256-cbc_  
 Determines the cipher used to encrypt the assets. See https://www.openssl.org/docs/manmaster/apps/ciphers.html for options.  
