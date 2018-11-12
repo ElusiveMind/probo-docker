@@ -170,7 +170,7 @@ images:
       postgresql:
         command: 'service postgresql start'
       mailcatcher:
-        command: 'mailcatcher'
+        command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
