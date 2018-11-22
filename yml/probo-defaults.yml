@@ -162,7 +162,7 @@ images:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
       mysql:
-        command: 'mysqld_safe'
+        command: 'service mysql start'
       redis:
         command: 'redis-server'
       solr:
