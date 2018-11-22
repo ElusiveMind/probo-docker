@@ -111,6 +111,8 @@ images:
         command: 'redis-server'
       solr:
         command: 'service solr start'
+      postgresql:
+        command: 'sudo -u postgres /usr/lib/postgresql/9.3/bin/postgres -D /var/lib/postgresql/9.3/main --config_file=/etc/postgresql/9.3/main/postgresql.conf'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu-14.04:php7.2':
