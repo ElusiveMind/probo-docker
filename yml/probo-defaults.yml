@@ -192,7 +192,7 @@ images:
         port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
-'mbagnall/ubuntu-18.04:php7.1':
+'mbagnall/ubuntu:18.04':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -201,15 +201,8 @@ images:
         port: 80
       mysql:
         command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
       postgresql:
         command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher'
-        port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'proboci/ubuntu-14.04-lamp':
