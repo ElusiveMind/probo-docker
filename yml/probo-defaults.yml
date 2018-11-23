@@ -202,7 +202,7 @@ images:
       mysql:
         command: 'mysqld_safe'
       postgresql:
-        command: 'sudo su - postgres -c "/usr/lib/postgresql/10/bin/pg_ctl -D /etc/postgresql/10/main -l logfile -w start"'
+        command: '"sudo su - postgres -c \"/usr/lib/postgresql/10/bin/pg_ctl -D /etc/postgresql/10/main -l logfile -w start\""'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'proboci/ubuntu-14.04-lamp':
