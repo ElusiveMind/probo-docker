@@ -192,7 +192,7 @@ images:
         port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
-'mbagnall/ubuntu:18.04':
+  'mbagnall/ubuntu:18.04':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
