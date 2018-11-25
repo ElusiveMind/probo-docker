@@ -199,6 +199,10 @@ images:
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
       mysql:
         command: 'mysqld_safe'
       postgresql:
