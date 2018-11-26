@@ -271,7 +271,7 @@ images:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
       solr:
-        command: 'service start solr'
+        command: 'service solr start'
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
@@ -294,7 +294,7 @@ images:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
       solr:
-        command: 'service start solr'
+        command: 'service solr start'
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
