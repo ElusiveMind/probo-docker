@@ -192,7 +192,7 @@ images:
         port: 1080
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu:18.04':
+  'mbagnall/ubuntu':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -250,6 +250,52 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.1-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service start solr'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.3-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service start solr'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'proboci/ubuntu-14.04-lamp':
