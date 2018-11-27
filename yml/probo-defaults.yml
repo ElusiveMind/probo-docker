@@ -50,6 +50,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6':
@@ -70,6 +75,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.0':
@@ -90,6 +100,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.1':
@@ -110,6 +125,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2':
@@ -130,6 +150,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.3':
@@ -150,6 +175,11 @@ images:
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6-dev':
@@ -173,6 +203,8 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.0-dev':
@@ -196,6 +228,8 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.1-dev':
@@ -219,6 +253,8 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2-dev':
@@ -242,6 +278,8 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.3-dev':
@@ -265,6 +303,8 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
+      varnish:
+        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
 dataDir: './container-manager-data'
