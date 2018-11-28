@@ -257,6 +257,31 @@ images:
         command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.1-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2-dev':
     services:
       cleanapache:
