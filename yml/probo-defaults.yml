@@ -182,6 +182,131 @@ images:
         command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php5.6-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.0-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.1-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.2-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.3-varnish':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6-dev':
     services:
       cleanapache:
@@ -257,31 +382,6 @@ images:
         command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu:php7.1-varnish':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      varnish:
-        command: 'service varnish start'
-        port: 80
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2-dev':
     services:
       cleanapache:
@@ -330,6 +430,131 @@ images:
         port: 8983
       varnish:
         command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php5.6-varnish-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.0-varnish-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.1-varnish-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.2-varnish-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:php7.3-varnish-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
 dataDir: './container-manager-data'
