@@ -53,8 +53,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6':
@@ -78,8 +76,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.0':
@@ -103,8 +99,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.1':
@@ -128,8 +122,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2':
@@ -153,8 +145,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.3':
@@ -178,8 +168,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6-varnish':
@@ -328,8 +316,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.0-dev':
@@ -353,8 +339,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.1-dev':
@@ -378,8 +362,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.2-dev':
@@ -403,8 +385,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php7.3-dev':
@@ -428,8 +408,6 @@ images:
       solr:
         command: 'service solr start'
         port: 8983
-      varnish:
-        command: 'service varnish start'
       php_log:
         command: 'tail -F /var/log/php/error.log'
   'mbagnall/ubuntu:php5.6-varnish-dev':
