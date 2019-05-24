@@ -27,9 +27,9 @@ containerIdleTimeout: 30m # can use time units here. no units = ms
 # Prefixes all routes so that the app can be namespaced.
 prefix: ''
 # If a container is not specified in the repository's configuration, use this one.
-defaultImage: 'mbagnall/probo-linux:php71'
+defaultImage: 'mbagnall/probo-lamp:php71'
 # The default image used if none is specified.
-image: 'mbagnall/probo-linux:php71'
+image: 'mbagnall/probo-lamp:php71'
 # The images used by the host manager
 images:
   'mbagnall/probo-lamp':
@@ -55,7 +55,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php56':
+  'mbagnall/probo-lamp:php56':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -78,7 +78,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php70':
+  'mbagnall/probo-lamp:php70':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -101,7 +101,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php71':
+  'mbagnall/probo-lamp:php71':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -124,7 +124,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php72':
+  'mbagnall/probo-lamp:php72':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -147,7 +147,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php73':
+  'mbagnall/probo-lamp:php73':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -170,32 +170,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php56v':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      varnish:
-        command: 'service varnish start'
-        port: 80
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php70v':
+  'mbagnall/probo-lamp:php56v':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -220,7 +195,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php71v':
+  'mbagnall/probo-lamp:php70v':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -245,7 +220,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php72v':
+  'mbagnall/probo-lamp:php71v':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -270,7 +245,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php73v':
+  'mbagnall/probo-lamp:php72v':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -295,122 +270,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php56-dev':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php70-dev':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php71-dev':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php72-dev':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php73-dev':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      redis:
-        command: 'redis-server'
-      memcached:
-        command: 'service memcached start'
-      mysql:
-        command: 'mysqld_safe'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher --ip 0.0.0.0'
-        port: 1080
-      solr:
-        command: 'service solr start'
-        port: 8983
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php56v-dev':
+  'mbagnall/probo-lamp:php73v':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -435,7 +295,122 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php70v-dev':
+  'mbagnall/probo-lamp:php56-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php70-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php71-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php72-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php73-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php56v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -460,7 +435,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php71v-dev':
+  'mbagnall/probo-lamp:php70v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -485,7 +460,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php72v-dev':
+  'mbagnall/probo-lamp:php71v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
@@ -510,7 +485,32 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-linux:php73v-dev':
+  'mbagnall/probo-lamp:php72v-dev':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php73v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
