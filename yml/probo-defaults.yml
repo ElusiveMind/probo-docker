@@ -535,7 +535,7 @@ images:
         port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-dataDir: './container-manager-data'
+dataDir: '/opt/probo/data/container-manager-data'
 # Volumes to mount into created containers.
 binds: []
 # Settings for the github handler
