@@ -1,7 +1,8 @@
 # Port for the server to listen on
-port: 3014
+port: 3013
 hostname: 0.0.0.0
 webhookPath: '$GITLAB_WEBHOOK_URL'
+webhookSecret: '$GITLAB_WEBHOOK_SECRET'
 
 # GitLab client key and client secret. These are generated for you
 # when you create a new OAuth client in Bitbucket
