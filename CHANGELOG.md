@@ -3,8 +3,17 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: November 11, 2018
+#### Last Updated: June 15, 2019
 
+v.19 - June 15, 2019
+  - Added WebhookSecret to GitLab
+  - Changed ports for git handlers:
+    - 3012: Bitbucket
+    - 3013: GitLab
+    - 3014: GitHub
+  - Fixed path issue that caused container manager data to not be persistent
+  - Updated images to use latest brand of mbagnall enabled ProboCI Docker images.
+  - Fixed mis-named variables in README (documentation)
 
 v.18 - November 11, 2018
   - Added the BYPASS_TIMEOUT variable to prevent builds from being torn down on a timeout.

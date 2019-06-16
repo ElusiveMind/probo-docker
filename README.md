@@ -78,9 +78,9 @@ A salt for ENCRYPTION_CIPHER.
 _Default: LocalFiles_  
 This is for the asset receiver. This defines the plugin that will be used for file storage, Currently there are two options, LocalFiles and AwsS3Storage. AwsS3Storage requires the keys and a bucket for storing files on Amazon S3. Be sure NOT to put your docker-compose.yml file or other configuration file in any kind of public source repository with this data in it. It's bad. Very, very bad. Trust me.  
 
-**GITLAB_WEBHOOK_URL**  
-_Default: /gitlab-webhook_  
-The endpoint of the GitLab webhook. This is used in the path configured in your webhook on GitLab.  
+**GITHUB_API_TOKEN**  
+_Default: personal token here_  
+The GitHub API token configured in your GitHub account.  
 
 **GITLAB_CLIENT_KEY**  
 _Default: null_  
@@ -88,18 +88,14 @@ The GitLab client key configured in your GitLab application.
 
 **GITLAB_CLIENT_SECRET**  
 _Default: null_  
-The GitLab client secret key configured in your GitLab application.  
+The GitLab client secret configured in your GitLab application.  
 
-**GITHUB_API_TOKEN**  
-_Default: personal token here_  
-The GitHub API token configured in your GitHub account.  
-
-**GITHUB_WEBHOOK_PATH**  
-_Default: /github-webhook_  
-The endpoint of the GitHub webhook. This is used in the path configured in your webhook on GitHub.  
+**GITLAB_WEBHOOK_URL**  
+_Default: /gitlab-webhook_  
+The endpoint of the GitLab webhook. This is used in the path configured in your webhook on GitLab.  
 
 **GITHUB_WEBHOOK_SECRET**  
-_Default: CHANGE-ME_  
+_Default: null_  
 This value should be modified to a secure string as well. This is a random token containing a string value that you select and will need to be used when you configure your webhook in GitHub.  
 
 **LOOM_SERVER_TOKEN**  
