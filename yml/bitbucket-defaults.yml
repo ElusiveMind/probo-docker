@@ -13,4 +13,3 @@ bbRefreshToken: $BB_REFRESH_TOKEN
 # Settings for the API or Container Manager server port
 api:
   url: 'http://localhost:3020'
-  token: '$API_TOKEN'

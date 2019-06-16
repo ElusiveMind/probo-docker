@@ -8,9 +8,9 @@ webhookSecret: '$GITLAB_WEBHOOK_SECRET'
 # when you create a new OAuth client in Bitbucket
 clientKey: $GITLAB_CLIENT_KEY
 clientSecret: $GITLAB_CLIENT_SECRET
+clientAccessToken: $GITLAB_ACCESS_TOKEN
 
 # Settings for the API or Container Manager server
 # port
 api:
   url: "http://localhost:3020"
-  token: '$API_TOKEN'
