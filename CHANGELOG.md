@@ -14,6 +14,7 @@ v.19 - June 15, 2019
   - Fixed path issue that caused container manager data to not be persistent
   - Updated images to use latest brand of mbagnall enabled ProboCI Docker images.
   - Fixed mis-named variables in README (documentation)
+  - Added API token to configurations of get repositories.
 
 v.18 - November 11, 2018
   - Added the BYPASS_TIMEOUT variable to prevent builds from being torn down on a timeout.

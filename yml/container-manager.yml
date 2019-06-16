@@ -5,6 +5,7 @@ instanceName: '$CM_INSTANCE_NAME'
 
 api:
   url: 'http://localhost:3012'
+  token: '$API_TOKEN'
 
 auth:
   url: 'http://localhost:3012/auth_lookup'

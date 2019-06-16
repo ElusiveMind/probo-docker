@@ -13,3 +13,4 @@ clientSecret: $GITLAB_CLIENT_SECRET
 # port
 api:
   url: "http://localhost:3020"
+  token: '$API_TOKEN'

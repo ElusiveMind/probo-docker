@@ -10,3 +10,4 @@ githubAPIToken: '$GITHUB_API_TOKEN'
 # Container Manager API server
 api:
   url: "http://localhost:3020"
+  token: '$API_TOKEN'
