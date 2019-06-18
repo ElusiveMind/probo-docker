@@ -11,6 +11,7 @@ databaseConfig:
 fileStoragePlugin: '$FILE_STORAGE_PLUGIN'
 fileStorageConfig:
   fileDataDirectory: '/opt/probo/data/files/asset-receiver'
+  awsEndPoint:  '$AWS_ENDPOINT'
   awsAccessKeyId: '$AWS_ACCESS_KEY_ID'
   awsSecretAccessKey: '$AWS_SECRET_ACCESS_KEY'
   awsBucket: '$AWS_BUCKET'

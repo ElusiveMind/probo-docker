@@ -2,6 +2,7 @@ FROM centos:7
 
 # Set our our meta data for this container.
 LABEL name="Containerized Open Source Probo.CI Server"
+LABEL mre=''
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
@@ -110,7 +111,7 @@ USER probo
 
 # Get all of our relevant Probo repositories.
 RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
-  git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
+  git clone --depth=1 --branch=minio-endpoint https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
   git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom && \
   git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
   git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper && \
@@ -121,8 +122,6 @@ RUN git clone --depth=1 --branch=drupal-dashboard https://github.com/ElusiveMind
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
 # handler.
-WORKDIR /opt/probo/probo
-RUN npm install
 
 WORKDIR /opt/probo/probo-loom
 RUN npm install
@@ -143,6 +142,9 @@ WORKDIR /opt/probo/probo-reaper
 RUN npm install
 
 WORKDIR /opt/probo/probo-gitlab
+RUN npm install
+
+WORKDIR /opt/probo/probo
 RUN npm install
 
 USER root

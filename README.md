@@ -30,6 +30,10 @@ The URL (with port) of your asset receiver process. This needs to be the URL wit
 _Default: null_  
 When AwsS3Storage is configured as the asset receiver storage method, this is the access key id for the account used to store files.  
 
+**AWS_ENDPOINT**  
+_Default: null_  
+If you have a custom end point that is used for something like a MinIO server, you can specify it here.  
+
 **AWS_SECRET_ACCESS_KEY**  
 _Default: null_  
 When AwsS3Storage is configured as the asset receiver storage method, this is the secret access key for the account used to store files.  
