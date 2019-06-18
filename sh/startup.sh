@@ -41,7 +41,7 @@ chown probo:probo /opt/probo/data/database/rethinkdb
 
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
-envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/asset-receiver.yml
+envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/defaults.config.yaml
 envsubst < /opt/probo/yml/probo-defaults.yml > /opt/probo/probo/defaults.yaml
 envsubst < /opt/probo/yml/container-manager.yml > /opt/probo/probo/container-manager.yml
 envsubst < /opt/probo/yml/loom-defaults.yml > /opt/probo/probo-loom/loom.yml
@@ -96,12 +96,12 @@ if [[ ! -z "${USE_GITLAB}" ]] && [ $USE_GITLAB = "1" ]; then
 fi
 
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml > /opt/probo/data/logs/asset-receiver.log &"
+  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver > /opt/probo/data/logs/asset-receiver.log &"
   su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/data/logs/probo-loom.log &"
   # start the proxy as the root user just in case we're on port 80.
   node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /opt/probo/data/logs/probo-proxy.log &
 else
-  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver -c /opt/probo/probo-asset-receiver/asset-receiver.yml &"
+  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver &"
   su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml &"
   # start the proxy as the root user just in case we're on port 80.
   node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
