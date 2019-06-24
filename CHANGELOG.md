@@ -3,8 +3,25 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: November 11, 2018
+#### Last Updated: June 23, 2019
 
+v.21 - June 23, 2019
+  - Added Perl handler for installing CPAN modules
+  - Multiple versions of PHP handled in a single PHP container
+
+v.20 - June 17, 2019
+  - Added modified Asset Receiver that allows for custom endpoints (MinIO Support)
+
+v.19 - June 15, 2019
+  - Added WebhookSecret to GitLab
+  - Changed ports for git handlers:
+    - 3012: Bitbucket
+    - 3013: GitLab
+    - 3014: GitHub
+  - Fixed path issue that caused container manager data to not be persistent
+  - Updated images to use latest brand of mbagnall enabled ProboCI Docker images.
+  - Fixed mis-named variables in README (documentation)
+  - Added API token to configurations of get repositories. 
 
 v.18 - November 11, 2018
   - Added the BYPASS_TIMEOUT variable to prevent builds from being torn down on a timeout.

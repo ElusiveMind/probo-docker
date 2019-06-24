@@ -1,5 +1,5 @@
 # Port for the server to listen on
-port: 3012
+port: 3014
 hostname: 0.0.0.0
 
 # Github hook and credentials

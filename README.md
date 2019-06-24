@@ -14,6 +14,10 @@ https://docs.probo.ci/open-source/
 
 ### Configuration Environment Variables
 
+**API_TOKEN**  
+_Default: null_  
+The API token used to access the container manager.  
+
 **ASSET_RECEIVER_TOKEN**  
 _Default: null_  
 The token used for uploading assets to the receiver. Needs to be part of the request to push files to the asset receiver. If not specified, no token will be required which is a security issue.  
@@ -25,6 +29,10 @@ The URL (with port) of your asset receiver process. This needs to be the URL wit
 **AWS_ACCESS_KEY_ID**  
 _Default: null_  
 When AwsS3Storage is configured as the asset receiver storage method, this is the access key id for the account used to store files.  
+
+**AWS_ENDPOINT**  
+_Default: null_  
+If you have a custom end point that is used for something like a MinIO server, you can specify it here.  
 
 **AWS_SECRET_ACCESS_KEY**  
 _Default: null_  
@@ -78,9 +86,17 @@ A salt for ENCRYPTION_CIPHER.
 _Default: LocalFiles_  
 This is for the asset receiver. This defines the plugin that will be used for file storage, Currently there are two options, LocalFiles and AwsS3Storage. AwsS3Storage requires the keys and a bucket for storing files on Amazon S3. Be sure NOT to put your docker-compose.yml file or other configuration file in any kind of public source repository with this data in it. It's bad. Very, very bad. Trust me.  
 
-**GITLAB_WEBHOOK_URL**  
-_Default: /gitlab-webhook_  
-The endpoint of the GitLab webhook. This is used in the path configured in your webhook on GitLab.  
+**GITHUB_API_TOKEN**  
+_Default: personal token here_  
+The GitHub API token configured in your GitHub account.  
+
+**GITHUB_WEBHOOK_PATH**
+_Default: /github-webhook_  
+The endpoint of the GitHub webhook. This is used in the path configured in your webhook on GitHub.  
+
+**GITHUB_WEBHOOK_SECRET**  
+_Default: null_  
+This value should be modified to a secure string as well. This is a random token containing a string value that you select and will need to be used when you configure your webhook in GitHub.  
 
 **GITLAB_CLIENT_KEY**  
 _Default: null_  
@@ -88,19 +104,11 @@ The GitLab client key configured in your GitLab application.
 
 **GITLAB_CLIENT_SECRET**  
 _Default: null_  
-The GitLab client secret key configured in your GitLab application.  
+The GitLab client secret configured in your GitLab application.  
 
-**GITHUB_API_TOKEN**  
-_Default: personal token here_  
-The GitHub API token configured in your GitHub account.  
-
-**GITHUB_WEBHOOK_PATH**  
-_Default: /github-webhook_  
-The endpoint of the GitHub webhook. This is used in the path configured in your webhook on GitHub.  
-
-**GITHUB_WEBHOOK_SECRET**  
-_Default: CHANGE-ME_  
-This value should be modified to a secure string as well. This is a random token containing a string value that you select and will need to be used when you configure your webhook in GitHub.  
+**GITLAB_WEBHOOK_URL**  
+_Default: /gitlab-webhook_  
+The endpoint of the GitLab webhook. This is used in the path configured in your webhook on GitLab.  
 
 **LOOM_SERVER_TOKEN**  
 _Default: null_  

@@ -26,385 +26,516 @@ containerIdleTimeout: 30m # can use time units here. no units = ms
 
 # Prefixes all routes so that the app can be namespaced.
 prefix: ''
-# If a cotnainer is not specified in the repository's configuration, use this one.
-defaultImage: 'proboci/ubuntu-14.04-lamp'
+# If a container is not specified in the repository's configuration, use this one.
+defaultImage: 'mbagnall/probo-lamp:php71'
 # The default image used if none is specified.
-image: 'proboci/ubuntu-14.04-lamp'
+image: 'mbagnall/probo-lamp:php71'
 # The images used by the host manager
 images:
-  'mbagnall/ubuntu-14.04':
+  'mbagnall/probo-lamp':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04:php5.5':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
+      memcached:
+        command: 'service memcached start'
       mysql:
         command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04:php5.6':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04:php7.0':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04:php7.1':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-14.04:php7.2':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-16.04':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
-      postgresql:
-        command: 'service postgresql start'
-      mailcatcher:
-        command: 'mailcatcher'
-        port: 1080
-      php_log:
-        command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-16.04:php7.1':
-    services:
-      cleanapache:
-        command: 'rm /var/run/apache2/apache2.pid'
-      apache:
-        command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
-      redis:
-        command: 'redis-server'
-      solr:
-        command: 'service solr start'
       postgresql:
         command: 'service postgresql start'
       mailcatcher:
         command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/ubuntu-16.04:php7.2':
+  'mbagnall/probo-lamp:php56':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
-      solr:
-        command: 'service solr start'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
       postgresql:
         command: 'service postgresql start'
       mailcatcher:
-        command: 'mailcatcher'
+        command: 'mailcatcher --ip 0.0.0.0'
         port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp':
+  'mbagnall/probo-lamp:php70':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-5.6-beta':
+  'mbagnall/probo-lamp:php71':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-7.0-beta':
+  'mbagnall/probo-lamp:php':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-7.1-beta':
+  'mbagnall/probo-lamp:php73':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-5.6':
+  'mbagnall/probo-lamp:php56v':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php70v':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php71v':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php72v':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php73v':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+      redis:
+        command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
+      solr:
+        command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/probo-lamp:php56-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-7.0':
+  'mbagnall/probo-lamp:php70-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:php-7.1':
+  'mbagnall/probo-lamp:php71-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-14.04-lamp:latest':
+  'mbagnall/probo-lamp:php72-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.0-beta':
+  'mbagnall/probo-lamp:php73-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
         port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.1-beta':
+  'mbagnall/probo-lamp:php56v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.2-beta':
+  'mbagnall/probo-lamp:php70v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.0':
+  'mbagnall/probo-lamp:php71v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.1':
+  'mbagnall/probo-lamp:php72v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'proboci/ubuntu-16.04-lamp:php-7.2':
+  'mbagnall/probo-lamp:php73v-dev':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
       apache:
         command: '/usr/sbin/apache2ctl -D FOREGROUND'
-        port: 80
-      mysql:
-        command: 'mysqld_safe'
       redis:
         command: 'redis-server'
+      memcached:
+        command: 'service memcached start'
+      mysql:
+        command: 'mysqld_safe'
+      postgresql:
+        command: 'service postgresql start'
+      mailcatcher:
+        command: 'mailcatcher --ip 0.0.0.0'
+        port: 1080
       solr:
         command: 'service solr start'
+        port: 8983
+      varnish:
+        command: 'service varnish start'
+        port: 80
       php_log:
         command: 'tail -F /var/log/php/error.log'
-dataDir: './container-manager-data'
+dataDir: '/opt/probo/data/container-manager-data'
 # Volumes to mount into created containers.
 binds: []
 # Settings for the github handler
