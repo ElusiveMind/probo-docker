@@ -3,7 +3,11 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: June 17, 2019
+#### Last Updated: June 23, 2019
+
+v.21 - June 23, 2019
+  - Added Perl handler for installing CPAN modules
+  - Multiple versions of PHP handled in a single PHP container
 
 v.20 - June 17, 2019
   - Added modified Asset Receiver that allows for custom endpoints (MinIO Support)

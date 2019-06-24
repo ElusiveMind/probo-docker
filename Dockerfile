@@ -6,7 +6,7 @@ LABEL mre=''
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.19"
+LABEL version="0.21"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -110,7 +110,7 @@ RUN groupadd docker && \
 USER probo
 
 # Get all of our relevant Probo repositories.
-RUN git clone --depth=1 --branch=unified-php https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
+RUN git clone --depth=1 --branch=elusivemind https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
   git clone --depth=1 --branch=minio-endpoint https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
   git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom && \
   git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
