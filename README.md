@@ -12,11 +12,7 @@ You can view additional documentation on the Probo Open Source initiative at:
 
 https://docs.probo.ci/open-source/  
 
-### Configuration Environment Variables
-
-**API_TOKEN**  
-_Default: null_  
-The API token used to access the container manager.  
+### Configuration Environment Variable
 
 **ASSET_RECEIVER_TOKEN**  
 _Default: null_  
