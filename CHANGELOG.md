@@ -3,7 +3,10 @@
 Please note that this file can also be seen on the WIKI page for this project at:  
 https://github.com/ElusiveMind/probo-docker/wiki/Changelog-For-ProboCI-Open-Source-Server
 
-#### Last Updated: June 23, 2019
+#### Last Updated: June 24, 2019
+
+v.22 - June 24, 2019
+  - Resolved a few conflicts in code caused by merge policy.
 
 v.21 - June 23, 2019
   - Added Perl handler for installing CPAN modules
