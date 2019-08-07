@@ -110,7 +110,7 @@ USER probo
 
 # Get all of our relevant Probo repositories.
 RUN git clone --depth=1 --branch=elusivemind https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
-  git clone --depth=1 --branch=minio-endpoint https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
+  git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
   git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom && \
   git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
   git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper && \
