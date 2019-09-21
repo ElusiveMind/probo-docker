@@ -124,7 +124,7 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
-  'mbagnall/probo-lamp:php':
+  'mbagnall/probo-lamp:php72':
     services:
       cleanapache:
         command: 'rm /var/run/apache2/apache2.pid'
