@@ -115,8 +115,8 @@ RUN git clone --depth=1 --branch=elusivemind-pr https://github.com/ElusiveMind/p
   git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
   git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper && \
   git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git && \
-  git clone --depth=1 --branch=gitlab-open-source https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
-#RUN git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
+  git clone --depth=1 --branch=gitlab-open-source https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git && \
+  git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
