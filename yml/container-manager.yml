@@ -3,8 +3,8 @@ port: 3020
 
 instanceName: '$CM_INSTANCE_NAME'
 
-api:
-  url: 'http://localhost:3012'
+#api:
+#  url: 'http://localhost:3012'
 
 auth:
   url: 'http://localhost:3012/auth_lookup'

@@ -2,7 +2,12 @@ apiServerHost: localhost
 apiServerPort: 3039
 eventStreams:
   build_events:
-    plugin: Kafka
+    plugin: 'Kafka'
     config:
+      version: 1
       topic: build_events
       group: probo
+      # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
+      # for available options
+      kafkaClientOptions:
+        connectionString: 'zookeeper:2181'

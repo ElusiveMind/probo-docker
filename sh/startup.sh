@@ -47,7 +47,7 @@ envsubst < /opt/probo/yml/container-manager.yml > /opt/probo/probo/container-man
 envsubst < /opt/probo/yml/loom-defaults.yml > /opt/probo/probo-loom/loom.yml
 envsubst < /opt/probo/yml/proxy-defaults.yml > /opt/probo/probo-proxy/proxy.yml
 envsubst < /opt/probo/yml/reaper-defaults.yml > /opt/probo/probo-reaper/reaper.yml
-envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defaults.yaml
+envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/default.yaml
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
@@ -106,4 +106,9 @@ else
   node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
 fi
 
-su - probo -c '/opt/probo/probo-reaper/bin/probo-reaper server'
+su - probo -c "/opt/probo/probo-reaper/bin/probo-reaper server > /opt/probo/data/logs/reaper.log &"
+su - probo -c "/opt/probo/probo-notifier/bin/probo-notifier server > /opt/probo/data/logs/notifier.log &"
+
+tail -f /dev/null
+
+
