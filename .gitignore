@@ -1,4 +1,6 @@
 .DS_Store
+docroot
+mysql
 docker-compose.yml
 postgresql
 probo-data

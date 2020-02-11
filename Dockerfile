@@ -3,9 +3,9 @@ FROM centos:7
 # Set our our meta data for this container.
 LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
-LABEL author="Michael R. Bagnall <mrbagnall@icloud.com>"
+LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.23"
+LABEL version="0.26"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -19,9 +19,9 @@ ENV LC_ALL en_US.utf8
 # Our default environment variables
 ENV PROBO_LOGGING="0" \
     CM_INSTANCE_NAME="OSProboCI" \
-    ASSET_RECEIVER_URL="http//example.com:3070" \
-    PROBO_BUILD_URL="http//{{buildId}}.example.com:3050/" \
-    SERVICE_ENDPOINT_URL="http//www.example.com/probo-api/service-endpoint.json" \
+    ASSET_RECEIVER_URL="http://example.com:3070" \
+    PROBO_BUILD_URL="http://{{buildId}}.example.com:3050/" \
+    SERVICE_ENDPOINT_URL="http://www.example.com/probo-api/service-endpoint.json" \
     BYPASS_TIMEOUT="0" \
     USE_GITHUB="1" \
     GITHUB_WEBHOOK_PATH="/github-webhook" \
@@ -107,48 +107,43 @@ RUN groupadd docker && \
   chown probo:probo /opt && \
   chown probo:probo /opt/probo && \
   cd /opt/probo
+
 USER probo
-
-# Get all of our relevant Probo repositories.
-# git clone --depth=1 --branch=elusivemind-pr https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
-# git clone --depth=1 --branch=bitbucket-open-source https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git && \
-# git clone --depth=1 --branch=gitlab-open-source https://github.com/ElusiveMind/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git && \
-
-RUN git clone --depth=1 --branch=elusivemind-pr https://github.com/ElusiveMind/probo.git /opt/probo/probo && \
-  git clone --depth=1 --branch=node-12 https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver && \
-  git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom && \
-  git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git && \
-  git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper && \
-  git clone --depth=1 --branch=bitbucket-open-source-node-12 https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git && \
-  git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git && \
-  git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
 
 # Compile the main Probo daemons. This contains the container manager and everything we need to
 # do the heavy lifting that IS probo as well as the secondary containers that support the main
 # handler.
 
+RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
 WORKDIR /opt/probo/probo-loom
 RUN npm install
 
-WORKDIR /opt/probo/probo-bitbucket
-RUN npm install
-
+RUN git clone --depth=1 --branch=node-12 https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver
 WORKDIR /opt/probo/probo-asset-receiver
 RUN npm install
 
+RUN git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
 WORKDIR /opt/probo/probo-proxy
 RUN npm install
 
-WORKDIR /opt/probo/probo-notifier
-RUN npm install
+#RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
+#WORKDIR /opt/probo/probo-notifier
+#RUN npm install
 
+RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
 WORKDIR /opt/probo/probo-reaper
 RUN npm install
 
+RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
 WORKDIR /opt/probo/probo-gitlab
 RUN npm install
 
+RUN git clone --depth=1 --branch=elusivemind-pr https://github.com/ElusiveMind/probo.git /opt/probo/probo
 WORKDIR /opt/probo/probo
+RUN npm install
+
+RUN git clone --depth=1 --branch=bitbucket-open-source-node-12 https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
+WORKDIR /opt/probo/probo-bitbucket
 RUN npm install
 
 USER root
@@ -161,8 +156,8 @@ RUN chmod 755 /opt/probo/yml/* && chown -R probo:probo /opt/probo/yml
 
 # Until a patch is made to correct variable sanity checking in probo-request-logger, we need to
 # use this repo and branch and patch it directly into the node_modules directory.
-RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
-RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
+#RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
+#RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
 
 WORKDIR /opt/probo
 
