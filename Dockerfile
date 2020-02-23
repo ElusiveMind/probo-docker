@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.26"
+LABEL version="0.27"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -43,6 +43,7 @@ ENV PROBO_LOGGING="0" \
     RECIPHERED_OUTPUT_DIR="" \
     ASSET_RECEIVER_TOKEN="" \
     UPLOADS_PAUSED="false" \
+    AWS_ENDPOINT="" \
     AWS_ACCESS_KEY_ID="" \
     AWS_SECRET_ACCESS_KEY="" \
     AWS_BUCKET="" \
@@ -118,7 +119,7 @@ RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/pro
 WORKDIR /opt/probo/probo-loom
 RUN npm install
 
-RUN git clone --depth=1 --branch=node-12 https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver
+RUN git clone --depth=1 --branch=minio-endpoint https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver
 WORKDIR /opt/probo/probo-asset-receiver
 RUN npm install
 
