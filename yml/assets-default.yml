@@ -2,6 +2,8 @@
 host: 0.0.0.0
 # The port to listen on.
 port: 3070
+# The URL to redirect to when trying to hit index page.
+homeRedirect: '$ASSET_MANAGER_DIRECT_CALL_REDIRECT'
 # The directory in which to store the LevelDB database.
 databasePlugin: 'LevelDB'
 databaseConfig:

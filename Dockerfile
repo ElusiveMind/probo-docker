@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.27"
+LABEL version="0.28"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -20,6 +20,7 @@ ENV LC_ALL en_US.utf8
 ENV PROBO_LOGGING="0" \
     CM_INSTANCE_NAME="OSProboCI" \
     ASSET_RECEIVER_URL="http://example.com:3070" \
+    ASSET_MANAGER_DIRECT_CALL_REDIRECT="http://www.example.com" \
     PROBO_BUILD_URL="http://{{buildId}}.example.com:3050/" \
     SERVICE_ENDPOINT_URL="http://www.example.com/probo-api/service-endpoint.json" \
     BYPASS_TIMEOUT="0" \
