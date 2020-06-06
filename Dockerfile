@@ -136,15 +136,15 @@ RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/prob
 WORKDIR /opt/probo/probo-reaper
 RUN npm install
 
-RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
-WORKDIR /opt/probo/probo-gitlab
-RUN npm install
+#RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
+#WORKDIR /opt/probo/probo-gitlab
+#RUN npm install
 
-RUN git clone --depth=1 --branch=elusivemind-pr https://github.com/ElusiveMind/probo.git /opt/probo/probo
+RUN git clone --depth=1 --branch=elusivemind-pr-commit-hashes https://github.com/ElusiveMind/probo.git /opt/probo/probo
 WORKDIR /opt/probo/probo
 RUN npm install
 
-RUN git clone --depth=1 --branch=bitbucket-open-source-node-12 https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
+RUN git clone --depth=1 --branch=os-node-12-hash https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
 WORKDIR /opt/probo/probo-bitbucket
 RUN npm install
 

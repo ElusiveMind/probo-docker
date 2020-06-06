@@ -1,15 +1,24 @@
+# Port and the hostname for the Bitbucket handler to operate on.
+# Set hostname to 0.0.0.0 to allow it to listen on external ip's (any).
 port: 3012
 hostname: 0.0.0.0
 
-bbWebhookUrl: '$BB_WEBHOOK_URL'
+# Your bitbucket hook URL - this is also used when setting up the webhook
+# on yout Bitbucket repositories
+bbWebhookUrl: $BB_WEBHOOK_URL
 
 # Bitbucket client key and client secret. These are generated for you
-# when you create a new OAuth client in Bitbucket
+# when you create a new OAuth client in Bitbucket. The token and refresh
+# token are used when there is no coordinator or equivelant (see below).
 bbClientKey: $BB_CLIENT_KEY
 bbClientSecret: $BB_CLIENT_SECRET
 bbAccessToken: $BB_ACCESS_TOKEN
 bbRefreshToken: $BB_REFRESH_TOKEN
 
-# Settings for the API or Container Manager server port
+# Settings for the API or Container Manager server
+# port. This is also the URL and port for the drupal service that
+# will take the place of the coordintor. This is basically a url to the
+# service which will provide the Bitbucket credentials and other project
+# information (such as branch builds to be considered.)
 api:
-  url: 'http://localhost:3020'
+  url: $COORDINATOR_API_URL
