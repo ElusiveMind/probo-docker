@@ -12,6 +12,12 @@ if [[ -n "${LOOM_SERVER_TOKEN}" ]]; then
   export LOOM_SERVER_TOKEN="tokens:"$'\n'"  - ${LOOM_SERVER_TOKEN}"
 fi
 
+if [[ -n "${COORDINATOR_API_URL}" ]]; then
+  export COORDINATOR_API_URL="${COORDINATOR_API_URL}"
+else
+  export COORDINATOR_API_URL="http://localhost:3020"
+fi
+
 if [[ ! -z "${CREATE_LOOM_TASK_LOGS}" ]] && [ $CREATE_LOOM_TASK_LOGS = "1" ]; then
   export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/opt/probo/data/database/loom\""
 else

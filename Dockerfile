@@ -5,7 +5,7 @@ LABEL name="Containerized Open Source Probo.CI Server"
 LABEL description="This is our Docker container for the open source version of ProboCI."
 LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
 LABEL vendor="ProboCI, LLC."
-LABEL version="0.28"
+LABEL version="0.29"
 
 # Set up our standard binary paths.
 ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -34,6 +34,7 @@ ENV PROBO_LOGGING="0" \
     BB_CLIENT_SECRET="" \
     BB_ACCESS_TOKEN="" \
     BB_REFRESH_TOKEN="" \
+    COORDINATOR_API_URL="http://localhost:2020" \
     USE_GITLAB="0" \
     GITLAB_WEBHOOK_URL="/gitlab-webhook" \
     GITLAB_CLIENT_KEY="" \
@@ -68,7 +69,7 @@ RUN useradd -ms /bin/bash probo
 # Install and enable repositories
 RUN yum -y update && \
   yum -y install epel-release && \
-  rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm && \
+  rpm -Uvh https://repo.ius.io/ius-release-el7.rpm && \
   yum -y update && \
   curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 
@@ -79,11 +80,11 @@ RUN yum -y install \
   git2u \
   wget \
   gettext \
-  docker-client
+  docker-client \
+  git
 
 # Get the rethinkdb YUM repository information so we can install.
-RUN wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
-    -O /etc/yum.repos.d/rethinkdb.repo
+COPY sh/rethinkdb.repo /etc/yum.repos.d/rethinkdb.repo
 
 # Install all of the NodeJS dependencies as well as other Probo dependencies we will need
 # to successfully build Probo.
