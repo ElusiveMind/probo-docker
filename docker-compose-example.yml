@@ -14,12 +14,15 @@ services:
       - ./probo-data:/opt/probo/data
     ports:
       - "3012:3012"
+      - "3013:3013"
+      - "3014:3014"
       - "3050:3050"
       - "3060:3060"
       - "3070:3070"
     environment:
       # Default Probo Configuration Options
       PROBO_LOGGING: 1
+      COORDINATOR_API_URL: http://localhost:3020
       # Container Manager Variables
       CM_INSTANCE_NAME: 'OSProboCI'
       ASSET_RECEIVER_URL: 'http://example.com:3070'

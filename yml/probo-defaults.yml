@@ -27,9 +27,9 @@ containerIdleTimeout: 30m # can use time units here. no units = ms
 # Prefixes all routes so that the app can be namespaced.
 prefix: ''
 # If a container is not specified in the repository's configuration, use this one.
-defaultImage: 'mbagnall/probo-lamp:php71'
+defaultImage: 'mbagnall/probo-lamp:php'
 # The default image used if none is specified.
-image: 'mbagnall/probo-lamp:php71'
+image: 'mbagnall/probo-lamp:php'
 # The images used by the host manager
 images:
   'mbagnall/probo-lamp:php':
@@ -55,6 +55,120 @@ images:
         port: 8983
       php_log:
         command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php5.6':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php7.0':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php7.1':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php7.2':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php7.3':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
+  'mbagnall/ubuntu:18.04-php7.4':
+    services:
+      cleanapache:
+        command: 'rm /var/run/apache2/apache2.pid'
+      apache:
+        command: '/usr/sbin/apache2ctl -D FOREGROUND'
+        port: 80
+      memcached:
+        command: memcached -u memcache
+      mysql:
+        command: 'mysqld_safe'
+      redis:
+        command: 'redis-server'
+      solr:
+        command: '/opt/solr/bin/solr start -f -force'
+      varnish:
+        command: 'service varnish start'
+      php_log:
+        command: 'tail -F /var/log/php/error.log'
 dataDir: '/opt/probo/data/container-manager-data'
 # Volumes to mount into created containers.
 binds: []
@@ -66,10 +180,12 @@ githubWebhookSecret: 'CHANGE-ME'
 githubAPIToken: 'personal token here'
 
 # Settings for the API or Container Manager server
-# port
+# port. This is also the URL and port for the drupal service that
+# will take the place of the coordintor. This is basically a url to the
+# service which will provide the Bitbucket credentials and other project
+# information (such as branch builds to be considered.)
 api:
-  url: "http://localhost:3000"
-  token: "API token here"
+  url: $COORDINATOR_API_URL
 
 # loom (log aggregator server)
 loom:
@@ -83,17 +199,15 @@ assets:
 
 # auth credentials service (i.e., for stash)
 auth:
-  url: "http://localhost:3012/auth_lookup"
+  url: "$COORDINATOR_API_URL/auth_lookup"
 
 buildsEventStream:
-  plugin: 'Memory'
-#  config:
-#    version: 1
-#    topic: build_events
-#    group: probo
+  plugin: 'Kafka'
+  config:
+    version: 1
+    topic: build_events
+    group: probo
     # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
     # for available options
-#    kafkaClientOptions:
-#    connectionString: 'zookeeper:2181'
-
-
+    kafkaClientOptions:
+      connectionString: 'zookeeper:2181'

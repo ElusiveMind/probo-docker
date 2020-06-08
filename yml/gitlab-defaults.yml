@@ -11,6 +11,9 @@ clientSecret: $GITLAB_CLIENT_SECRET
 clientAccessToken: $GITLAB_ACCESS_TOKEN
 
 # Settings for the API or Container Manager server
-# port
+# port. This is also the URL and port for the drupal service that
+# will take the place of the coordintor. This is basically a url to the
+# service which will provide the Bitbucket credentials and other project
+# information (such as branch builds to be considered.)
 api:
-  url: "http://localhost:3020"
+  url: $COORDINATOR_API_URL
