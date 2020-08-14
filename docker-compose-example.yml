@@ -13,12 +13,20 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./probo-data:/opt/probo/data
     ports:
+      # Bitbucket handler default port
       - "3012:3012"
+      # GitLab handler default port.
       - "3013:3013"
+      # GitHub handler default port.
       - "3014:3014"
+      # Probo Proxy default port.
       - "3050:3050"
+      # Probo Loom default port.
       - "3060:3060"
+      # Probo Asset Receiver default port.
       - "3070:3070"
+      # RethinkDB admin port.
+      - "3090:8080"
     environment:
       # Default Probo Configuration Options
       PROBO_LOGGING: 1
@@ -28,6 +36,7 @@ services:
       ASSET_RECEIVER_URL: 'http://example.com:3070'
       PROBO_BUILD_URL: 'http://{{buildId}}.example.com:3050/'
       SERVICE_ENDPOINT_URL: 'http://www.example.com/probo-api/service-endpoint.json'
+      ASSET_MANAGER_DIRECT_CALL_REDIRECT: http://www.example.com
       BYPASS_TIMEOUT: '1'
       # GitHub Configuration Options
       USE_GITHUB: 0
@@ -72,7 +81,7 @@ services:
       PROXY_CACHE_MAX_AGE: 5m
       PROXY_SERVER_TIMEOUT: 10m
       REDIRECT_URL: ''
-    restart: always
+    restart: unless-stopped
 
   zookeeper:
     image: zookeeper:3.3.6
@@ -80,7 +89,7 @@ services:
     container_name: OSProboCI-zookeeper
     ports:
       - "2181:2181"
-    restart: always
+    restart: unless-stopped
 
   kafka:
     image: wurstmeister/kafka:1.0.0
@@ -94,4 +103,4 @@ services:
       - zookeeper
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    restart: always
+    restart: unless-stopped
