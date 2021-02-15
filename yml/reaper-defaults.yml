@@ -24,15 +24,19 @@ dataDirectory: ./data
 
 eventStreams:
   build_events:
-    plugin: 'Kafka'
-    config:
-      version: 1
-      topic: build_events
-      group: probo
-      # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
-      # for available options
-      kafkaClientOptions:
-        connectionString: 'zookeeper:2181'
+    plugin: 'Memory'
+
+#eventStreams:
+#  build_events:
+#    plugin: 'Kafka'
+#    config:
+#      version: 1
+#      topic: build_events
+#      group: probo
+#      # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
+#      # for available options
+#      kafkaClientOptions:
+#        connectionString: 'zookeeper:2181'
 
 codeHostingHandlers:
   github: 'http://localhost:3012'

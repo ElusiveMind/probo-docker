@@ -1,167 +1,96 @@
-FROM centos:7
+FROM ubuntu:20.04
 
 # Set our our meta data for this container.
-LABEL name="Containerized Open Source Probo.CI Server"
-LABEL description="This is our Docker container for the open source version of ProboCI."
+LABEL name="ProboCI"
 LABEL author="Michael R. Bagnall <mbagnall@zivtech.com>"
-LABEL vendor="ProboCI, LLC."
-LABEL version="0.29"
 
-# Set up our standard binary paths.
-ENV PATH /usr/local/src/vendor/bin/:/usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+WORKDIR /root
 
-# Set TERM env to avoid mysql client error message "TERM environment variable not set" when running from inside the container
-ENV TERM xterm 
+ENV TERM xterm
 
-# Fix command line compile issue with bundler.
-ENV LC_ALL en_US.utf8
+RUN apt-get -y update
+RUN apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates sudo apt-utils
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
-# Our default environment variables
-ENV PROBO_LOGGING="0" \
-    CM_INSTANCE_NAME="OSProboCI" \
-    ASSET_RECEIVER_URL="http://example.com:3070" \
-    ASSET_MANAGER_DIRECT_CALL_REDIRECT="http://www.example.com" \
-    PROBO_BUILD_URL="http://{{buildId}}.example.com:3050/" \
-    SERVICE_ENDPOINT_URL="http://www.example.com/probo-api/service-endpoint.json" \
-    BYPASS_TIMEOUT="0" \
-    USE_GITHUB="1" \
-    GITHUB_WEBHOOK_PATH="/github-webhook" \
-    GITHUB_WEBHOOK_SECRET="CHANGE-ME" \
-    GITHUB_API_TOKEN="personal token here" \
-    USE_BITBUCKET="0" \
-    BB_WEBHOOK_URL="/bitbucket-webhook" \
-    BB_CLIENT_KEY="" \
-    BB_CLIENT_SECRET="" \
-    BB_ACCESS_TOKEN="" \
-    BB_REFRESH_TOKEN="" \
-    COORDINATOR_API_URL="http://localhost:2020" \
-    USE_GITLAB="0" \
-    GITLAB_WEBHOOK_URL="/gitlab-webhook" \
-    GITLAB_CLIENT_KEY="" \
-    GITLAB_CLIENT_SECRET="" \
-    FILE_STORAGE_PLUGIN="LocalFiles" \
-    ENCRYPTION_CIPHER="aes-256-cbc" \
-    ENCRYPTION_PASSWORD="password" \
-    RECIPHERED_OUTPUT_DIR="" \
-    ASSET_RECEIVER_TOKEN="" \
-    UPLOADS_PAUSED="false" \
-    AWS_ENDPOINT="" \
-    AWS_ACCESS_KEY_ID="" \
-    AWS_SECRET_ACCESS_KEY="" \
-    AWS_BUCKET="" \
-    LOOM_SERVER_TOKEN="" \
-    LOOM_EVENT_API_URL="" \
-    CREATE_LOOM_TASK_LOG="0" \
-    REAPER_DRY_RUN="true" \
-    REAPER_OUTPUT_FORMAT="text" \
-    REAPER_BRANCH_BUILD_LIMIT="1" \
-    PROXY_PORT="3050" \
-    PROXY_HOSTNAME_IP="localhost" \
-    PROXY_CACHE_ENABLED="true" \
-    PROXY_CACHE_MAX="500" \
-    PROXY_CACHE_MAX_AGE="5m" \
-    PROXY_SERVER_TIMEOUT="10m" \
-    REDIRECT_URL=""
-
-# Create the Probo user for the adding in of all our Probo daemons.
-RUN useradd -ms /bin/bash probo
-
-# Install and enable repositories
-RUN yum -y update && \
-  yum -y install epel-release && \
-  rpm -Uvh https://repo.ius.io/ius-release-el7.rpm && \
-  yum -y update && \
-  curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-
-# Install our common set of commands that we will need to do the key functions.
-# gettext is for our envsubst command.
-RUN yum -y install \
-  curl \
-  git2u \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  build-essential \
+  git \
+  netcat-openbsd \
+  nodejs \
+  openjdk-8-jre \
+  software-properties-common \
+  sudo \
+  vim \
   wget \
+  zip \
+  gcc \
+  g++ \
+  make \
+  curl \
   gettext \
-  docker-client \
-  git
+  python
 
-# Get the rethinkdb YUM repository information so we can install.
-COPY sh/rethinkdb.repo /etc/yum.repos.d/rethinkdb.repo
-
-# Install all of the NodeJS dependencies as well as other Probo dependencies we will need
-# to successfully build Probo.
-RUN yum -y makecache fast && \
-  yum -y install rethinkdb \
-    nodejs \
-    node-gyp \
-    mocha \
-    nodejs-should \
-    make \
-    gcc \
-    g++
-
-# Perform yum cleanup 
-RUN yum -y upgrade && \
-  yum clean all
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get -y update \
+  && apt-get -y install yarn
 
 # Switch to the probo user. Then create the Probo directory and change its permissions.
-RUN groupadd docker && \
-  usermod -aG docker probo && \
-  mkdir /opt/probo && \
-  chmod 755 -R /opt/probo && \
-  chown probo:probo /opt && \
-  chown probo:probo /opt/probo && \
-  cd /opt/probo
+RUN useradd -ms /bin/bash probo \
+  && groupadd docker \
+  && usermod -aG docker probo
+
+# probo-coordinator: 8.17.0
+# probo-db: 4.9.1
+# probo-shell: 4.9.1
+# probo-stash-handler: 4.9.1
+# probo-web: 4.9.1
 
 USER probo
 
-# Compile the main Probo daemons. This contains the container manager and everything we need to
-# do the heavy lifting that IS probo as well as the secondary containers that support the main
-# handler.
+ENV NVM_DIR /home/probo/.nvm
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
-RUN git clone --depth=1 https://github.com/ProboCI/probo-loom.git /opt/probo/probo-loom
-WORKDIR /opt/probo/probo-loom
-RUN npm install
+RUN mkdir /home/probo/.nvm \
+  && wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \
+  && nvm install 14.15.5 \
+  && nvm install 4.9.1 \
+  && nvm install 8.17.0 \
+  && nvm install 12.14.1 \
+  && nvm alias default 14.15.5 \
+  && nvm use default \
+  && git clone --depth=1 https://github.com/ProboCI/probo-loom.git /home/probo/probo-loom \
+  && cd /home/probo/probo-loom \
+  && yarn install \
+  && nvm use 4.9.1 \
+  && git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /home/probo/probo-asset-receiver \
+  && cd /home/probo/probo-asset-receiver \
+  && npm install \
+  && git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /home/probo/probo-proxy \
+  && cd /home/probo/probo-proxy \
+  && npm install \
+  && git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /home/probo/probo-notifier \
+  && cd /home/probo/probo-notifier \
+  && npm install \
+  && git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /home/probo/probo-reaper \
+  && cd /home/probo/probo-reaper \
+  && nvm use 8.17.0 \
+  && npm install \
+  && git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /home/probo/probo-gitlab \
+  && cd /home/probo/probo-gitlab \
+  && nvm use 12.14.1 \
+  && npm install \
+  && git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo.git /home/probo/probo \
+  && cd /home/probo/probo \
+  && nvm use 8.17.0 \
+  && npm install \
+  && git clone --depth=1 https://github.com/ProboCI/probo-bitbucket.git /home/probo/probo-bitbucket \
+  && cd /home/probo/probo-bitbucket \
+  && nvm use 4.9.1 \
+  && npm install
 
-RUN git clone --depth=1 --branch=minio-endpoint https://github.com/ElusiveMind/probo-asset-receiver.git /opt/probo/probo-asset-receiver
-WORKDIR /opt/probo/probo-asset-receiver
-RUN npm install
+WORKDIR /home/probo
 
-RUN git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /opt/probo/probo-proxy && rm -rf /opt/probo/probo-proxy/.git
-WORKDIR /opt/probo/probo-proxy
-RUN npm install
-
-#RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-notifier.git /opt/probo/probo-notifier && rm -rf /opt/probo/probo-notifier/.git
-#WORKDIR /opt/probo/probo-notifier
-#RUN npm install
-
-RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-reaper.git /opt/probo/probo-reaper
-WORKDIR /opt/probo/probo-reaper
-RUN npm install
-
-#RUN git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo-gitlab.git /opt/probo/probo-gitlab && rm -rf /opt/probo/probo-gitlab/.git
-#WORKDIR /opt/probo/probo-gitlab
-#RUN npm install
-
-RUN git clone --depth=1 --branch=elusivemind-pr-commit-hashes https://github.com/ElusiveMind/probo.git /opt/probo/probo
-WORKDIR /opt/probo/probo
-RUN npm install
-
-RUN git clone --depth=1 --branch=os-node-12-hash https://github.com/ElusiveMind/probo-bitbucket.git /opt/probo/probo-bitbucket && rm -rf /opt/probo/probo-bitbucket/.git
-WORKDIR /opt/probo/probo-bitbucket
-RUN npm install
-
-USER root
-COPY sh/startup.sh /opt/probo/startup.sh
-RUN chmod 755 /opt/probo/startup.sh && chown probo:probo /opt/probo/startup.sh
-
-RUN mkdir /opt/probo/yml
-COPY yml/* /opt/probo/yml/
-RUN chmod 755 /opt/probo/yml/* && chown -R probo:probo /opt/probo/yml
-
-# Until a patch is made to correct variable sanity checking in probo-request-logger, we need to
-# use this repo and branch and patch it directly into the node_modules directory.
-#RUN rm -rf /opt/probo/probo/node_modules/probo-request-logger
-#RUN git clone --depth=1 --branch=variable-sanity-checking https://github.com/ElusiveMind/probo-request-logger.git /opt/probo/probo/node_modules/probo-request-logger && rm -rf /opt/probo/probo-loom/node_modules/probo-request-logger/.git
-
-WORKDIR /opt/probo
-
-CMD ["/opt/probo/startup.sh"]
+CMD ["/var/log/syslog"]

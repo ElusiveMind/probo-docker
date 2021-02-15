@@ -201,13 +201,18 @@ assets:
 auth:
   url: "$COORDINATOR_API_URL/auth_lookup"
 
+
 buildsEventStream:
-  plugin: 'Kafka'
-  config:
-    version: 1
-    topic: build_events
-    group: probo
-    # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
-    # for available options
-    kafkaClientOptions:
-      connectionString: 'zookeeper:2181'
+  # currently supported plugins are: Kafka and Memory
+  plugin: 'Memory'
+
+#buildsEventStream:
+#  plugin: 'Kafka'
+#  config:
+#    version: 2
+#    topic: build_events
+#    group: probo
+#    # see https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions
+#    # for available options
+#    kafkaClientOptions:
+#      connectionString: 'zookeeper:2181'

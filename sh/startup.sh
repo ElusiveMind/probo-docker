@@ -57,8 +57,8 @@ envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/defa
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
-cd /opt/probo/data/database/rethinkdb
-rethinkdb --daemon --bind all --runuser probo --rungroup probo
+# cd /opt/probo/data/database/rethinkdb
+# rethinkdb --daemon --bind all --runuser probo --rungroup probo
 
 # logging directory for process logging if configured to do so. create the directory
 # anyway. it will just be empty if not configured for use.
