@@ -19,7 +19,7 @@ else
 fi
 
 if [[ ! -z "${CREATE_LOOM_TASK_LOGS}" ]] && [ $CREATE_LOOM_TASK_LOGS = "1" ]; then
-  export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/opt/probo/data/database/loom\""
+  export LOOM_STORAGE_DATA_DIR="storageDataDir: \"/home/probo/data/database/loom\""
 else
   export LOOM_STORAGE_DATA_DIR=""
 fi
@@ -30,89 +30,101 @@ if [[ -n "${ASSET_RECEIVER_TOKEN}" ]]; then
 fi
 
 # Create our data directories and set permissions
-mkdir -p -m 777 /opt/probo/data/database/loom
-chown probo:probo /opt/probo/data/database/loom
+mkdir -p -m 777 /home/probo/data/database/loom
+chown probo:probo /home/probo/data/database/loom
 
-mkdir -p -m 777 /opt/probo/data/container-manager-data
-chown probo:probo /opt/probo/data/container-manager-data
+mkdir -p -m 777 /home/probo/data/container-manager-data
+chown probo:probo /home/probo/data/container-manager-data
 
-mkdir -p -m 777 /opt/probo/data/databases/asset-receiver
-chown probo:probo /opt/probo/data/databases/asset-receiver
+mkdir -p -m 777 /home/probo/data/databases/asset-receiver
+chown probo:probo /home/probo/data/databases/asset-receiver
 
-mkdir -p -m 777 /opt/probo/data/files/asset-receiver
-chown probo:probo /opt/probo/data/files/asset-receiver
+mkdir -p -m 777 /home/probo/data/files/asset-receiver
+chown probo:probo /home/probo/data/files/asset-receiver
 
-mkdir -p -m 777 /opt/probo/data/database/rethinkdb
-chown probo:probo /opt/probo/data/database/rethinkdb
+mkdir -p -m 777 /home/probo/data/database/rethinkdb
+chown probo:probo /home/probo/data/database/rethinkdb
 
 # Substitute environment variables from docker-compose.yml into our yml files.
 # TODO: Make sure all required variables have a valid value.
-envsubst < /opt/probo/yml/assets-default.yml > /opt/probo/probo-asset-receiver/defaults.config.yaml
-envsubst < /opt/probo/yml/probo-defaults.yml > /opt/probo/probo/defaults.yaml
-envsubst < /opt/probo/yml/container-manager.yml > /opt/probo/probo/container-manager.yml
-envsubst < /opt/probo/yml/loom-defaults.yml > /opt/probo/probo-loom/loom.yml
-envsubst < /opt/probo/yml/proxy-defaults.yml > /opt/probo/probo-proxy/proxy.yml
-envsubst < /opt/probo/yml/reaper-defaults.yml > /opt/probo/probo-reaper/reaper.yml
-envsubst < /opt/probo/yml/notifier-defaults.yml > /opt/probo/probo-notifier/default.yaml
+envsubst < /home/probo/yml/assets-default.yml > /home/probo/probo-asset-receiver/defaults.config.yaml
+envsubst < /home/probo/yml/probo-defaults.yml > /home/probo/probo/defaults.yaml
+envsubst < /home/probo/yml/container-manager.yml > /home/probo/probo/container-manager.yml
+envsubst < /home/probo/yml/loom-defaults.yml > /home/probo/probo-loom/loom.yml
+envsubst < /home/probo/yml/proxy-defaults.yml > /home/probo/probo-proxy/proxy.yml
+envsubst < /home/probo/yml/reaper-defaults.yml > /home/probo/probo-reaper/reaper.yml
+envsubst < /home/probo/yml/notifier-defaults.yml > /home/probo/probo-notifier/default.yaml
 
 # start rethinkdb before we start the loom service and run it as probo to
 # avoid permissions problems.
-# cd /opt/probo/data/database/rethinkdb
+# cd /home/probo/data/database/rethinkdb
 # rethinkdb --daemon --bind all --runuser probo --rungroup probo
 
 # logging directory for process logging if configured to do so. create the directory
 # anyway. it will just be empty if not configured for use.
-mkdir -p -m 777 /opt/probo/data/logs
-chown probo:probo /opt/probo/data/logs
+mkdir -p -m 777 /home/probo/data/logs
+chown probo:probo /home/probo/data/logs
 
 # start all of our probo processes as the probo user with the exception of
 # the proxy in case the proxy is run on port 80.
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-  su - probo -c "/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml > /opt/probo/data/logs/container-manager.log &"
+  su - probo -c export NODE_VERSION=12.20.2
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo/bin/probo container-manager -c /etc/probo/container-manager.yml > /home/probo/data/logs/container-manager.log &"
 else
-  su - probo -c "/opt/probo/probo/bin/probo container-manager -c /opt/probo/probo/container-manager.yml &"
+  su - probo -c export NODE_VERSION=12.20.2
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo/bin/probo container-manager -c /etc/probo/container-manager.yml &"
 fi
 
 if [[ ! -z "${USE_GITHUB}" ]] && [ $USE_GITHUB = "1" ]; then
-  envsubst < /opt/probo/yml/github-defaults.yml > /opt/probo/probo/github-handler.yml
+  envsubst < /home/probo/yml/github-defaults.yml > /home/probo/probo/github-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml > /opt/probo/data/logs/github-handler.log &"
+    su - probo -c export NODE_VERSION=12.20.2
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo/bin/probo github-handler -c /etc/probo/github-handler.yml > /home/probo/data/logs/github-handler.log &"
   else
-    su - probo -c "/opt/probo/probo/bin/probo github-handler -c /opt/probo/probo/github-handler.yml &"
+    su - probo -c export NODE_VERSION=12.20.2
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo/bin/probo github-handler -c /etc/probo/github-handler.yml &"
   fi
 fi
 
 if [[ ! -z "${USE_BITBUCKET}" ]] && [ $USE_BITBUCKET = "1" ]; then
-  envsubst < /opt/probo/yml/bitbucket-defaults.yml > /opt/probo/probo-bitbucket/bitbucket-handler.yml
+  envsubst < /home/probo/yml/bitbucket-defaults.yml > /home/probo/probo-bitbucket/bitbucket-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml > /opt/probo/data/logs/bitbucket-handler.log &"
+    su - probo -c export NODE_VERSION=4.9.1
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /etc/probo/bitbucket-handler.yml > /home/probo/data/logs/bitbucket-handler.log &"
   else
-    su - probo -c "/opt/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /opt/probo/probo-bitbucket/bitbucket-handler.yml &"
+    su - probo -c export NODE_VERSION=4.9.1
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-bitbucket/bin/probo-bitbucket-handler -c /etc/probo/bitbucket-handler.yml &"
   fi
 fi
 
 if [[ ! -z "${USE_GITLAB}" ]] && [ $USE_GITLAB = "1" ]; then
-  envsubst < /opt/probo/yml/gitlab-defaults.yml > /opt/probo/probo-gitlab/gitlab-handler.yml
+  envsubst < /home/probo/yml/gitlab-defaults.yml > /home/probo/probo-gitlab/gitlab-handler.yml
   if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-    su - probo -c "/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml > /opt/probo/data/logs/gitlab-handler.log &"
+    su - probo -c export NODE_VERSION=12.20.2
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-gitlab/bin/probo-gitlab-handler -c /home/probo/probo-gitlab/gitlab-handler.yml > /home/probo/data/logs/gitlab-handler.log &"
   else
-    su - probo -c "/opt/probo/probo-gitlab/bin/probo-gitlab-handler -c /opt/probo/probo-gitlab/gitlab-handler.yml &"
+    su - probo -c export NODE_VERSION=12.20.2
+    su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-gitlab/bin/probo-gitlab-handler -c /home/probo/probo-gitlab/gitlab-handler.yml &"
   fi
 fi
 
 if [[ ! -z "${PROBO_LOGGING}" ]] && [ $PROBO_LOGGING = "1" ]; then
-  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver > /opt/probo/data/logs/asset-receiver.log &"
-  su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml > /opt/probo/data/logs/probo-loom.log &"
+  su - probo -c export NODE_VERSION=12.20.2
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-asset-receiver/bin/probo-asset-receiver > /home/probo/data/logs/asset-receiver.log &"
+  su - probo -c export NODE_VERSION=4.9.1
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-loom/bin/loom -c /etc/probo/loom.yml > /home/probo/data/logs/loom.log &"
   # start the proxy as the root user just in case we're on port 80.
-  node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml > /opt/probo/data/logs/probo-proxy.log &
+  su - probo -c export NODE_VERSION=12.20.2
+  /home/probo/.nvm/nvm-exec /home/probo/probo-proxy/index.js -c /home/probo/probo-proxy/proxy.yml > /home/probo/data/logs/probo-proxy.log &
 else
-  su - probo -c "/opt/probo/probo-asset-receiver/bin/probo-asset-receiver &"
-  su - probo -c "/opt/probo/probo-loom/bin/loom -c /opt/probo/probo-loom/loom.yml &"
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-asset-receiver/bin/probo-asset-receiver &"
+  su - probo -c "/home/probo/.nvm/nvm-exec /home/probo/probo-loom/bin/loom -c /etc/probo/loom.yml &"
   # start the proxy as the root user just in case we're on port 80.
-  node /opt/probo/probo-proxy/index.js -c /opt/probo/probo-proxy/proxy.yml &
+  su - probo -c export NODE_VERSION=12.20.2
+  /home/probo/.nvm/nvm-exec /home/probo/probo-proxy/index.js -c /etc/probo/proxy.yml &
 fi
 
-#su - probo -c "/opt/probo/probo-reaper/bin/probo-reaper server > /opt/probo/data/logs/reaper.log &"
-#su - probo -c "/opt/probo/probo-notifier/bin/probo-notifier server > /opt/probo/data/logs/notifier.log &"
+#su - probo -c "/home/probo/probo-reaper/bin/probo-reaper server > /home/probo/data/logs/reaper.log &"
+#su - probo -c "/home/probo/probo-notifier/bin/probo-notifier server > /home/probo/data/logs/notifier.log &"
 
 tail -f /dev/null

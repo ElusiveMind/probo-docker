@@ -48,7 +48,7 @@ RUN useradd -ms /bin/bash probo \
 
 USER probo
 
-ENV NVM_DIR /home/probo/.nvm
+ENV NVM_DIR   /home/probo/.nvm
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
@@ -58,39 +58,56 @@ RUN mkdir /home/probo/.nvm \
   && nvm install 14.15.5 \
   && nvm install 4.9.1 \
   && nvm install 8.17.0 \
-  && nvm install 12.14.1 \
+  && nvm install 12.20.2 \
   && nvm alias default 14.15.5 \
-  && nvm use default \
-  && git clone --depth=1 https://github.com/ProboCI/probo-loom.git /home/probo/probo-loom \
-  && cd /home/probo/probo-loom \
-  && yarn install \
+  \
   && nvm use 4.9.1 \
-  && git clone --depth=1 https://github.com/ProboCI/probo-asset-receiver.git /home/probo/probo-asset-receiver \
+  && git clone --depth=1 https://github.com/ProboCI/loom.git /home/probo/loom \
+  && cd /home/probo/loom \
+  && npm install \
+  \
+  && nvm use 12.20.2 \
+  && git clone --depth=1 -b 2020-03-06-Sprint-6 https://github.com/ProboCI/probo-asset-receiver.git /home/probo/probo-asset-receiver \
   && cd /home/probo/probo-asset-receiver \
   && npm install \
-  && git clone --depth=1 https://github.com/ProboCI/probo-proxy.git /home/probo/probo-proxy \
+  \
+  && git clone --depth=1 -b feature/node-12 https://github.com/ProboCI/probo-proxy.git /home/probo/probo-proxy \
   && cd /home/probo/probo-proxy \
   && npm install \
-  && git clone --depth=1 https://github.com/ProboCI/probo-notifier.git /home/probo/probo-notifier \
+  \
+  && nvm use 12.20.2 \
+  && git clone --depth=1 -b feature/node-12 https://github.com/ProboCI/probo-notifier.git /home/probo/probo-notifier \
   && cd /home/probo/probo-notifier \
   && npm install \
-  && git clone --depth=1 https://github.com/ProboCI/probo-reaper.git /home/probo/probo-reaper \
+  \
+  && git clone --depth=1 -b feature/node-12 https://github.com/ProboCI/probo-reaper.git /home/probo/probo-reaper \
   && cd /home/probo/probo-reaper \
-  && nvm use 8.17.0 \
   && npm install \
+  \
   && git clone --depth=1 https://github.com/ProboCI/probo-gitlab.git /home/probo/probo-gitlab \
   && cd /home/probo/probo-gitlab \
-  && nvm use 12.14.1 \
   && npm install \
-  && git clone --depth=1 --branch=feature/node-12 https://github.com/ProboCI/probo.git /home/probo/probo \
+  \
+  && git clone --depth=1 --branch=2020-03-06-Sprint-6 https://github.com/ProboCI/probo.git /home/probo/probo \
   && cd /home/probo/probo \
   && nvm use 8.17.0 \
   && npm install \
+  \
   && git clone --depth=1 https://github.com/ProboCI/probo-bitbucket.git /home/probo/probo-bitbucket \
   && cd /home/probo/probo-bitbucket \
   && nvm use 4.9.1 \
   && npm install
 
+USER root
+COPY sh/startup.sh /startup.sh
+RUN mkdir /etc/probo
+COPY yml/* /etc/probo/
+RUN chown -R probo:probo /etc/probo
+RUN chown probo:probo /startup.sh
+USER probo
+
+
+
 WORKDIR /home/probo
 
-CMD ["/var/log/syslog"]
+CMD ["/startup.sh"]
