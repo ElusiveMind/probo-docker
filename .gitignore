@@ -5,3 +5,5 @@ docker-compose.yml
 postgresql
 probo-data
 asset-files
+/proboci/*
+

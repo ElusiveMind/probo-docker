@@ -99,14 +99,12 @@ RUN mkdir /home/probo/.nvm \
   && npm install
 
 USER root
+
 COPY sh/startup.sh /startup.sh
 RUN mkdir /etc/probo
-COPY yml/* /etc/probo/
+COPY yml /yml
 RUN chown -R probo:probo /etc/probo
 RUN chown probo:probo /startup.sh
-USER probo
-
-
 
 WORKDIR /home/probo
 
